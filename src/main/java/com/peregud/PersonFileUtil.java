@@ -24,9 +24,9 @@ public final class PersonFileUtil {
                 Person person = (Person) ois.readObject();
                 PersonGeneratorUtil.filterPersonList().add(person);
                 System.out.println(
-                        PersonResourceBundleUtil.getValueResourceBundle(ResourceBundleKeyUtil.FIRST_NAME) + ": " +
+                        ResourceBundleUtil.getValueResourceBundle(ResourceBundleKeyUtil.FIRST_NAME) + ": " +
                                 person.getFirstName() + ", " +
-                                PersonResourceBundleUtil.getValueResourceBundle(ResourceBundleKeyUtil.LAST_NAME) + ": " +
+                                ResourceBundleUtil.getValueResourceBundle(ResourceBundleKeyUtil.LAST_NAME) + ": " +
                                 person.getLastName());
             }
         } catch (IOException | ClassNotFoundException e) {

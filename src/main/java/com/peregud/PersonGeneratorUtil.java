@@ -7,7 +7,7 @@ public final class PersonGeneratorUtil {
     private static final List<String> FIRST_NAMES;
     private static final List<String> LAST_NAMES;
     private static final Random RANDOM;
-    private static final Person PERSON;
+    public static final List<Person> LIST;
 
     private PersonGeneratorUtil() {
     }
@@ -18,12 +18,12 @@ public final class PersonGeneratorUtil {
         LAST_NAMES = Arrays.asList("Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller",
                 "Davis", "Smith", "Smith");
         RANDOM = new Random();
-        PERSON = new Person();
+        LIST = new ArrayList<>();
     }
 
     public static void addToList() {
         for (int i = 1; i < 100; i++) {
-            PERSON.getList().add(new Person(
+            LIST.add(new Person(
                     FIRST_NAMES.get(RANDOM.nextInt(FIRST_NAMES.size())),
                     LAST_NAMES.get(RANDOM.nextInt(LAST_NAMES.size())),
                     (int) (Math.random() * (31 - 15)) + 15));
@@ -31,11 +31,11 @@ public final class PersonGeneratorUtil {
     }
 
     public static void sortList() {
-        PERSON.getList().sort(Comparator.comparing(Person::getFirstName).thenComparing(Person::getLastName));
+        LIST.sort(Comparator.comparing(Person::getFirstName).thenComparing(Person::getLastName));
     }
 
     public static List<Person> distinctPersonList() {
-        return PERSON.getList().stream()
+        return LIST.stream()
                 .distinct()
                 .collect(Collectors.toList());
     }

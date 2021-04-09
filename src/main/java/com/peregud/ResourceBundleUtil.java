@@ -3,14 +3,14 @@ package com.peregud;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public final class PersonResourceBundleUtil {
+public final class ResourceBundleUtil {
     private static final ResourceBundle RESOURCE_BUNDLE;
 
     static {
-        RESOURCE_BUNDLE = ResourceBundle.getBundle("MessagesBundle", Locale.ENGLISH);
+        RESOURCE_BUNDLE = ResourceBundle.getBundle("MessagesBundle", new Locale("ru", "RU"));
     }
 
-    private PersonResourceBundleUtil() {
+    private ResourceBundleUtil() {
     }
 
     public static String getValueResourceBundle(String key) {

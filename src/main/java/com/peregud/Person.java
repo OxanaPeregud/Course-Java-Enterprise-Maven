@@ -1,7 +1,6 @@
 package com.peregud;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 public class Person implements Serializable {
@@ -28,10 +27,6 @@ public class Person implements Serializable {
 
     public boolean underAge() {
         return this.age < 21;
-    }
-
-    public List<Person> getList() {
-        return Starter.list;
     }
 
     @Override

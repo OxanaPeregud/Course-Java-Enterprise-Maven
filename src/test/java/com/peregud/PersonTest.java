@@ -7,15 +7,14 @@ import org.junit.Test;
 import java.util.Collections;
 
 public class PersonTest {
-    Person person = new Person();
 
     public void addToList() {
-        person.getList().add(new Person("James", "Jones", 22));
-        person.getList().add(new Person("David", "Brown", 15));
-        person.getList().add(new Person("Joseph", "Davis", 17));
-        person.getList().add(new Person("David", "Brown", 15));
-        person.getList().add(new Person("Robert", "Miller", 19));
-        person.getList().add(new Person("Robert", "Miller", 21));
+        PersonGeneratorUtil.LIST.add(new Person("James", "Jones", 22));
+        PersonGeneratorUtil.LIST.add(new Person("David", "Brown", 15));
+        PersonGeneratorUtil.LIST.add(new Person("Joseph", "Davis", 17));
+        PersonGeneratorUtil.LIST.add(new Person("David", "Brown", 15));
+        PersonGeneratorUtil.LIST.add(new Person("Robert", "Miller", 19));
+        PersonGeneratorUtil.LIST.add(new Person("Robert", "Miller", 21));
     }
 
     @Test
@@ -27,7 +26,7 @@ public class PersonTest {
                         "Person{firstName='David', lastName='Brown', age=15}, " +
                         "Person{firstName='Robert', lastName='Miller', age=19}, " +
                         "Person{firstName='Robert', lastName='Miller', age=21}]]",
-                Collections.singletonList(person.getList()).toString());
+                Collections.singletonList(PersonGeneratorUtil.LIST).toString());
     }
 
     @Test
@@ -40,7 +39,7 @@ public class PersonTest {
                         "Person{firstName='Joseph', lastName='Davis', age=17}, " +
                         "Person{firstName='Robert', lastName='Miller', age=19}, " +
                         "Person{firstName='Robert', lastName='Miller', age=21}]]",
-                Collections.singletonList(person.getList()).toString());
+                Collections.singletonList(PersonGeneratorUtil.LIST).toString());
     }
 
     @Test
@@ -61,5 +60,11 @@ public class PersonTest {
                         "Person{firstName='Joseph', lastName='Davis', age=17}, " +
                         "Person{firstName='Robert', lastName='Miller', age=19}]]",
                 Collections.singletonList(PersonGeneratorUtil.filterPersonList()).toString());
+    }
+
+    @Test
+    public void getValueResourceBundle() {
+        assertEquals("Имя", ResourceBundleUtil.getValueResourceBundle("FIRST_NAME"));
+        assertEquals("Фамилия", ResourceBundleUtil.getValueResourceBundle("LAST_NAME"));
     }
 }
