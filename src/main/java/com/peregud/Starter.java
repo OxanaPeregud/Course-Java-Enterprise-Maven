@@ -12,5 +12,6 @@ public class Starter {
         PersonGeneratorUtil.filterPersonList().forEach(System.out::println);
         PersonFileUtil.personInFile(filepath);
         PersonFileUtil.personFromFile(filepath);
+        PersonFileUtil.displayPersonList(filepath);
     }
 }
