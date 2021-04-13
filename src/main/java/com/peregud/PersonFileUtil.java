@@ -11,7 +11,7 @@ public final class PersonFileUtil {
 
     public static void personInFile(String filepath, List<Person> list) {
         try (ObjectOutputStream oop = new ObjectOutputStream(new FileOutputStream(filepath))) {
-            for (Person person : PersonGeneratorUtil.createPersonList(list)) {
+            for (Person person : list) {
                 oop.writeObject(person);
             }
         } catch (IOException e) {

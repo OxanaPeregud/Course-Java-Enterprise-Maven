@@ -9,8 +9,8 @@ public class Starter {
     public static void main(String[] args) {
         List<Person> list = PersonUtil.generate(100);
         PersonGeneratorUtil.createPersonList(list).forEach(System.out::println);
-        PersonFileUtil.personInFile(filepath, list);
-        List<Person> readPersonList = PersonFileUtil.personFromFile(filepath);
+        PersonFileUtil.personInFile(filepath, PersonGeneratorUtil.createPersonList(list));
+        List<Person> readPersonList = PersonGeneratorUtil.createPersonList(list);
         DisplayUtil.displayPersonList(readPersonList);
     }
 }
