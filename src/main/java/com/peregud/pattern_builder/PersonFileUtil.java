@@ -1,4 +1,4 @@
-package com.peregud;
+package com.peregud.pattern_builder;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ public final class PersonFileUtil {
     private PersonFileUtil() {
     }
 
-    public static void personInFile(String filepath, List<Person> list) {
+    public static void personInFile(String filepath, List<Person.PersonBuilder> list) {
         try (ObjectOutputStream oop = new ObjectOutputStream(new FileOutputStream(filepath))) {
-            for (Person person : list) {
+            for (Person.PersonBuilder person : list) {
                 oop.writeObject(person);
             }
         } catch (IOException e) {
@@ -19,12 +19,12 @@ public final class PersonFileUtil {
         }
     }
 
-    public static List<Person> personFromFile(String filepath) {
-        List<Person> list = new ArrayList<>();
+    public static List<Person.PersonBuilder> personFromFile(String filepath) {
+        List<Person.PersonBuilder> list = new ArrayList<>();
         try (FileInputStream fileInputStream = new FileInputStream(filepath);
              ObjectInputStream ois = new ObjectInputStream(fileInputStream)) {
             while (fileInputStream.available() > 0) {
-                Person person = (Person) ois.readObject();
+                Person.PersonBuilder person = (Person.PersonBuilder) ois.readObject();
                 list.add(person);
             }
         } catch (IOException | ClassNotFoundException e) {

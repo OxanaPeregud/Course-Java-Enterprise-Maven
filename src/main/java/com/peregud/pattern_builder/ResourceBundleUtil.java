@@ -1,4 +1,4 @@
-package com.peregud;
+package com.peregud.pattern_builder;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
