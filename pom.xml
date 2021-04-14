@@ -60,7 +60,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>com.peregud.Starter</mainClass>
+                                <mainClass>com.peregud.resource_bundle.Starter</mainClass>
                             </manifest>
                         </archive>
                     </configuration>

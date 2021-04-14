@@ -1,4 +1,4 @@
-package com.peregud;
+package com.peregud.resource_bundle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

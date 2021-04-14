@@ -1,4 +1,4 @@
-package com.peregud;
+package com.peregud.resource_bundle;
 
 import java.io.*;
 import java.util.ArrayList;

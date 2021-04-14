@@ -1,4 +1,4 @@
-package com.peregud;
+package com.peregud.resource_bundle;
 
 import java.util.Arrays;
 import java.util.List;
