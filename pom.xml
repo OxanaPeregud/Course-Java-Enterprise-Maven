@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.peregud</groupId>
-    <artifactId>resource_bundle</artifactId>
+    <artifactId>JD2</artifactId>
     <version>1.0</version>
 
     <name>person</name>
@@ -60,7 +60,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>com.peregud.resource_bundle.Starter</mainClass>
+                                <mainClass>com.peregud.Main</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
