@@ -9,12 +9,12 @@ public final class PersonGeneratorUtil {
     private PersonGeneratorUtil() {
     }
 
-    public static List<Person.PersonBuilder> createPersonList(List<Person.PersonBuilder> list) {
+    public static List<Person> createPersonList(List<Person> list) {
         return list.stream()
-                .sorted(Comparator.comparing(Person.PersonBuilder::getFirstName)
-                        .thenComparing(Person.PersonBuilder::getLastName))
+                .sorted(Comparator.comparing(Person::getFirstName)
+                        .thenComparing(Person::getLastName))
                 .distinct()
-                .filter(Person.PersonBuilder::underAge)
+                .filter(Person::underAge)
                 .collect(Collectors.toList());
     }
 }

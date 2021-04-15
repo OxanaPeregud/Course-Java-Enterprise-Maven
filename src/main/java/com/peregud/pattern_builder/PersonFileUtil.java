@@ -9,9 +9,9 @@ public final class PersonFileUtil {
     private PersonFileUtil() {
     }
 
-    public static void personInFile(String filepath, List<Person.PersonBuilder> list) {
+    public static void personInFile(String filepath, List<Person> list) {
         try (ObjectOutputStream oop = new ObjectOutputStream(new FileOutputStream(filepath))) {
-            for (Person.PersonBuilder person : list) {
+            for (Person person : list) {
                 oop.writeObject(person);
             }
         } catch (IOException e) {
@@ -19,12 +19,12 @@ public final class PersonFileUtil {
         }
     }
 
-    public static List<Person.PersonBuilder> personFromFile(String filepath) {
-        List<Person.PersonBuilder> list = new ArrayList<>();
+    public static List<Person> personFromFile(String filepath) {
+        List<Person> list = new ArrayList<>();
         try (FileInputStream fileInputStream = new FileInputStream(filepath);
              ObjectInputStream ois = new ObjectInputStream(fileInputStream)) {
             while (fileInputStream.available() > 0) {
-                Person.PersonBuilder person = (Person.PersonBuilder) ois.readObject();
+                Person person = (Person) ois.readObject();
                 list.add(person);
             }
         } catch (IOException | ClassNotFoundException e) {

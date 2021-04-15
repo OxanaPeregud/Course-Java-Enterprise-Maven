@@ -17,11 +17,11 @@ public class PersonUtil {
         RANDOM = new Random();
     }
 
-    public static List<Person.PersonBuilder> build(int count) {
+    public static List<Person> build(int count) {
         return Stream.generate(() -> Person.builder()
                 .firstName(FIRST_NAMES.get(RANDOM.nextInt(FIRST_NAMES.size())))
                 .lastName(LAST_NAMES.get(RANDOM.nextInt(LAST_NAMES.size())))
-                .age((int) (Math.random() * (31 - 15)) + 15))
+                .age((int) (Math.random() * (31 - 15)) + 15).build())
                 .limit(count)
                 .collect(Collectors.toList());
     }
