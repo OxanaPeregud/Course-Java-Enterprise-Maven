@@ -45,5 +45,6 @@ public class PersonTest {
     public void getValueResourceBundle() {
         assertEquals("Имя", ResourceBundleUtil.getValueResourceBundle("firstName"));
         assertEquals("Фамилия", ResourceBundleUtil.getValueResourceBundle("lastName"));
+        assertEquals("Возраст", ResourceBundleUtil.getValueResourceBundle("age"));
     }
 }

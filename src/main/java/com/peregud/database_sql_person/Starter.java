@@ -8,9 +8,9 @@ public class Starter {
         CreateDatabaseService.createDatabase();
         PersonRepository personRepository = new PersonRepositorySQL();
         List<Person> list = PersonGeneratorService.generate(100);
-        PersonListUtil.createPersonList(list).forEach(System.out::println);
+        PersonView.displayPersonFullList(PersonListUtil.createPersonList(list));
         personRepository.personInput(PersonListUtil.createPersonList(list));
-        List<Person> readPersonList = PersonListUtil.createPersonList(list);
-        PersonView.displayPersonList(readPersonList);
+        List<Person> personList = personRepository.personOutput();
+        PersonView.displayPersonFirstAndLastName(personList);
     }
 }
