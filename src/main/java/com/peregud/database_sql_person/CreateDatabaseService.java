@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CreateDatabaseService {
-    private static final String SQL_URL = "jdbc:mysql://localhost:3306/group";
+    private static final String SQL_URL = "jdbc:mysql://localhost:3306";
 
     public static void createDatabase() {
         Connection conn = null;
-        Statement stmt;
+        Statement stmt = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
             stmt = conn.createStatement();
@@ -38,6 +38,9 @@ public class CreateDatabaseService {
             try {
                 if (conn != null) {
                     conn.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

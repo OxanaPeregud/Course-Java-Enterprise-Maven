@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonRepositorySQL implements PersonRepository {
-    private static final String SQL_URL = "jdbc:mysql://localhost:3306/group";
+    private static final String SQL_URL = "jdbc:mysql://localhost:3306/list";
 
     @Override
     public void personInput(List<Person> list) {
@@ -43,9 +43,9 @@ public class PersonRepositorySQL implements PersonRepository {
             List<Person> list = new ArrayList<>();
             while (rs.next()) {
                 Person person = new Person();
-                person.setFirstName(rs.getString("First Name"));
-                person.setLastName(rs.getString("Last Name"));
-                person.setAge(rs.getInt("Age"));
+                person.setFirstName(rs.getString("first_name"));
+                person.setLastName(rs.getString("last_name"));
+                person.setAge(rs.getInt("age"));
                 list.add(person);
             }
             return list;
