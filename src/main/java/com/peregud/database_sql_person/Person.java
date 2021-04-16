@@ -1,12 +1,23 @@
 package com.peregud.database_sql_person;
 
+import javax.print.attribute.standard.DateTimeAtCreation;
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Date;
 import java.util.Objects;
 
 public class Person implements Serializable {
+    private int id;
     private String firstName;
     private String lastName;
     private int age;
+    private double salary;
+    private String passport;
+    private String address;
+    private Date dateOfBirth;
+    private DateTimeAtCreation dateTimeCreate;
+    private Time timeToLunch;
+    private String letter;
 
     public Person() {
     }

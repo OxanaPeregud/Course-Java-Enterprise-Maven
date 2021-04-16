@@ -12,7 +12,7 @@ public class PersonRepositorySQL implements PersonRepository {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
-            String sql = "insert into group.person(firstName, lastName, age) " + "VALUE (?, ?, ?);";
+            String sql = "insert into list.person(first_name, last_name, age) " + "VALUE (?, ?, ?);";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             for (Person person : list) {
                 preparedStatement.setString(1, person.getFirstName());
@@ -39,12 +39,12 @@ public class PersonRepositorySQL implements PersonRepository {
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from group.person");
+            ResultSet rs = stmt.executeQuery("select * from list.person");
             List<Person> list = new ArrayList<>();
             while (rs.next()) {
                 Person person = new Person();
-                person.setFirstName(rs.getString("FirstName"));
-                person.setLastName(rs.getString("LastName"));
+                person.setFirstName(rs.getString("First Name"));
+                person.setLastName(rs.getString("Last Name"));
                 person.setAge(rs.getInt("Age"));
                 list.add(person);
             }
