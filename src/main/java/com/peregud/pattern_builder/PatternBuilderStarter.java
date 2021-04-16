@@ -8,9 +8,10 @@ public class PatternBuilderStarter {
 
     public static void main(String[] args) {
         List<Person> list = PersonUtil.build(100);
-        PersonGeneratorUtil.createPersonList(list).forEach(System.out::println);
+        List<Person> personGenerateList = PersonGeneratorUtil.createPersonList(list);
+        DisplayUtil.displayPersonList(personGenerateList);
         PersonFileUtil.personInFile(filepath, PersonGeneratorUtil.createPersonList(list));
-        List<Person> readPersonList = PersonGeneratorUtil.createPersonList(list);
-        DisplayUtil.displayPersonList(readPersonList);
+        List<Person> personList = PersonFileUtil.personFromFile(PatternBuilderStarter.filepath);
+        DisplayUtil.displayPersonList(personList);
     }
 }
