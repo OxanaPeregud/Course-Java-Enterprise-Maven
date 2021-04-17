@@ -10,14 +10,14 @@ public class PersonSQLTest {
     private static final String SQL_URL = "jdbc:mysql://localhost:3306/list";
 
     @Test
-    public void personInput() throws SQLException {
+    public void personInput() {
         Connection conn = null;
+        Statement stmt = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
-            Statement stmt = conn.createStatement();
             conn.setAutoCommit(false);
+            stmt = conn.createStatement();
             stmt.executeUpdate("delete from list.person");
-
             String sql = "insert into list.person(first_name, last_name, age) " + "VALUE (?, ?, ?);";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, "John");
@@ -44,8 +44,16 @@ public class PersonSQLTest {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            assert conn != null;
-            conn.rollback();
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 }

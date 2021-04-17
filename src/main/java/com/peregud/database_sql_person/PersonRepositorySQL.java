@@ -10,10 +10,11 @@ public class PersonRepositorySQL implements PersonRepository {
     @Override
     public void personInput(List<Person> list) {
         Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
             String sql = "insert into list.person(first_name, last_name, age) " + "VALUE (?, ?, ?);";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement = conn.prepareStatement(sql);
             for (Person person : list) {
                 preparedStatement.setString(1, person.getFirstName());
                 preparedStatement.setString(2, person.getLastName());
@@ -27,6 +28,9 @@ public class PersonRepositorySQL implements PersonRepository {
                 if (conn != null) {
                     conn.close();
                 }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -36,9 +40,10 @@ public class PersonRepositorySQL implements PersonRepository {
     @Override
     public List<Person> personOutput() {
         Connection conn = null;
+        Statement stmt = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
-            Statement stmt = conn.createStatement();
+            stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select * from list.person");
             List<Person> list = new ArrayList<>();
             while (rs.next()) {
@@ -55,6 +60,9 @@ public class PersonRepositorySQL implements PersonRepository {
             try {
                 if (conn != null) {
                     conn.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

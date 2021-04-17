@@ -8,8 +8,9 @@ public class Starter {
         CreateDatabaseService.createDatabase();
         PersonRepository personRepository = new PersonRepositorySQL();
         List<Person> list = PersonGeneratorService.generate(100);
-        PersonView.displayPersonFullList(PersonListUtil.createPersonList(list));
-        personRepository.personInput(PersonListUtil.createPersonList(list));
+        List<Person> filteredPersonList = PersonListUtil.createPersonList(list);
+        PersonView.displayPersonFullList(filteredPersonList);
+        personRepository.personInput(filteredPersonList);
         List<Person> personList = personRepository.personOutput();
         PersonView.displayPersonFirstAndLastName(personList);
     }
