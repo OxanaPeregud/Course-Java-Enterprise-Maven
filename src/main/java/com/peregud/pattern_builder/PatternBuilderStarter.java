@@ -6,7 +6,7 @@ import java.util.List;
 public class PatternBuilderStarter {
     public static String filepath = String.valueOf(Paths.get("src", "main", "resources", "PersonList.txt"));
 
-    public static void main(String[] args) {
+    public static void start() {
         List<Person> list = PersonUtil.build(100);
         List<Person> personGenerateList = PersonGeneratorUtil.createPersonList(list);
         DisplayUtil.displayPersonList(personGenerateList);
