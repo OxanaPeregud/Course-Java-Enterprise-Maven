@@ -13,13 +13,14 @@ public class PersonSQLTest {
     public void personInput() {
         Connection conn = null;
         Statement stmt = null;
+        PreparedStatement preparedStatement = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
             conn.setAutoCommit(false);
             stmt = conn.createStatement();
             stmt.executeUpdate("delete from list.person");
             String sql = "insert into list.person(first_name, last_name, age) " + "VALUE (?, ?, ?);";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, "John");
             preparedStatement.setString(2, "Smith");
             preparedStatement.setInt(3, 30);
@@ -47,9 +48,13 @@ public class PersonSQLTest {
             try {
                 if (conn != null) {
                     conn.rollback();
+                    conn.close();
                 }
                 if (stmt != null) {
                     stmt.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
