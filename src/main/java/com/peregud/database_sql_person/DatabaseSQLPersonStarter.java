@@ -2,9 +2,9 @@ package com.peregud.database_sql_person;
 
 import java.util.List;
 
-public class Starter {
+public class DatabaseSQLPersonStarter {
 
-    public static void main(String[] args) {
+    public static void start() {
         CreateDatabaseService.createDatabase();
         PersonRepository personRepository = new PersonRepositorySQL();
         List<Person> list = PersonGeneratorService.generate(100);

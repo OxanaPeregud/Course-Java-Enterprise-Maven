@@ -41,10 +41,11 @@ public class PersonRepositorySQL implements PersonRepository {
     public List<Person> personOutput() {
         Connection conn = null;
         Statement stmt = null;
+        ResultSet rs = null;
         try {
             conn = DriverManager.getConnection(SQL_URL, "root", "1234");
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from list.person");
+            rs = stmt.executeQuery("select * from list.person");
             List<Person> list = new ArrayList<>();
             while (rs.next()) {
                 Person person = new Person();
@@ -63,6 +64,9 @@ public class PersonRepositorySQL implements PersonRepository {
                 }
                 if (stmt != null) {
                     stmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
