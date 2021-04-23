@@ -12,20 +12,22 @@ public class DBCreatorUtil {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
             String sql1 = "CREATE SCHEMA IF NOT EXISTS `PeopleDB` DEFAULT CHARACTER SET utf8;";
-            String sql2 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People`\n" +
-                    "(\n" +
-                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
-                    "  `first_name`     VARCHAR(20)     NULL,\n" +
-                    "  `last_name`      VARCHAR(20)     NULL,\n" +
-                    "  `age`            INT             NULL,\n" +
-                    "  PRIMARY KEY (`id`)\n" +
-                    ");";
-            String sql3 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`Address`\n" +
+            String sql2 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`Address`\n" +
                     "(\n" +
                     "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
                     "  `street`         VARCHAR(20)     NULL,\n" +
                     "  `house`          INT             NULL,\n" +
                     "  PRIMARY KEY (`id`)\n" +
+                    ");";
+            String sql3 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People`\n" +
+                    "(\n" +
+                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
+                    "  `first_name`     VARCHAR(20)     NULL,\n" +
+                    "  `last_name`      VARCHAR(20)     NULL,\n" +
+                    "  `age`            INT             NULL,\n" +
+                    "  `address_id`     INT             NULL,\n" +
+                    "  PRIMARY KEY (`id`),\n" +
+                    "  FOREIGN KEY (`address_id`) REFERENCES address(`id`)\n" +
                     ");";
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);

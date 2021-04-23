@@ -1,20 +1,20 @@
 package com.peregud.join_sql_db;
 
-import java.io.Serializable;
-
 public class People {
     private int id;
     private String firstName;
     private String lastName;
     private int age;
+    private int addressId;
 
     public People() {
     }
 
-    public People(String firstName, String lastName, int age) {
+    public People(String firstName, String lastName, int age, int addressId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.addressId = addressId;
     }
 
     public int getId() {
@@ -49,10 +49,20 @@ public class People {
         this.age = age;
     }
 
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
     @Override
     public String toString() {
-        return "First Name: " + firstName +
+        return "ID: " + id +
+                ", First Name: " + firstName +
                 ", Last Name: " + lastName +
-                ", Age: " + age;
+                ", Age: " + age +
+                ", Address id: " + addressId;
     }
 }

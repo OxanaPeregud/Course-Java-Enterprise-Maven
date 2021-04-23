@@ -16,7 +16,7 @@ public class DAOAddressImpl implements DAOAddress {
     private static final String SQL_GET;
 
     static {
-        SQL_SAVE = "INSERT INTO peopleDB.address(street, house) VALUES(?,?)";
+        SQL_SAVE = "INSERT INTO peopleDB.address(id, street, house) VALUES(?,?,?)";
         SQL_UPDATE = "UPDATE peopleDB.address SET house=? WHERE id=?";
         SQL_DELETE = "DELETE FROM peopleDB.address WHERE id=?";
         SQL_GET = "SELECT * FROM peopleDB.address";
@@ -30,8 +30,9 @@ public class DAOAddressImpl implements DAOAddress {
         try {
             Connection conn = ConnectorUtil.getConnection();
             preparedStmt = conn.prepareStatement(SQL_SAVE);
-            preparedStmt.setString(1, address.getStreet());
-            preparedStmt.setInt(2, address.getHouse());
+            preparedStmt.setInt(1, address.getId());
+            preparedStmt.setString(2, address.getStreet());
+            preparedStmt.setInt(3, address.getHouse());
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +100,7 @@ public class DAOAddressImpl implements DAOAddress {
             List<Address> list = new ArrayList<>();
             while (rs.next()) {
                 Address address = new Address();
+                address.setId(rs.getInt("id"));
                 address.setStreet(rs.getString("street"));
                 address.setHouse(rs.getInt("house"));
                 list.add(address);

@@ -16,7 +16,7 @@ public class DAOPeopleImpl implements DAOPeople {
     private static final String SQL_GET;
 
     static {
-        SQL_SAVE = "INSERT INTO peopleDB.people(first_name, last_name, age) VALUES(?,?,?)";
+        SQL_SAVE = "INSERT INTO peopleDB.people(first_name, last_name, age, address_id) VALUES(?,?,?,?)";
         SQL_UPDATE = "UPDATE peopleDB.people SET age=? WHERE id=?";
         SQL_DELETE = "DELETE FROM peopleDB.people WHERE id=?";
         SQL_GET = "SELECT * FROM peopleDB.people";
@@ -33,6 +33,7 @@ public class DAOPeopleImpl implements DAOPeople {
             preparedStmt.setString(1, people.getFirstName());
             preparedStmt.setString(2, people.getLastName());
             preparedStmt.setInt(3, people.getAge());
+            preparedStmt.setInt(4, people.getAddressId());
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,9 +101,11 @@ public class DAOPeopleImpl implements DAOPeople {
             List<People> list = new ArrayList<>();
             while (rs.next()) {
                 People person = new People();
+                person.setId(rs.getInt("id"));
                 person.setFirstName(rs.getString("first_name"));
                 person.setLastName(rs.getString("last_name"));
                 person.setAge(rs.getInt("age"));
+                person.setAddressId(rs.getInt("address_id"));
                 list.add(person);
             }
             return list;
