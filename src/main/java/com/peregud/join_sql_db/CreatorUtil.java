@@ -19,11 +19,11 @@ public class CreatorUtil {
 
     public static List<Address> createAddress() {
         return Arrays.asList(
-                new Address(1, "Wall Street", 154),
-                new Address(2, "Broadway", 72),
-                new Address(3, "Bowery", 8),
-                new Address(4, "Houston Street", 43),
-                new Address(5, "Canal Street", 11)
+                new Address("Wall Street", 154),
+                new Address("Broadway", 72),
+                new Address("Bowery", 8),
+                new Address("Houston Street", 43),
+                new Address("Canal Street", 11)
         );
     }
 }

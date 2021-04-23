@@ -8,8 +8,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(int id, String street, int house) {
-        this.id = id;
+    public Address(String street, int house) {
         this.street = street;
         this.house = house;
     }
@@ -40,7 +39,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Street: " + street +
+        return "Street: " + street +
                 ", house: " + house;
     }
 }
