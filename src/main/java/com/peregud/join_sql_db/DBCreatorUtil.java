@@ -27,9 +27,17 @@ public class DBCreatorUtil {
                     "  `house`          INT             NULL,\n" +
                     "  PRIMARY KEY (`id`)\n" +
                     ");";
+            String sql4 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People_Address`\n" +
+                    "(\n" +
+                    "  `people_id`      INT             NULL,\n" +
+                    "  `address_id`     INT             NULL,\n" +
+                    "  FOREIGN KEY (`people_id`) REFERENCES people(`id`),\n" +
+                    "  FOREIGN KEY (`address_id`) REFERENCES address(`id`)\n" +
+                    ");";
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);
             stmt.executeUpdate(sql3);
+            stmt.executeUpdate(sql4);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

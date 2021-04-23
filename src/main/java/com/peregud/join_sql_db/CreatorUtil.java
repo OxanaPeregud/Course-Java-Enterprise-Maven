@@ -24,4 +24,17 @@ public class CreatorUtil {
                 new Address("Canal Street", 11)
         );
     }
+
+    public static List<PeopleAddress> createPeopleAddressID() {
+        return Arrays.asList(
+                new PeopleAddress(1, 1),
+                new PeopleAddress(1, 2),
+                new PeopleAddress(2, 2),
+                new PeopleAddress(2, 3),
+                new PeopleAddress(3, 3),
+                new PeopleAddress(4, 4),
+                new PeopleAddress(4, 5),
+                new PeopleAddress(5, 5)
+        );
+    }
 }

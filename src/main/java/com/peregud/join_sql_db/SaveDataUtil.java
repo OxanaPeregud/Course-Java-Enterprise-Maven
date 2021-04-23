@@ -18,4 +18,11 @@ public class SaveDataUtil {
             daoAddress.save(add);
         }
     }
+
+    public static void savePeopleAddress(List<PeopleAddress> address) throws SQLException {
+        DAOPeopleAddress daoPeopleAddress = new DAOPeopleAddressImpl();
+        for (PeopleAddress peopleAdd : address) {
+            daoPeopleAddress.save(peopleAdd);
+        }
+    }
 }
