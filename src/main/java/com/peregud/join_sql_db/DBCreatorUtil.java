@@ -12,14 +12,7 @@ public class DBCreatorUtil {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
             String sql1 = "CREATE SCHEMA IF NOT EXISTS `PeopleDB` DEFAULT CHARACTER SET utf8;";
-            String sql2 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`Address`\n" +
-                    "(\n" +
-                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
-                    "  `street`         VARCHAR(20)     NULL,\n" +
-                    "  `house`          INT             NULL,\n" +
-                    "  PRIMARY KEY (`id`)\n" +
-                    ");";
-            String sql3 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People`\n" +
+            String sql2 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People`\n" +
                     "(\n" +
                     "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
                     "  `first_name`     VARCHAR(20)     NULL,\n" +
@@ -27,9 +20,24 @@ public class DBCreatorUtil {
                     "  `age`            INT             NULL,\n" +
                     "  PRIMARY KEY (`id`)\n" +
                     ");";
+            String sql3 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`Address`\n" +
+                    "(\n" +
+                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
+                    "  `street`         VARCHAR(20)     NULL,\n" +
+                    "  `house`          INT             NULL,\n" +
+                    "  PRIMARY KEY (`id`)\n" +
+                    ");";
+            String sql4 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People_Address`\n" +
+                    "(\n" +
+                    "  `people_id`      INT             NULL,\n" +
+                    "  `address_id`     INT             NULL,\n" +
+                    "  FOREIGN KEY (`people_id`) REFERENCES people(`id`),\n" +
+                    "  FOREIGN KEY (`address_id`) REFERENCES address(`id`)\n" +
+                    ");";
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);
             stmt.executeUpdate(sql3);
+            stmt.executeUpdate(sql4);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

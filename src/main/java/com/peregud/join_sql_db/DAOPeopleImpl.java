@@ -39,8 +39,10 @@ public class DAOPeopleImpl implements DAOPeople {
     public void update(People people) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            String sql = "UPDATE peopleDB.people SET age=? WHERE id=?";
-            preparedStmt = conn.prepareStatement(sql);
+            String sql1 = "SET FOREIGN_KEY_CHECKS=0;";
+            String sql2 = "UPDATE peopleDB.people SET age=? WHERE id=?";
+            preparedStmt = conn.prepareStatement(sql1);
+            preparedStmt = conn.prepareStatement(sql2);
             preparedStmt.setInt(1, people.getAge());
             preparedStmt.setInt(2, people.getId());
             preparedStmt.executeUpdate();
@@ -62,8 +64,10 @@ public class DAOPeopleImpl implements DAOPeople {
     public void delete(int id) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            String sql = "DELETE FROM peopleDB.people WHERE id=?";
-            preparedStmt = conn.prepareStatement(sql);
+            String sql1 = "SET FOREIGN_KEY_CHECKS=0;";
+            String sql2 = "DELETE FROM peopleDB.people WHERE id=?";
+            preparedStmt = conn.prepareStatement(sql1);
+            preparedStmt = conn.prepareStatement(sql2);
             preparedStmt.setInt(1, id);
             preparedStmt.executeUpdate();
         } catch (SQLException e) {

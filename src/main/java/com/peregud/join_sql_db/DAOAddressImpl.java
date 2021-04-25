@@ -38,8 +38,10 @@ public class DAOAddressImpl implements DAOAddress {
     public void update(Address address) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            String sql = "UPDATE peopleDB.address SET house=? WHERE id=?";
-            preparedStmt = conn.prepareStatement(sql);
+            String sql1 = "SET FOREIGN_KEY_CHECKS=0;";
+            String sql2 = "UPDATE peopleDB.address SET house=? WHERE id=?";
+            preparedStmt = conn.prepareStatement(sql1);
+            preparedStmt = conn.prepareStatement(sql2);
             preparedStmt.setInt(1, address.getHouse());
             preparedStmt.setInt(2, address.getId());
             preparedStmt.executeUpdate();
@@ -61,8 +63,10 @@ public class DAOAddressImpl implements DAOAddress {
     public void delete(int id) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            String sql = "DELETE FROM peopleDB.address WHERE id=?";
-            preparedStmt = conn.prepareStatement(sql);
+            String sql1 = "SET FOREIGN_KEY_CHECKS=0;";
+            String sql2 = "DELETE FROM peopleDB.address WHERE id=?";
+            preparedStmt = conn.prepareStatement(sql1);
+            preparedStmt = conn.prepareStatement(sql2);
             preparedStmt.setInt(1, id);
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
