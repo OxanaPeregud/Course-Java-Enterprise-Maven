@@ -15,11 +15,12 @@ public class DAOPeopleImpl implements DAOPeople {
     public void save(People people) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            String sql = "INSERT INTO peopleDB.people(first_name, last_name, age) VALUES(?,?,?)";
-            preparedStmt = conn.prepareStatement(sql);
+            preparedStmt = conn.prepareStatement(
+                    "INSERT INTO peopleDB.people(first_name, last_name, age, address_id) VALUES(?,?,?,?)");
             preparedStmt.setString(1, people.getFirstName());
             preparedStmt.setString(2, people.getLastName());
             preparedStmt.setInt(3, people.getAge());
+            preparedStmt.setInt(4, people.getAddressId());
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,8 +85,7 @@ public class DAOPeopleImpl implements DAOPeople {
     public List<People> getAll() {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            String sql = "SELECT * FROM peopleDB.people";
-            preparedStmt = conn.prepareStatement(sql);
+            preparedStmt = conn.prepareStatement("SELECT * FROM peopleDB.people");
             rs = preparedStmt.executeQuery();
             List<People> list = new ArrayList<>();
             while (rs.next()) {
@@ -94,6 +94,7 @@ public class DAOPeopleImpl implements DAOPeople {
                 person.setFirstName(rs.getString("first_name"));
                 person.setLastName(rs.getString("last_name"));
                 person.setAge(rs.getInt("age"));
+                person.setAddressId(rs.getInt("address_id"));
                 list.add(person);
             }
             return list;

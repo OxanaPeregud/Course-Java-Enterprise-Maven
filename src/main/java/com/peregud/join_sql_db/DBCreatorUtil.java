@@ -25,7 +25,9 @@ public class DBCreatorUtil {
                     "  `first_name`     VARCHAR(20)     NULL,\n" +
                     "  `last_name`      VARCHAR(20)     NULL,\n" +
                     "  `age`            INT             NULL,\n" +
-                    "  PRIMARY KEY (`id`)\n" +
+                    "  `address_id`     INT             NULL,\n" +
+                    "  PRIMARY KEY (`id`),\n" +
+                    "  FOREIGN KEY (`address_id`) REFERENCES address(`id`)\n" +
                     ");";
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);

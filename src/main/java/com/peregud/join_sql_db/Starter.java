@@ -6,23 +6,21 @@ import java.util.List;
 public class Starter {
     public static void main(String[] args) throws SQLException {
         DBCreatorUtil.createDatabase();
-        
+        SaveDataUtil.saveAddress(CreatorUtil.createAddress());
         SaveDataUtil.savePeople(CreatorUtil.createPeople());
-        DAOPeopleImpl daoPeople = new DAOPeopleImpl();
+        DAOPeople daoPeople = new DAOPeopleImpl();
         List<People> peopleFromDB = daoPeople.getAll();
         ChangeDataUtil.changePersonAge(peopleFromDB, peopleFromDB.size(), 2);
         ChangeDataUtil.changePersonAge(peopleFromDB, peopleFromDB.size() - 1, 2);
         daoPeople.delete(1);
-        DBView<People> viewPeople = new DBView<>();
-        viewPeople.display(peopleFromDB);
-
-        SaveDataUtil.saveAddress(CreatorUtil.createAddress());
-        DAOAddressImpl daoAddress = new DAOAddressImpl();
+        DBView<People> dbPeopleView = new DBView<>();
+        dbPeopleView.display(peopleFromDB);
+        DAOAddress daoAddress = new DAOAddressImpl();
         List<Address> addressFromDB = daoAddress.getAll();
         ChangeDataUtil.changeHouse(addressFromDB, addressFromDB.size(), 1);
         ChangeDataUtil.changeHouse(addressFromDB, addressFromDB.size() - 1, 1);
         daoAddress.delete(1);
-        DBView<Address> viewAddress = new DBView<>();
-        viewAddress.display(addressFromDB);
+        DBView<Address> dbAddressView = new DBView<>();
+        dbAddressView.display(addressFromDB);
     }
 }
