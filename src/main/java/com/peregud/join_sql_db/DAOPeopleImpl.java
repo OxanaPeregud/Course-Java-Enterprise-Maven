@@ -10,26 +10,13 @@ import java.util.List;
 public class DAOPeopleImpl implements DAOPeople {
     private PreparedStatement preparedStmt = null;
     private ResultSet rs = null;
-    private static final String SQL_SAVE;
-    private static final String SQL_UPDATE;
-    private static final String SQL_DELETE;
-    private static final String SQL_GET;
-
-    static {
-        SQL_SAVE = "INSERT INTO peopleDB.people(first_name, last_name, age, address_id) VALUES(?,?,?,?)";
-        SQL_UPDATE = "UPDATE peopleDB.people SET age=? WHERE id=?";
-        SQL_DELETE = "DELETE FROM peopleDB.people WHERE id=?";
-        SQL_GET = "SELECT * FROM peopleDB.people";
-    }
-
-    public DAOPeopleImpl() {
-    }
 
     @Override
     public void save(People people) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_SAVE);
+            preparedStmt = conn.prepareStatement(
+                    "INSERT INTO peopleDB.people(first_name, last_name, age, address_id) VALUES(?,?,?,?)");
             preparedStmt.setString(1, people.getFirstName());
             preparedStmt.setString(2, people.getLastName());
             preparedStmt.setInt(3, people.getAge());
@@ -53,7 +40,7 @@ public class DAOPeopleImpl implements DAOPeople {
     public void update(People people) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_UPDATE);
+            preparedStmt = conn.prepareStatement("UPDATE peopleDB.people SET age=? WHERE id=?");
             preparedStmt.setInt(1, people.getAge());
             preparedStmt.setInt(2, people.getId());
             preparedStmt.executeUpdate();
@@ -75,7 +62,7 @@ public class DAOPeopleImpl implements DAOPeople {
     public void delete(int id) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_DELETE);
+            preparedStmt = conn.prepareStatement("DELETE FROM peopleDB.people WHERE id=?");
             preparedStmt.setInt(1, id);
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
@@ -96,7 +83,7 @@ public class DAOPeopleImpl implements DAOPeople {
     public List<People> getAll() {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_GET);
+            preparedStmt = conn.prepareStatement("SELECT * FROM peopleDB.people");
             rs = preparedStmt.executeQuery();
             List<People> list = new ArrayList<>();
             while (rs.next()) {

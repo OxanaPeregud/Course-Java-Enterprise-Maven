@@ -10,26 +10,12 @@ import java.util.List;
 public class DAOAddressImpl implements DAOAddress {
     private PreparedStatement preparedStmt = null;
     private ResultSet rs = null;
-    private static final String SQL_SAVE;
-    private static final String SQL_UPDATE;
-    private static final String SQL_DELETE;
-    private static final String SQL_GET;
-
-    static {
-        SQL_SAVE = "INSERT INTO peopleDB.address(street, house) VALUES(?,?)";
-        SQL_UPDATE = "UPDATE peopleDB.address SET house=? WHERE id=?";
-        SQL_DELETE = "DELETE FROM peopleDB.address WHERE id=?";
-        SQL_GET = "SELECT * FROM peopleDB.address";
-    }
-
-    public DAOAddressImpl() {
-    }
 
     @Override
     public void save(Address address) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_SAVE);
+            preparedStmt = conn.prepareStatement("INSERT INTO peopleDB.address(street, house) VALUES(?,?)");
             preparedStmt.setString(1, address.getStreet());
             preparedStmt.setInt(2, address.getHouse());
             preparedStmt.executeUpdate();
@@ -51,7 +37,7 @@ public class DAOAddressImpl implements DAOAddress {
     public void update(Address address) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_UPDATE);
+            preparedStmt = conn.prepareStatement("UPDATE peopleDB.address SET house=? WHERE id=?");
             preparedStmt.setInt(1, address.getHouse());
             preparedStmt.setInt(2, address.getId());
             preparedStmt.executeUpdate();
@@ -73,7 +59,7 @@ public class DAOAddressImpl implements DAOAddress {
     public void delete(int id) {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_DELETE);
+            preparedStmt = conn.prepareStatement("DELETE FROM peopleDB.address WHERE id=?");
             preparedStmt.setInt(1, id);
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
@@ -94,7 +80,7 @@ public class DAOAddressImpl implements DAOAddress {
     public List<Address> getAll() {
         try {
             Connection conn = ConnectorUtil.getConnection();
-            preparedStmt = conn.prepareStatement(SQL_GET);
+            preparedStmt = conn.prepareStatement("SELECT * FROM peopleDB.address");
             rs = preparedStmt.executeQuery();
             List<Address> list = new ArrayList<>();
             while (rs.next()) {
