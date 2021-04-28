@@ -1,11 +1,12 @@
 package com.peregud.join_sql_db.view;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public interface DBView {
+public interface DBView<T> {
 
-    void displayByID(int id) throws SQLException;
+    void displayByID(T t) throws SQLException;
 
-    void displayAllData() throws SQLException;
+    void displayAllData(List<T> list) throws SQLException;
 
 }

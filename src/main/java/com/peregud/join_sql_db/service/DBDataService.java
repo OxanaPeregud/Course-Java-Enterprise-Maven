@@ -1,8 +1,10 @@
 package com.peregud.join_sql_db.service;
 
-public interface DBDataService {
+import java.util.List;
 
-    void saveNewData();
+public interface DBDataService<T> {
+
+    void saveNewData(List<T> list);
 
     void getByID(int id);
 

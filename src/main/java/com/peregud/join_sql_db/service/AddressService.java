@@ -5,8 +5,9 @@ import com.peregud.join_sql_db.repository.*;
 import com.peregud.join_sql_db.view.AddressView;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class AddressService implements DBDataService {
+public class AddressService implements DBDataService<Address> {
     private static final AddressView ADDRESS_VIEW;
     private static final DAOAddress ADDRESS;
     private final Address address = new Address();
@@ -17,13 +18,11 @@ public class AddressService implements DBDataService {
     }
 
     @Override
-    public void saveNewData() {
+    public void saveNewData(List<Address> list) {
         try {
-            ADDRESS.save(new Address("Wall Street", 154, 11));
-            ADDRESS.save(new Address("Broadway", 72, 10));
-            ADDRESS.save(new Address("Bowery", 8, 122));
-            ADDRESS.save(new Address("Houston Street", 43, 387));
-            ADDRESS.save(new Address("Canal Street", 11, 55));
+            for (Address address : list) {
+                ADDRESS.save(address);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -32,7 +31,7 @@ public class AddressService implements DBDataService {
     @Override
     public void getByID(int id) {
         try {
-            ADDRESS_VIEW.displayByID(id);
+            ADDRESS_VIEW.displayByID(ADDRESS.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -44,7 +43,7 @@ public class AddressService implements DBDataService {
             address.setHouse(ADDRESS.get(id).getHouse() + change);
             address.setId(id);
             ADDRESS.update(address);
-            ADDRESS_VIEW.displayByID(id);
+            ADDRESS_VIEW.displayByID(ADDRESS.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -62,7 +61,7 @@ public class AddressService implements DBDataService {
     @Override
     public void displayAll() {
         try {
-            ADDRESS_VIEW.displayAllData();
+            ADDRESS_VIEW.displayAllData(ADDRESS.getAll());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
