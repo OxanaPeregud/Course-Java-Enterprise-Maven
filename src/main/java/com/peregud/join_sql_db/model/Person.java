@@ -1,16 +1,16 @@
-package com.peregud.join_sql_db;
+package com.peregud.join_sql_db.model;
 
-public class People {
+public class Person {
     private int id;
     private String firstName;
     private String lastName;
     private int age;
     private int addressId;
 
-    public People() {
+    public Person() {
     }
 
-    public People(String firstName, String lastName, int age, int addressId) {
+    public Person(String firstName, String lastName, int age, int addressId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -59,10 +59,10 @@ public class People {
 
     @Override
     public String toString() {
-        return "ID: " + id +
+        return "Person ID: " + id +
                 ", First Name: " + firstName +
                 ", Last Name: " + lastName +
                 ", Age: " + age +
-                ", Address id: " + addressId;
+                ", Address ID: " + addressId;
     }
 }

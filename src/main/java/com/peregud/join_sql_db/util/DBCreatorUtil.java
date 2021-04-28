@@ -1,4 +1,4 @@
-package com.peregud.join_sql_db;
+package com.peregud.join_sql_db.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,20 +6,24 @@ import java.sql.Statement;
 
 public class DBCreatorUtil {
 
-    public static void createDatabase() {
+    public static void createPersonAddressDatabase() {
         Statement stmt = null;
         try {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
-            String sql1 = "CREATE SCHEMA IF NOT EXISTS `PeopleDB` DEFAULT CHARACTER SET utf8;";
-            String sql2 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`Address`\n" +
+            String sql1 = "DROP SCHEMA IF EXISTS `PersonDB`";
+            String sql2 = "CREATE SCHEMA IF NOT EXISTS `PersonDB` DEFAULT CHARACTER SET utf8";
+            String sql3 = "DROP TABLE IF EXISTS `PersonDB`.`Address`";
+            String sql4 = "CREATE TABLE IF NOT EXISTS `PersonDB`.`Address`\n" +
                     "(\n" +
                     "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
                     "  `street`         VARCHAR(20)     NULL,\n" +
                     "  `house`          INT             NULL,\n" +
+                    "  `apartment`      INT             NULL,\n" +
                     "  PRIMARY KEY (`id`)\n" +
                     ");";
-            String sql3 = "CREATE TABLE IF NOT EXISTS `PeopleDB`.`People`\n" +
+            String sql5 = "DROP TABLE IF EXISTS `PersonDB`.`Person`";
+            String sql6 = "CREATE TABLE IF NOT EXISTS `PersonDB`.`Person`\n" +
                     "(\n" +
                     "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
                     "  `first_name`     VARCHAR(20)     NULL,\n" +
@@ -27,11 +31,20 @@ public class DBCreatorUtil {
                     "  `age`            INT             NULL,\n" +
                     "  `address_id`     INT             NULL,\n" +
                     "  PRIMARY KEY (`id`),\n" +
-                    "  FOREIGN KEY (`address_id`) REFERENCES address(`id`)\n" +
+                    "  INDEX `fk_person_address_idx` (`address_id` ASC) VISIBLE,\n" +
+                    "  CONSTRAINT `fk_person_address`\n" +
+                    "  FOREIGN KEY (`address_id`)\n" +
+                    "  REFERENCES `PersonDB`.`Address` (`id`)\n" +
+                    "  ON DELETE CASCADE\n" +
+                    "  ON UPDATE CASCADE\n" +
                     ");";
+
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);
             stmt.executeUpdate(sql3);
+            stmt.executeUpdate(sql4);
+            stmt.executeUpdate(sql5);
+            stmt.executeUpdate(sql6);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
