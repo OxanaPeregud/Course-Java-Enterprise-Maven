@@ -1,28 +1,23 @@
 package com.peregud.join_sql_db.view;
 
-import com.peregud.join_sql_db.repository.DAOAddress;
-import com.peregud.join_sql_db.repository.DAOAddressImpl;
+import com.peregud.join_sql_db.model.Address;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class AddressView implements DBView {
-    private static final DAOAddress ADDRESS;
-
-    static {
-        ADDRESS = new DAOAddressImpl();
-    }
+public class AddressView implements DBView<Address> {
 
     @Override
-    public void displayByID(int id) throws SQLException {
-        if (ADDRESS.get(id) != null) {
-            System.out.println(ADDRESS.get(id));
+    public void displayByID(Address address) throws SQLException {
+        if (address != null) {
+            System.out.println(address);
         } else {
             System.out.println("There is no address under entered ID");
         }
     }
 
     @Override
-    public void displayAllData() throws SQLException {
-        ADDRESS.getAll().forEach(System.out::println);
+    public void displayAllData(List<Address> list) throws SQLException {
+        list.forEach(System.out::println);
     }
 }

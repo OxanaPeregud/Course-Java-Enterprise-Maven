@@ -6,8 +6,9 @@ import com.peregud.join_sql_db.repository.DAOPersonImpl;
 import com.peregud.join_sql_db.view.PersonView;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class PersonService implements DBDataService {
+public class PersonService implements DBDataService<Person> {
     private static final PersonView PERSON_VIEW;
     private static final DAOPerson PERSON;
     private final Person person = new Person();
@@ -18,15 +19,11 @@ public class PersonService implements DBDataService {
     }
 
     @Override
-    public void saveNewData() {
+    public void saveNewData(List<Person> list) {
         try {
-            PERSON.save(new Person("James", "Smith", 30, 1));
-            PERSON.save(new Person("Robert", "Johnson", 15, 2));
-            PERSON.save(new Person("Michael", "Williams", 22, 2));
-            PERSON.save(new Person("David", "Brown", 37, 3));
-            PERSON.save(new Person("John", "Black", 21, 3));
-            PERSON.save(new Person("Bob", "White", 18, 4));
-            PERSON.save(new Person("Richard", "Miller", 25, 5));
+            for (Person person : list) {
+                PERSON.save(person);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -35,7 +32,7 @@ public class PersonService implements DBDataService {
     @Override
     public void getByID(int id) {
         try {
-            PERSON_VIEW.displayByID(id);
+            PERSON_VIEW.displayByID(PERSON.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -47,7 +44,7 @@ public class PersonService implements DBDataService {
             person.setAge(PERSON.get(id).getAge() + change);
             person.setId(id);
             PERSON.update(person);
-            PERSON_VIEW.displayByID(id);
+            PERSON_VIEW.displayByID(PERSON.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -65,7 +62,7 @@ public class PersonService implements DBDataService {
     @Override
     public void displayAll() {
         try {
-            PERSON_VIEW.displayAllData();
+            PERSON_VIEW.displayAllData(PERSON.getAll());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

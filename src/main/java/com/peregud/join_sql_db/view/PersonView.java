@@ -1,28 +1,23 @@
 package com.peregud.join_sql_db.view;
 
-import com.peregud.join_sql_db.repository.DAOPerson;
-import com.peregud.join_sql_db.repository.DAOPersonImpl;
+import com.peregud.join_sql_db.model.Person;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class PersonView implements DBView {
-    private static final DAOPerson PERSON;
-
-    static {
-        PERSON = new DAOPersonImpl();
-    }
+public class PersonView implements DBView<Person> {
 
     @Override
-    public void displayByID(int id) throws SQLException {
-        if (PERSON.get(id) != null) {
-            System.out.println(PERSON.get(id));
+    public void displayByID(Person person) throws SQLException {
+        if (person != null) {
+            System.out.println(person);
         } else {
             System.out.println("There is no person under entered ID");
         }
     }
 
     @Override
-    public void displayAllData() throws SQLException {
-        PERSON.getAll().forEach(System.out::println);
+    public void displayAllData(List<Person> list) throws SQLException {
+        list.forEach(System.out::println);
     }
 }

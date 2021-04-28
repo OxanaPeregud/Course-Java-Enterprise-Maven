@@ -8,6 +8,7 @@ import com.peregud.join_sql_db.repository.DAOPerson;
 import com.peregud.join_sql_db.repository.DAOPersonImpl;
 import com.peregud.join_sql_db.service.AddressService;
 import com.peregud.join_sql_db.service.PersonService;
+import com.peregud.join_sql_db.util.CreateDataUtil;
 import com.peregud.join_sql_db.util.DBCreatorUtil;
 
 import java.sql.SQLException;
@@ -18,8 +19,8 @@ public class Starter {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();
-        personService.saveNewData();
-        addressService.saveNewData();
+        personService.saveNewData(CreateDataUtil.createPerson());
+        addressService.saveNewData(CreateDataUtil.createAddress());
 
         DAOPerson daoPerson = new DAOPersonImpl();
         DAOAddress daoAddress = new DAOAddressImpl();
@@ -35,5 +36,11 @@ public class Starter {
 
         personService.deleteData(1);
         addressService.deleteData(1);
+
+        personService.displayAll();
+        addressService.displayAll();
+
+        personService.getByID(10);
+        addressService.getByID(3);
     }
 }
