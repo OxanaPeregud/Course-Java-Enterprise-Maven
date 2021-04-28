@@ -18,6 +18,8 @@ public class AddressView implements DBView<Address> {
 
     @Override
     public void displayAllData(List<Address> list) throws SQLException {
-        list.forEach(System.out::println);
+        if (list != null) {
+            list.forEach(System.out::println);
+        }
     }
 }

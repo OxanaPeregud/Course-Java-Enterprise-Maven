@@ -18,6 +18,8 @@ public class PersonView implements DBView<Person> {
 
     @Override
     public void displayAllData(List<Person> list) throws SQLException {
-        list.forEach(System.out::println);
+        if (list != null) {
+            list.forEach(System.out::println);
+        }
     }
 }
