@@ -1,4 +1,4 @@
-package com.peregud.join_sql_db;
+package com.peregud.join_sql_db.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

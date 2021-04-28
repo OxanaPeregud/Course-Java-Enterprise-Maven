@@ -1,29 +1,27 @@
 package com.peregud.join_sql_db;
 
-import java.sql.SQLException;
-import java.util.List;
+import com.peregud.join_sql_db.service.AddressService;
+import com.peregud.join_sql_db.service.PersonAddressService;
+import com.peregud.join_sql_db.service.PersonService;
+import com.peregud.join_sql_db.util.DBCreatorUtil;
 
 public class Starter {
-    public static void main(String[] args) throws SQLException {
-        DBCreatorUtil.createDatabase();
-        SaveDataUtil.savePeople(CreatorUtil.createPeople());
-        SaveDataUtil.saveAddress(CreatorUtil.createAddress());
-        SaveDataUtil.savePeopleAddress(CreatorUtil.createPeopleAddressID());
+    public static void main(String[] args) {
+        DBCreatorUtil.createPersonAddressDatabase();
+        PersonService personService = new PersonService();
+        AddressService addressService = new AddressService();
+        PersonAddressService personAddressService = new PersonAddressService();
+        personService.saveNewData();
+        addressService.saveNewData();
+        personAddressService.saveNewData();
 
-        DAOPeopleImpl daoPeople = new DAOPeopleImpl();
-        List<People> peopleFromDB = daoPeople.getAll();
-        ChangeDataUtil.changePersonAge(peopleFromDB, peopleFromDB.size(), 2);
-        ChangeDataUtil.changePersonAge(peopleFromDB, peopleFromDB.size() - 1, 2);
-        daoPeople.delete(1);
-        DBView<People> viewPeople = new DBView<>();
-        viewPeople.display(peopleFromDB);
+        personService.updateData(4, 2);
+        personService.updateData(5, 2);
 
-        DAOAddressImpl daoAddress = new DAOAddressImpl();
-        List<Address> addressFromDB = daoAddress.getAll();
-        ChangeDataUtil.changeHouse(addressFromDB, addressFromDB.size(), 1);
-        ChangeDataUtil.changeHouse(addressFromDB, addressFromDB.size() - 1, 1);
-        daoAddress.delete(1);
-        DBView<Address> viewAddress = new DBView<>();
-        viewAddress.display(addressFromDB);
+        addressService.updateData(4, 1);
+        addressService.updateData(5, 1);
+
+        personService.deleteData(1);
+        addressService.deleteData(1);
     }
 }

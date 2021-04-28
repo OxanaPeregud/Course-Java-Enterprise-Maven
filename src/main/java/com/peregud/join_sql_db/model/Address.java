@@ -1,16 +1,18 @@
-package com.peregud.join_sql_db;
+package com.peregud.join_sql_db.model;
 
 public class Address {
     private int id;
     private String street;
     private int house;
+    private int apartment;
 
     public Address() {
     }
 
-    public Address(String street, int house) {
+    public Address(String street, int house, int apartment) {
         this.street = street;
         this.house = house;
+        this.apartment = apartment;
     }
 
     public int getId() {
@@ -37,9 +39,19 @@ public class Address {
         this.house = house;
     }
 
+    public int getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(int apartment) {
+        this.apartment = apartment;
+    }
+
     @Override
     public String toString() {
-        return "ID: " + id + ", Street: " + street +
-                ", house: " + house;
+        return "Address ID: " + id +
+                ", Street: " + street +
+                ", House: " + house +
+                ", Apartment: " + apartment;
     }
 }
