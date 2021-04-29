@@ -7,10 +7,7 @@ import com.peregud.join_sql_db.model.PersonAddress;
 
 import java.io.Serializable;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DAOPersonAddressImpl implements DAOPersonAddress {
     private PreparedStatement preparedStmt = null;
@@ -171,7 +168,7 @@ public class DAOPersonAddressImpl implements DAOPersonAddress {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
             rs = stmt.executeQuery(SQL_GET_PERSON_ADDRESS);
-            Map<Person, Address> map = new HashMap<>();
+            Map<Person, Address> map = new LinkedHashMap<>();
             while (rs.next()) {
                 PersonAddress personAddress = new PersonAddress();
                 personAddress.setPersonID(rs.getInt("person_id"));
