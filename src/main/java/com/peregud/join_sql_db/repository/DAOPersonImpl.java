@@ -6,10 +6,7 @@ import com.peregud.join_sql_db.model.Person;
 
 import java.io.Serializable;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DAOPersonImpl implements DAOPerson {
     private PreparedStatement preparedStmt = null;
@@ -179,7 +176,7 @@ public class DAOPersonImpl implements DAOPerson {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
             rs = stmt.executeQuery(SQL_GET_PERSON_ADDRESS);
-            Map<Person, Address> map = new HashMap<>();
+            Map<Person, Address> map = new LinkedHashMap<>();
             while (rs.next()) {
                 Person person = new Person();
                 person.setId(rs.getInt("person_id"));
