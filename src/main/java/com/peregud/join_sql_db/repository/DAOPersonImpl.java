@@ -1,12 +1,15 @@
 package com.peregud.join_sql_db.repository;
 
+import com.peregud.join_sql_db.model.Address;
 import com.peregud.join_sql_db.util.ConnectorUtil;
 import com.peregud.join_sql_db.model.Person;
 
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAOPersonImpl implements DAOPerson {
     private PreparedStatement preparedStmt = null;
@@ -17,13 +20,17 @@ public class DAOPersonImpl implements DAOPerson {
     private static final String SQL_UPDATE;
     private static final String SQL_DELETE;
     private static final String SQL_GET_ALL;
+    private static final String SQL_GET_PERSON_ADDRESS;
 
     static {
-        SQL_SAVE = "INSERT INTO personDB.person(id, first_name, last_name, age, address_id) " + "VALUE (?, ?, ?, ?, ?)";
-        SQL_GET = "SELECT * FROM personDB.person WHERE id = ";
-        SQL_UPDATE = "UPDATE personDB.person SET age = ? WHERE id = ?";
-        SQL_DELETE = "DELETE FROM personDB.person WHERE id = ";
+        SQL_SAVE = "INSERT INTO personDB.person(person_id, first_name, last_name, age, address_id) " +
+                "VALUE (?, ?, ?, ?, ?)";
+        SQL_GET = "SELECT * FROM personDB.person WHERE person_id = ";
+        SQL_UPDATE = "UPDATE personDB.person SET age = ? WHERE person_id = ?";
+        SQL_DELETE = "DELETE FROM personDB.person WHERE person_id = ";
         SQL_GET_ALL = "SELECT * FROM personDB.person";
+        SQL_GET_PERSON_ADDRESS = "SELECT * FROM personDB.person, personDB.address\n" +
+                "WHERE personDB.person.address_id = personDB.address.address_id";
     }
 
     @Override
@@ -60,7 +67,7 @@ public class DAOPersonImpl implements DAOPerson {
             rs = stmt.executeQuery(SQL_GET + id);
             while (rs.next()) {
                 person = new Person();
-                person.setId(rs.getInt("id"));
+                person.setId(rs.getInt("person_id"));
                 person.setFirstName(rs.getString("first_name"));
                 person.setLastName(rs.getString("last_name"));
                 person.setAge(rs.getInt("age"));
@@ -141,7 +148,7 @@ public class DAOPersonImpl implements DAOPerson {
             List<Person> list = new ArrayList<>();
             while (rs.next()) {
                 Person person = new Person();
-                person.setId(rs.getInt("id"));
+                person.setId(rs.getInt("person_id"));
                 person.setFirstName(rs.getString("first_name"));
                 person.setLastName(rs.getString("last_name"));
                 person.setAge(rs.getInt("age"));
@@ -149,6 +156,45 @@ public class DAOPersonImpl implements DAOPerson {
                 list.add(person);
             }
             return list;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                ConnectorUtil.closeConnection();
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public Map<Person, Address> getPersonAddress() {
+        try {
+            Connection conn = ConnectorUtil.getConnection();
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL_GET_PERSON_ADDRESS);
+            Map<Person, Address> map = new HashMap<>();
+            while (rs.next()) {
+                Person person = new Person();
+                person.setId(rs.getInt("person_id"));
+                person.setFirstName(rs.getString("first_name"));
+                person.setLastName(rs.getString("last_name"));
+                person.setAge(rs.getInt("age"));
+                person.setAddressId(rs.getInt("address_id"));
+                Address address = new Address();
+                address.setId(rs.getInt("address_id"));
+                address.setStreet(rs.getString("street"));
+                address.setHouse(rs.getInt("house"));
+                address.setApartment(rs.getInt("apartment"));
+                map.put(person, address);
+            }
+            return map;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

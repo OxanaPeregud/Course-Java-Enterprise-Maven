@@ -16,29 +16,26 @@ public class DBCreatorUtil {
             String sql3 = "DROP TABLE IF EXISTS `PersonDB`.`Address`";
             String sql4 = "CREATE TABLE IF NOT EXISTS `PersonDB`.`Address`\n" +
                     "(\n" +
-                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
+                    "  `address_id`     INT             NOT NULL AUTO_INCREMENT,\n" +
                     "  `street`         VARCHAR(20)     NULL,\n" +
                     "  `house`          INT             NULL,\n" +
                     "  `apartment`      INT             NULL,\n" +
-                    "  PRIMARY KEY (`id`)\n" +
+                    "  PRIMARY KEY (`address_id`)\n" +
                     ");";
             String sql5 = "DROP TABLE IF EXISTS `PersonDB`.`Person`";
             String sql6 = "CREATE TABLE IF NOT EXISTS `PersonDB`.`Person`\n" +
                     "(\n" +
-                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
+                    "  `person_id`      INT             NOT NULL AUTO_INCREMENT,\n" +
                     "  `first_name`     VARCHAR(20)     NULL,\n" +
                     "  `last_name`      VARCHAR(20)     NULL,\n" +
                     "  `age`            INT             NULL,\n" +
                     "  `address_id`     INT             NULL,\n" +
-                    "  PRIMARY KEY (`id`),\n" +
-                    "  INDEX `fk_person_address_idx` (`address_id` ASC) VISIBLE,\n" +
-                    "  CONSTRAINT `fk_person_address`\n" +
+                    "  PRIMARY KEY (`person_id`),\n" +
                     "  FOREIGN KEY (`address_id`)\n" +
-                    "  REFERENCES `PersonDB`.`Address` (`id`)\n" +
+                    "  REFERENCES `PersonDB`.`Address` (`address_id`)\n" +
                     "  ON DELETE CASCADE\n" +
                     "  ON UPDATE CASCADE\n" +
                     ");";
-
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);
             stmt.executeUpdate(sql3);

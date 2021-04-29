@@ -12,10 +12,12 @@ public class PersonService implements DBDataService<Person> {
     private static final PersonView PERSON_VIEW;
     private static final DAOPerson PERSON;
     private final Person person = new Person();
+    private static final DAOPersonImpl PERSON_IMPL;
 
     static {
         PERSON_VIEW = new PersonView();
         PERSON = new DAOPersonImpl();
+        PERSON_IMPL = new DAOPersonImpl();
     }
 
     @Override
@@ -63,6 +65,14 @@ public class PersonService implements DBDataService<Person> {
     public void displayAll() {
         try {
             PERSON_VIEW.displayAllData(PERSON.getAll());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void displayAllPersonAddress() {
+        try {
+            PERSON_VIEW.displayAllDataPersonAddress(PERSON_IMPL.getPersonAddress());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

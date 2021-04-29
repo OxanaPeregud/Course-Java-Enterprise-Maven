@@ -37,10 +37,6 @@ public class Starter {
         personService.deleteData(1);
         addressService.deleteData(1);
 
-        personService.displayAll();
-        addressService.displayAll();
-
-        personService.getByID(10);
-        addressService.getByID(3);
+        personService.displayAllPersonAddress();
     }
 }
