@@ -1,7 +1,7 @@
 package com.peregud.join_sql_db.model;
 
 public class Person {
-    private int id;
+    private int personID;
     private String firstName;
     private String lastName;
     private int age;
@@ -15,12 +15,12 @@ public class Person {
         this.age = age;
     }
 
-    public int getId() {
-        return id;
+    public int getPersonID() {
+        return personID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPersonID(int personID) {
+        this.personID = personID;
     }
 
     public String getFirstName() {
@@ -49,7 +49,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person ID: " + id +
+        return "Person ID: " + personID +
                 ", First Name: " + firstName +
                 ", Last Name: " + lastName +
                 ", Age: " + age;

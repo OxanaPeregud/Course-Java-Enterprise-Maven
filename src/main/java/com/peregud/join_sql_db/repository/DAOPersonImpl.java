@@ -19,10 +19,10 @@ public class DAOPersonImpl implements DAOPerson {
     private static final String SQL_GET_ALL;
 
     static {
-        SQL_SAVE = "INSERT INTO personDB.person(id, first_name, last_name, age) " + "VALUE (?, ?, ?, ?)";
-        SQL_GET = "SELECT * FROM personDB.person WHERE id = ";
-        SQL_UPDATE = "UPDATE personDB.person SET age = ? WHERE id = ?";
-        SQL_DELETE = "DELETE FROM personDB.person WHERE id = ";
+        SQL_SAVE = "INSERT INTO personDB.person(person_id, first_name, last_name, age) " + "VALUE (?, ?, ?, ?)";
+        SQL_GET = "SELECT * FROM personDB.person WHERE person_id = ";
+        SQL_UPDATE = "UPDATE personDB.person SET age = ? WHERE person_id = ?";
+        SQL_DELETE = "DELETE FROM personDB.person WHERE person_id = ";
         SQL_GET_ALL = "SELECT * FROM personDB.person";
     }
     @Override
@@ -30,7 +30,7 @@ public class DAOPersonImpl implements DAOPerson {
         try {
             Connection conn = ConnectorUtil.getConnection();
             preparedStmt = conn.prepareStatement(SQL_SAVE);
-            preparedStmt.setInt(1, person.getId());
+            preparedStmt.setInt(1, person.getPersonID());
             preparedStmt.setString(2, person.getFirstName());
             preparedStmt.setString(3, person.getLastName());
             preparedStmt.setInt(4, person.getAge());
@@ -58,7 +58,7 @@ public class DAOPersonImpl implements DAOPerson {
             rs = stmt.executeQuery(SQL_GET + id);
             while (rs.next()) {
                 person = new Person();
-                person.setId(rs.getInt("id"));
+                person.setPersonID(rs.getInt("person_id"));
                 person.setFirstName(rs.getString("first_name"));
                 person.setLastName(rs.getString("last_name"));
                 person.setAge(rs.getInt("age"));
@@ -90,7 +90,7 @@ public class DAOPersonImpl implements DAOPerson {
             Connection conn = ConnectorUtil.getConnection();
             preparedStmt = conn.prepareStatement(SQL_UPDATE);
             preparedStmt.setInt(1, person.getAge());
-            preparedStmt.setInt(2, person.getId());
+            preparedStmt.setInt(2, person.getPersonID());
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class DAOPersonImpl implements DAOPerson {
             List<Person> list = new ArrayList<>();
             while (rs.next()) {
                 Person person = new Person();
-                person.setId(rs.getInt("id"));
+                person.setPersonID(rs.getInt("person_id"));
                 person.setFirstName(rs.getString("first_name"));
                 person.setLastName(rs.getString("last_name"));
                 person.setAge(rs.getInt("age"));

@@ -40,6 +40,6 @@ public class Starter {
         personService.deleteData(1);
         addressService.deleteData(1);
 
-        personAddressService.getByID(4);
+        personAddressService.displayAllPersonAddress();
     }
 }

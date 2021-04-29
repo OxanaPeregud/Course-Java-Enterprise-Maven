@@ -41,7 +41,7 @@ public class AddressService implements DBDataService<Address> {
     public void updateData(int id, int change) {
         try {
             address.setHouse(ADDRESS.get(id).getHouse() + change);
-            address.setId(id);
+            address.setAddressID(id);
             ADDRESS.update(address);
             ADDRESS_VIEW.displayByID(ADDRESS.get(id));
         } catch (SQLException throwables) {

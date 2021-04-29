@@ -1,7 +1,7 @@
 package com.peregud.join_sql_db.model;
 
 public class Address {
-    private int id;
+    private int addressID;
     private String street;
     private int house;
     private int apartment;
@@ -15,12 +15,12 @@ public class Address {
         this.apartment = apartment;
     }
 
-    public int getId() {
-        return id;
+    public int getAddressID() {
+        return addressID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
     }
 
     public String getStreet() {
@@ -49,7 +49,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address ID: " + id +
+        return "Address ID: " + addressID +
                 ", Street: " + street +
                 ", House: " + house +
                 ", Apartment: " + apartment;

@@ -46,7 +46,7 @@ public class PersonService implements DBDataService<Person> {
     public void updateData(int id, int change) {
         try {
             person.setAge(PERSON.get(id).getAge() + change);
-            person.setId(id);
+            person.setPersonID(id);
             PERSON.update(person);
             PERSON_VIEW.displayByID(PERSON.get(id));
         } catch (SQLException throwables) {

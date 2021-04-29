@@ -19,10 +19,10 @@ public class DAOAddressImpl implements DAOAddress {
     private static final String SQL_GET_ALL;
 
     static {
-        SQL_SAVE = "INSERT INTO personDB.address(id, street, house, apartment) " + "VALUE (?, ?, ?, ?)";
-        SQL_GET = "SELECT * FROM personDB.address WHERE id = ";
-        SQL_UPDATE = "UPDATE personDB.address SET house = ? WHERE id = ?";
-        SQL_DELETE = "DELETE FROM personDB.address WHERE id = ";
+        SQL_SAVE = "INSERT INTO personDB.address(address_id, street, house, apartment) " + "VALUE (?, ?, ?, ?)";
+        SQL_GET = "SELECT * FROM personDB.address WHERE address_id = ";
+        SQL_UPDATE = "UPDATE personDB.address SET house = ? WHERE address_id = ?";
+        SQL_DELETE = "DELETE FROM personDB.address WHERE address_id = ";
         SQL_GET_ALL = "SELECT * FROM personDB.address";
     }
 
@@ -31,7 +31,7 @@ public class DAOAddressImpl implements DAOAddress {
         try {
             Connection conn = ConnectorUtil.getConnection();
             preparedStmt = conn.prepareStatement(SQL_SAVE);
-            preparedStmt.setInt(1, address.getId());
+            preparedStmt.setInt(1, address.getAddressID());
             preparedStmt.setString(2, address.getStreet());
             preparedStmt.setInt(3, address.getHouse());
             preparedStmt.setInt(4, address.getApartment());
@@ -59,7 +59,7 @@ public class DAOAddressImpl implements DAOAddress {
             rs = stmt.executeQuery(SQL_GET + id);
             while (rs.next()) {
                 address = new Address();
-                address.setId(rs.getInt("id"));
+                address.setAddressID(rs.getInt("address_id"));
                 address.setStreet(rs.getString("street"));
                 address.setHouse(rs.getInt("house"));
                 address.setApartment(rs.getInt("apartment"));
@@ -91,7 +91,7 @@ public class DAOAddressImpl implements DAOAddress {
             Connection conn = ConnectorUtil.getConnection();
             preparedStmt = conn.prepareStatement(SQL_UPDATE);
             preparedStmt.setInt(1, address.getHouse());
-            preparedStmt.setInt(2, address.getId());
+            preparedStmt.setInt(2, address.getAddressID());
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class DAOAddressImpl implements DAOAddress {
             List<Address> list = new ArrayList<>();
             while (rs.next()) {
                 Address address = new Address();
-                address.setId(rs.getInt("id"));
+                address.setAddressID(rs.getInt("address_id"));
                 address.setStreet(rs.getString("street"));
                 address.setHouse(rs.getInt("house"));
                 address.setApartment(rs.getInt("apartment"));
