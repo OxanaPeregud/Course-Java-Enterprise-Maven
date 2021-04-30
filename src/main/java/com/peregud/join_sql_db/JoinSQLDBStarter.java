@@ -15,8 +15,8 @@ import com.peregud.join_sql_db.util.DBCreatorUtil;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Starter {
-    public static void main(String[] args) throws SQLException {
+public class JoinSQLDBStarter {
+    public static void start() throws SQLException {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();
