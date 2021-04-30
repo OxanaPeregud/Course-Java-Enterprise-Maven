@@ -1,28 +1,45 @@
 package com.peregud.join_sql_db;
 
+import com.peregud.join_sql_db.model.Address;
+import com.peregud.join_sql_db.model.Person;
+import com.peregud.join_sql_db.repository.DAOAddress;
+import com.peregud.join_sql_db.repository.DAOAddressImpl;
+import com.peregud.join_sql_db.repository.DAOPerson;
+import com.peregud.join_sql_db.repository.DAOPersonImpl;
+import com.peregud.join_sql_db.service.AddressService;
+import com.peregud.join_sql_db.service.PersonAddressService;
+import com.peregud.join_sql_db.service.PersonService;
+import com.peregud.join_sql_db.util.CreateDataUtil;
+import com.peregud.join_sql_db.util.DBCreatorUtil;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public class Starter {
     public static void main(String[] args) throws SQLException {
-        DBCreatorUtil.createDatabase();
-        
-        SaveDataUtil.savePeople(CreatorUtil.createPeople());
-        DAOPeopleImpl daoPeople = new DAOPeopleImpl();
-        List<People> peopleFromDB = daoPeople.getAll();
-        ChangeDataUtil.changePersonAge(peopleFromDB, peopleFromDB.size(), 2);
-        ChangeDataUtil.changePersonAge(peopleFromDB, peopleFromDB.size() - 1, 2);
-        daoPeople.delete(1);
-        DBView<People> viewPeople = new DBView<>();
-        viewPeople.display(peopleFromDB);
+        DBCreatorUtil.createPersonAddressDatabase();
+        PersonService personService = new PersonService();
+        AddressService addressService = new AddressService();
+        PersonAddressService personAddressService = new PersonAddressService();
+        personService.saveNewData(CreateDataUtil.createPerson());
+        addressService.saveNewData(CreateDataUtil.createAddress());
+        personAddressService.saveNewData(CreateDataUtil.createPersonAddressID());
 
-        SaveDataUtil.saveAddress(CreatorUtil.createAddress());
-        DAOAddressImpl daoAddress = new DAOAddressImpl();
+        DAOPerson daoPerson = new DAOPersonImpl();
+        DAOAddress daoAddress = new DAOAddressImpl();
+
+        List<Person> personFromDB = daoPerson.getAll();
         List<Address> addressFromDB = daoAddress.getAll();
-        ChangeDataUtil.changeHouse(addressFromDB, addressFromDB.size(), 1);
-        ChangeDataUtil.changeHouse(addressFromDB, addressFromDB.size() - 1, 1);
-        daoAddress.delete(1);
-        DBView<Address> viewAddress = new DBView<>();
-        viewAddress.display(addressFromDB);
+
+        personService.updateData(personFromDB.size() - 1, 2);
+        personService.updateData(personFromDB.size(), 2);
+
+        addressService.updateData(addressFromDB.size() - 1, 1);
+        addressService.updateData(addressFromDB.size(), 1);
+
+        personService.deleteData(1);
+        addressService.deleteData(1);
+
+        personAddressService.displayAllPersonAddress();
     }
 }
