@@ -29,6 +29,7 @@ public final class DataBuilderUtil {
                 .firstName(FIRST_NAMES.get(RANDOM.nextInt(FIRST_NAMES.size())))
                 .lastName(LAST_NAMES.get(RANDOM.nextInt(LAST_NAMES.size())))
                 .age((int) (Math.random() * (75 - 1)) + 1)
+                .addressId((int) (Math.random() * (6 - 1)) + 1)
                 .build())
                 .limit(count)
                 .collect(Collectors.toList());

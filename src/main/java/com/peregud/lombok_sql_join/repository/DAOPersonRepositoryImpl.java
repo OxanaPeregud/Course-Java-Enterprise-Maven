@@ -18,12 +18,14 @@ public class DAOPersonRepositoryImpl implements DAOPersonRepository {
         try {
             Connection conn = ConnectorUtil.getConnection();
             String sqlSave =
-                    "INSERT INTO personDB.person(person_id, first_name, last_name, age) " + "VALUE (?, ?, ?, ?)";
+                    "INSERT INTO personDB.person(person_id, first_name, last_name, age, address_id) " +
+                            "VALUE (?, ?, ?, ?, ?)";
             preparedStmt = conn.prepareStatement(sqlSave);
             preparedStmt.setInt(1, person.getPersonID());
             preparedStmt.setString(2, person.getFirstName());
             preparedStmt.setString(3, person.getLastName());
             preparedStmt.setInt(4, person.getAge());
+            preparedStmt.setInt(5, person.getAddressId());
             preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
