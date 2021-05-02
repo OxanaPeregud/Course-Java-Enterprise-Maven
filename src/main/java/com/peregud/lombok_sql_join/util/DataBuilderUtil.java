@@ -2,6 +2,7 @@ package com.peregud.lombok_sql_join.util;
 
 import com.peregud.lombok_sql_join.model.Address;
 import com.peregud.lombok_sql_join.model.Person;
+import com.peregud.lombok_sql_join.model.PersonAddress;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +40,15 @@ public final class DataBuilderUtil {
                 .street(STREETS.get(RANDOM.nextInt(STREETS.size())))
                 .house((int) (Math.random() * (150 - 1)) + 1)
                 .apartment((int) (Math.random() * (250 - 1)) + 1)
+                .build())
+                .limit(count)
+                .collect(Collectors.toList());
+    }
+
+    public static List<PersonAddress> buildPersonAddressID(int count) {
+        return Stream.generate(() -> PersonAddress.builder()
+                .personID((int) (Math.random() * (6 - 1)) + 1)
+                .addressID((int) (Math.random() * (6 - 1)) + 1)
                 .build())
                 .limit(count)
                 .collect(Collectors.toList());

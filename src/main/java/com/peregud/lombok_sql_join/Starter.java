@@ -2,6 +2,7 @@ package com.peregud.lombok_sql_join;
 
 import com.peregud.lombok_sql_join.view.AddressView;
 import com.peregud.lombok_sql_join.view.DBView;
+import com.peregud.lombok_sql_join.view.PersonView;
 import com.peregud.lombok_sql_join.model.Address;
 import com.peregud.lombok_sql_join.model.Person;
 import com.peregud.lombok_sql_join.repository.DAOAddressRepository;
@@ -9,10 +10,10 @@ import com.peregud.lombok_sql_join.repository.DAOAddressRepositoryImpl;
 import com.peregud.lombok_sql_join.repository.DAOPersonRepository;
 import com.peregud.lombok_sql_join.repository.DAOPersonRepositoryImpl;
 import com.peregud.lombok_sql_join.service.AddressService;
+import com.peregud.lombok_sql_join.service.PersonAddressService;
 import com.peregud.lombok_sql_join.service.PersonService;
 import com.peregud.lombok_sql_join.util.DataBuilderUtil;
 import com.peregud.lombok_sql_join.util.DBCreatorUtil;
-import com.peregud.lombok_sql_join.view.PersonView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,8 +24,10 @@ public class Starter {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();
+        PersonAddressService personAddressService = new PersonAddressService();
         personService.saveNewData(DataBuilderUtil.buildPerson(5));
         addressService.saveNewData(DataBuilderUtil.buildAddress(5));
+        personAddressService.saveNewData(DataBuilderUtil.buildPersonAddressID(10));
         DAOPersonRepository daoPerson = new DAOPersonRepositoryImpl();
         DAOAddressRepository daoAddress = new DAOAddressRepositoryImpl();
         List<Person> personFromDB = daoPerson.getAll();

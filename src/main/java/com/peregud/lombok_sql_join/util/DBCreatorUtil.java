@@ -1,6 +1,5 @@
 package com.peregud.lombok_sql_join.util;
 
-import com.peregud.join_sql_db.util.ConnectorUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -36,12 +35,30 @@ public final class DBCreatorUtil {
                     "  `apartment`      INT             NULL,\n" +
                     "  PRIMARY KEY (`address_id`)\n" +
                     ");";
+            String sql7 = "DROP TABLE IF EXISTS `PersonDB`.`Person_Address`";
+            String sql8 = "CREATE TABLE IF NOT EXISTS `PersonDB`.`Person_Address`\n" +
+                    "(\n" +
+                    "  `id`             INT             NOT NULL AUTO_INCREMENT,\n" +
+                    "  `person_id`      INT             NOT NULL,\n" +
+                    "  `address_id`     INT             NOT NULL,\n" +
+                    "  PRIMARY KEY (`id`),\n" +
+                    "  FOREIGN KEY (`person_id`)\n" +
+                    "  REFERENCES `PersonDB`.`Person` (`person_id`)\n" +
+                    "  ON DELETE CASCADE\n" +
+                    "  ON UPDATE CASCADE,\n" +
+                    "  FOREIGN KEY (`address_id`)\n" +
+                    "  REFERENCES `PersonDB`.`Address` (`address_id`)\n" +
+                    "  ON DELETE CASCADE\n" +
+                    "  ON UPDATE CASCADE\n" +
+                    ");";
             stmt.executeUpdate(sql1);
             stmt.executeUpdate(sql2);
             stmt.executeUpdate(sql3);
             stmt.executeUpdate(sql4);
             stmt.executeUpdate(sql5);
             stmt.executeUpdate(sql6);
+            stmt.executeUpdate(sql7);
+            stmt.executeUpdate(sql8);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
