@@ -2,13 +2,15 @@ package com.peregud.lombok_sql_join.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Value
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ConnectorUtil {
+public class ConnectorUtil {
     private static Connection conn;
     private static final String SQL_URL;
     private static final String USER;
