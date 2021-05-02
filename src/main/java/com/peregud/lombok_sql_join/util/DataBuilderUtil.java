@@ -5,6 +5,7 @@ import com.peregud.lombok_sql_join.model.Person;
 import com.peregud.lombok_sql_join.model.PersonAddress;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +13,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Value
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class DataBuilderUtil {
+public class DataBuilderUtil {
     private static final List<String> FIRST_NAMES;
     private static final List<String> LAST_NAMES;
     private static final List<String> STREETS;

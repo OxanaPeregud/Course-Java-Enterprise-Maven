@@ -2,13 +2,15 @@ package com.peregud.lombok_sql_join.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@Value
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class DBCreatorUtil {
+public class DBCreatorUtil {
 
     public static void createPersonAddressDatabase() {
         Statement stmt = null;
