@@ -6,33 +6,31 @@ import com.peregud.lombok_sql_join.util.ConnectorUtil;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAOAddressRepositoryImpl implements DAOAddressRepository {
-    private PreparedStatement preparedStmt = null;
     private Statement stmt = null;
     private ResultSet rs = null;
 
     @Override
     public void save(Address address) {
+        Map<Integer, Object> param = new HashMap<>();
         try {
             Connection conn = ConnectorUtil.getConnection();
             String sqlSave =
                     "INSERT INTO personDB.address(address_id, street, house, apartment) " + "VALUE (?, ?, ?, ?)";
-            preparedStmt = conn.prepareStatement(sqlSave);
-            preparedStmt.setInt(1, address.getAddressID());
-            preparedStmt.setString(2, address.getStreet());
-            preparedStmt.setInt(3, address.getHouse());
-            preparedStmt.setInt(4, address.getApartment());
-            preparedStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            param.put(1, address.getAddressID());
+            param.put(2, address.getStreet());
+            param.put(3, address.getHouse());
+            param.put(4, address.getApartment());
+            ConnectorUtil.preparedStatement(conn, sqlSave, param);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -59,9 +57,6 @@ public class DAOAddressRepositoryImpl implements DAOAddressRepository {
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
                 if (stmt != null) {
                     stmt.close();
                 }
@@ -77,21 +72,18 @@ public class DAOAddressRepositoryImpl implements DAOAddressRepository {
 
     @Override
     public void update(Address address) {
+        Map<Integer, Object> param = new HashMap<>();
         try {
             Connection conn = ConnectorUtil.getConnection();
             String sqlUpdate = "UPDATE personDB.address SET house = ? WHERE address_id = ?";
-            preparedStmt = conn.prepareStatement(sqlUpdate);
-            preparedStmt.setInt(1, address.getHouse());
-            preparedStmt.setInt(2, address.getAddressID());
-            preparedStmt.executeUpdate();
+            param.put(1, address.getHouse());
+            param.put(2, address.getAddressID());
+            ConnectorUtil.preparedStatement(conn, sqlUpdate, param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -110,9 +102,6 @@ public class DAOAddressRepositoryImpl implements DAOAddressRepository {
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
                 if (stmt != null) {
                     stmt.close();
                 }
@@ -128,7 +117,6 @@ public class DAOAddressRepositoryImpl implements DAOAddressRepository {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
             String sqlGetAll = "SELECT * FROM personDB.address";
-            ;
             rs = stmt.executeQuery(sqlGetAll);
             List<Address> list = new ArrayList<>();
             while (rs.next()) {

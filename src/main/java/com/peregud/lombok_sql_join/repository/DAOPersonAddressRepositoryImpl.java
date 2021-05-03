@@ -6,31 +6,29 @@ import com.peregud.lombok_sql_join.util.ConnectorUtil;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAOPersonAddressRepositoryImpl implements DAOPersonAddressRepository {
-    private PreparedStatement preparedStmt = null;
     private Statement stmt = null;
     private ResultSet rs = null;
 
     @Override
     public void save(PersonAddress personAddress) {
+        Map<Integer, Object> param = new HashMap<>();
         try {
             Connection conn = ConnectorUtil.getConnection();
             String sqlSave =
                     "INSERT INTO personDB.person_address(person_id, address_id) " + "VALUE (?, ?)";
-            preparedStmt = conn.prepareStatement(sqlSave);
-            preparedStmt.setInt(1, personAddress.getPersonID());
-            preparedStmt.setInt(2, personAddress.getAddressID());
-            preparedStmt.executeUpdate();
+            param.put(1, personAddress.getPersonID());
+            param.put(2, personAddress.getAddressID());
+            ConnectorUtil.preparedStatement(conn, sqlSave, param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -55,9 +53,6 @@ public class DAOPersonAddressRepositoryImpl implements DAOPersonAddressRepositor
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
                 if (stmt != null) {
                     stmt.close();
                 }
@@ -73,21 +68,18 @@ public class DAOPersonAddressRepositoryImpl implements DAOPersonAddressRepositor
 
     @Override
     public void update(PersonAddress personAddress) {
+        Map<Integer, Object> param = new HashMap<>();
         try {
             Connection conn = ConnectorUtil.getConnection();
             String sqlUpdate = "UPDATE personDB.person_address SET address_id = ? WHERE person_id = ?";
-            preparedStmt = conn.prepareStatement(sqlUpdate);
-            preparedStmt.setInt(1, personAddress.getAddressID());
-            preparedStmt.setInt(2, personAddress.getPersonID());
-            preparedStmt.executeUpdate();
+            param.put(1, personAddress.getAddressID());
+            param.put(2, personAddress.getPersonID());
+            ConnectorUtil.preparedStatement(conn, sqlUpdate, param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -106,9 +98,6 @@ public class DAOPersonAddressRepositoryImpl implements DAOPersonAddressRepositor
         } finally {
             try {
                 ConnectorUtil.closeConnection();
-                if (preparedStmt != null) {
-                    preparedStmt.close();
-                }
                 if (stmt != null) {
                     stmt.close();
                 }

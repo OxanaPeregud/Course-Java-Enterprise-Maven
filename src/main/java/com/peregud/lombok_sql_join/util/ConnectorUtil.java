@@ -6,7 +6,9 @@ import lombok.Value;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 @Value
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -33,5 +35,16 @@ public class ConnectorUtil {
         if (conn != null) {
             conn.close();
         }
+    }
+
+    public static void preparedStatement(Connection conn, String sql, Map<Integer, Object> param) throws SQLException {
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        int index = 1;
+        for (Map.Entry<Integer, Object> entry : param.entrySet()) {
+            preparedStatement.setObject(index, entry.getValue());
+            index++;
+        }
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 }
