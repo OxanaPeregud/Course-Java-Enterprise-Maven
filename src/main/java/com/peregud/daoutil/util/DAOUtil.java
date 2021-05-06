@@ -2,6 +2,7 @@ package com.peregud.daoutil.util;
 
 import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DAOUtil<T> {
@@ -43,34 +44,42 @@ public class DAOUtil<T> {
         }
     }
 
-    public void executeResultSet(String sql, Map<String, String> param, Class<?> clazz, T t) {
+    public T executeResultSet(String sql, T t) {
+        Map<String, String> param = new HashMap<>();
         Statement stmt = null;
         ResultSet rs = null;
-        try {
-            stmt = ConnectorUtil.getConnection().createStatement();
-            rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                for (Map.Entry<String, String> entry : param.entrySet()) {
-                    Field field = clazz.getDeclaredField(entry.getValue());
-                    field.setAccessible(true);
-                    field.set(t, rs.getObject(entry.getKey()));
-                }
-            }
-        } catch (SQLException | IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
-        } finally {
+        Class<?> clazz = t.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            String name = field.getName();
             try {
-                ConnectorUtil.closeConnection();
-                if (stmt != null) {
-                    stmt.close();
+                stmt = ConnectorUtil.getConnection().createStatement();
+                rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    param.put(ReflectionUtil.annotatedField(clazz, name), name);
+                    for (Map.Entry<String, String> entry : param.entrySet()) {
+                        field = clazz.getDeclaredField(entry.getValue());
+                        field.setAccessible(true);
+                        field.set(t, rs.getObject(entry.getKey()));
+                    }
                 }
-                if (rs != null) {
-                    rs.close();
+            } catch (SQLException | IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    ConnectorUtil.closeConnection();
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
         }
+        return t;
     }
 
     public void executeStatement(String sql) {

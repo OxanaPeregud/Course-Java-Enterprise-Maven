@@ -2,7 +2,6 @@ package com.peregud.daoutil.repository;
 
 import com.peregud.daoutil.model.Address;
 import com.peregud.daoutil.util.DAOUtil;
-import com.peregud.daoutil.util.ReflectionUtil;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -28,14 +27,8 @@ public class DAOAddressRepositoryImpl implements DAOAddressRepository {
 
     @Override
     public Address get(Serializable id) {
-        Map<String, String> param = new HashMap<>();
-        param.put(ReflectionUtil.annotatedField(Address.class, "addressID"), "addressID");
-        param.put(ReflectionUtil.annotatedField(Address.class, "street"), "street");
-        param.put(ReflectionUtil.annotatedField(Address.class, "house"), "house");
-        param.put(ReflectionUtil.annotatedField(Address.class, "apartment"), "apartment");
         Address address = new Address();
-        DAOUtil.executeResultSet(SQL_GET + id, param, Address.class, address);
-        return address;
+        return DAOUtil.executeResultSet(SQL_GET + id, address);
     }
 
     @Override

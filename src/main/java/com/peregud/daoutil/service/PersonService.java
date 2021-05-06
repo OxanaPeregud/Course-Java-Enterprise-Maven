@@ -9,15 +9,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PersonService implements DBDataService<Person> {
-    private static final PersonView PERSON_VIEW = new PersonView();
-    private static final DAOPersonRepository PERSON = new DAOPersonRepositoryImpl();
+    private final PersonView personView = new PersonView();
+    private final DAOPersonRepository daoPerson = new DAOPersonRepositoryImpl();
     private final Person person = new Person();
 
     @Override
     public void saveNewData(List<Person> list) {
         try {
             for (Person person : list) {
-                PERSON.save(person);
+                daoPerson.save(person);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -27,7 +27,7 @@ public class PersonService implements DBDataService<Person> {
     @Override
     public void getByID(int id) {
         try {
-            PERSON_VIEW.displayByID(PERSON.get(id));
+            personView.displayByID(daoPerson.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -36,10 +36,10 @@ public class PersonService implements DBDataService<Person> {
     @Override
     public void updateData(int id, int change) {
         try {
-            person.setAge(PERSON.get(id).getAge() + change);
+            person.setAge(daoPerson.get(id).getAge() + change);
             person.setPersonID(id);
-            PERSON.update(person);
-            PERSON_VIEW.displayByID(PERSON.get(id));
+            daoPerson.update(person);
+            personView.displayByID(daoPerson.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class PersonService implements DBDataService<Person> {
     @Override
     public void deleteData(int id) {
         try {
-            PERSON.delete(id);
+            daoPerson.delete(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

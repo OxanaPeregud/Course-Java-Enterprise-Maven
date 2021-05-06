@@ -2,7 +2,6 @@ package com.peregud.daoutil.repository;
 
 import com.peregud.daoutil.model.Person;
 import com.peregud.daoutil.util.DAOUtil;
-import com.peregud.daoutil.util.ReflectionUtil;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -28,14 +27,8 @@ public class DAOPersonRepositoryImpl implements DAOPersonRepository {
 
     @Override
     public Person get(Serializable id) {
-        Map<String, String> param = new HashMap<>();
-        param.put(ReflectionUtil.annotatedField(Person.class, "personID"), "personID");
-        param.put(ReflectionUtil.annotatedField(Person.class, "firstName"), "firstName");
-        param.put(ReflectionUtil.annotatedField(Person.class, "lastName"), "lastName");
-        param.put(ReflectionUtil.annotatedField(Person.class, "age"), "age");
         Person person = new Person();
-        DAOUtil.executeResultSet(SQL_GET + id, param, Person.class, person);
-        return person;
+        return DAOUtil.executeResultSet(SQL_GET + id, person);
     }
 
     @Override

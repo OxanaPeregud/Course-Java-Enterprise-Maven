@@ -12,17 +12,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PersonAddressService implements DBDataService<PersonAddress> {
-    private static final PersonAddressView PERSON_ADDRESS_VIEW = new PersonAddressView();
-    private static final DAOPersonAddressRepository PERSON_ADDRESS = new DAOPersonAddressRepositoryImpl();
+    private final PersonAddressView personAddressView = new PersonAddressView();
+    private final DAOPersonAddressRepository daoPersonAddress = new DAOPersonAddressRepositoryImpl();
     private final PersonAddress personAddress = new PersonAddress();
-    private static final PersonView PERSON_VIEW = new PersonView();
-    private static final DAOPersonRepository PERSON = new DAOPersonRepositoryImpl();
+    private final PersonView personView = new PersonView();
+    private final DAOPersonRepository person = new DAOPersonRepositoryImpl();
 
     @Override
     public void saveNewData(List<PersonAddress> list) {
         try {
             for (PersonAddress personAddress : list) {
-                PERSON_ADDRESS.save(personAddress);
+                daoPersonAddress.save(personAddress);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -32,7 +32,7 @@ public class PersonAddressService implements DBDataService<PersonAddress> {
     @Override
     public void getByID(int id) {
         try {
-            PERSON_ADDRESS_VIEW.displayByID(PERSON_ADDRESS.get(id));
+            personAddressView.displayByID(daoPersonAddress.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -41,13 +41,13 @@ public class PersonAddressService implements DBDataService<PersonAddress> {
     @Override
     public void updateData(int id, int change) {
         try {
-            PERSON_VIEW.displayByID(PERSON.get(id));
-            PERSON_ADDRESS_VIEW.displayByID(PERSON_ADDRESS.get(id));
+            personView.displayByID(person.get(id));
+            personAddressView.displayByID(daoPersonAddress.get(id));
             personAddress.setAddressID(change);
             personAddress.setPersonID(id);
-            PERSON_ADDRESS.update(personAddress);
-            PERSON_VIEW.displayByID(PERSON.get(id));
-            PERSON_ADDRESS_VIEW.displayByID(PERSON_ADDRESS.get(id));
+            daoPersonAddress.update(personAddress);
+            personView.displayByID(person.get(id));
+            personAddressView.displayByID(daoPersonAddress.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class PersonAddressService implements DBDataService<PersonAddress> {
     @Override
     public void deleteData(int id) {
         try {
-            PERSON_ADDRESS.delete(id);
+            daoPersonAddress.delete(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

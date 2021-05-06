@@ -9,15 +9,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AddressService implements DBDataService<Address> {
-    private static final AddressView ADDRESS_VIEW = new AddressView();
-    private static final DAOAddressRepository ADDRESS = new DAOAddressRepositoryImpl();
+    private final AddressView addressView = new AddressView();
+    private final DAOAddressRepository daoAddress = new DAOAddressRepositoryImpl();
     private final Address address = new Address();
 
     @Override
     public void saveNewData(List<Address> list) {
         try {
             for (Address address : list) {
-                ADDRESS.save(address);
+                daoAddress.save(address);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -27,7 +27,7 @@ public class AddressService implements DBDataService<Address> {
     @Override
     public void getByID(int id) {
         try {
-            ADDRESS_VIEW.displayByID(ADDRESS.get(id));
+            addressView.displayByID(daoAddress.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -36,10 +36,10 @@ public class AddressService implements DBDataService<Address> {
     @Override
     public void updateData(int id, int change) {
         try {
-            address.setHouse(ADDRESS.get(id).getHouse() + change);
+            address.setHouse(daoAddress.get(id).getHouse() + change);
             address.setAddressID(id);
-            ADDRESS.update(address);
-            ADDRESS_VIEW.displayByID(ADDRESS.get(id));
+            daoAddress.update(address);
+            addressView.displayByID(daoAddress.get(id));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class AddressService implements DBDataService<Address> {
     @Override
     public void deleteData(int id) {
         try {
-            ADDRESS.delete(id);
+            daoAddress.delete(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
