@@ -17,9 +17,9 @@ import com.peregud.lombok_sql_join.view.PersonView;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Starter {
+public class LombokSQLJoinStarter {
 
-    public static void main(String[] args) throws SQLException {
+    public static void start() throws SQLException {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();
