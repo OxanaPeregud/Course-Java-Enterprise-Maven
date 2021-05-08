@@ -1,14 +1,11 @@
 package com.peregud.dbprocedure.util;
 
 import com.peregud.dbprocedure.model.FieldName;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 
-@Value
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class ReflectionUtil {
 
     public static String annotatedField(Class<?> clazz, String fieldName) {

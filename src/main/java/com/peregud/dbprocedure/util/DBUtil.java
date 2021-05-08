@@ -1,8 +1,6 @@
 package com.peregud.dbprocedure.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 import java.sql.*;
@@ -10,8 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Value
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class DBUtil {
 
     public static void executePreparedStatement(String sql, Map<Integer, Object> param) {

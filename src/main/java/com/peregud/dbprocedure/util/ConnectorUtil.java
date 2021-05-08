@@ -1,15 +1,12 @@
 package com.peregud.dbprocedure.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.experimental.UtilityClass;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Value
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class ConnectorUtil {
     private static Connection conn;
     private static final String SQL_URL;
