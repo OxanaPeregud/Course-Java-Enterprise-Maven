@@ -28,10 +28,11 @@ public class ConnectorUtil {
         return conn;
     }
 
-    public void closeConnection() throws SQLException {
+    public Connection closeConnection() throws SQLException {
         if (conn != null) {
             conn.close();
         }
+        return null;
     }
 
     public String getProperty(String key) {
