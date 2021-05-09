@@ -11,6 +11,6 @@ public interface DAO<T> {
 
     void update(T t) throws SQLException;
 
-    int delete(Serializable id) throws SQLException;
+    void delete(Serializable id) throws SQLException;
 
 }

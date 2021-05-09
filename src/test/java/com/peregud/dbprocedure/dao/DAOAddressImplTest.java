@@ -1,5 +1,6 @@
 package com.peregud.dbprocedure.dao;
 
+import com.peregud.dbprocedure.dao.impl.DAOAddressImpl;
 import com.peregud.dbprocedure.model.Address;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,13 +30,5 @@ class DAOAddressImplTest {
         assertEquals(new Address(1, "Wall Street", 11, 125), DAOAddressImpl.get(1));
         assertNull(DAOAddressImpl.get(2));
         assertNotEquals(new Address(2, "Wall Street", 11, 125), DAOAddressImpl.get(1));
-    }
-
-    @Test
-    void delete() {
-        DAOAddressImpl DAOAddressImpl = mock(DAOAddressImpl.class);
-        when(DAOAddressImpl.delete(1)).thenReturn(1);
-        assertEquals(1, DAOAddressImpl.delete(1));
-        assertNotEquals(0, DAOAddressImpl.delete(1));
     }
 }

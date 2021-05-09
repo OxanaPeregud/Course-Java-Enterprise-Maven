@@ -74,15 +74,12 @@ public class DBUtil {
         return t;
     }
 
-    public int executeStatement(String sql) {
-        int value = 0;
+    public void executeStatement(String sql) {
         Statement stmt = null;
         try {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
-            if (stmt.execute(sql)) {
-                value = 1;
-            };
+            stmt.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -95,7 +92,6 @@ public class DBUtil {
                 e.printStackTrace();
             }
         }
-        return value;
     }
 
     public void executeBatch(List<String> sqlList) {

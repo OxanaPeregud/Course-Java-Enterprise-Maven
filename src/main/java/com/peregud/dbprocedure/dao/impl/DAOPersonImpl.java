@@ -1,5 +1,6 @@
-package com.peregud.dbprocedure.dao;
+package com.peregud.dbprocedure.dao.impl;
 
+import com.peregud.dbprocedure.dao.DAOPerson;
 import com.peregud.dbprocedure.model.Person;
 import com.peregud.dbprocedure.util.DBUtil;
 
@@ -40,7 +41,7 @@ public class DAOPersonImpl implements DAOPerson {
     }
 
     @Override
-    public int delete(Serializable id) {
-        return DBUtil.executeStatement(SQL_DELETE + id);
+    public void delete(Serializable id) {
+        DBUtil.executeStatement(SQL_DELETE + id);
     }
 }

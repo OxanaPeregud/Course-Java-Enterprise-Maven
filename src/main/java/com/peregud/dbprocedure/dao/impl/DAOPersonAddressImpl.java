@@ -1,5 +1,6 @@
-package com.peregud.dbprocedure.dao;
+package com.peregud.dbprocedure.dao.impl;
 
+import com.peregud.dbprocedure.dao.DAOPersonAddress;
 import com.peregud.dbprocedure.model.PersonAddress;
 import com.peregud.dbprocedure.util.DBUtil;
 
@@ -37,7 +38,7 @@ public class DAOPersonAddressImpl implements DAOPersonAddress {
     }
 
     @Override
-    public int delete(Serializable id) {
-        return DBUtil.executeStatement(SQL_DELETE + id);
+    public void delete(Serializable id) {
+        DBUtil.executeStatement(SQL_DELETE + id);
     }
 }
