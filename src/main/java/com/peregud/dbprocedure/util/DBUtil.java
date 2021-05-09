@@ -11,7 +11,7 @@ import java.util.Map;
 @UtilityClass
 public class DBUtil {
 
-    public static void executePreparedStatement(String sql, Map<Integer, Object> param) {
+    public void executePreparedStatement(String sql, Map<Integer, Object> param) {
         PreparedStatement preparedStmt = null;
         try {
             Connection conn = ConnectorUtil.getConnection();
@@ -36,7 +36,7 @@ public class DBUtil {
         }
     }
 
-    public static <T> T executeResultSet(String sql, T t) {
+    public <T> T executeResultSet(String sql, T t) {
         Statement stmt = null;
         ResultSet rs = null;
         Map<String, String> param = new HashMap<>();
@@ -74,12 +74,15 @@ public class DBUtil {
         return t;
     }
 
-    public static void executeStatement(String sql) {
+    public int executeStatement(String sql) {
+        int value = 0;
         Statement stmt = null;
         try {
             Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
-            stmt.execute(sql);
+            if (stmt.execute(sql)) {
+                value = 1;
+            };
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -92,9 +95,10 @@ public class DBUtil {
                 e.printStackTrace();
             }
         }
+        return value;
     }
 
-    public static void executeBatch(List<String> sqlList) {
+    public void executeBatch(List<String> sqlList) {
         Statement stmt = null;
         Connection conn = null;
         try {
@@ -127,8 +131,8 @@ public class DBUtil {
         }
     }
 
-    public static void executeProcedure(String sql, Map<Integer, Object> paramIn,
-                                        Map<Integer, Integer> paramOut) {
+    public void executeProcedure(String sql, Map<Integer, Object> paramIn,
+                                 Map<Integer, Integer> paramOut) {
         CallableStatement cs = null;
         Connection conn = null;
         try {

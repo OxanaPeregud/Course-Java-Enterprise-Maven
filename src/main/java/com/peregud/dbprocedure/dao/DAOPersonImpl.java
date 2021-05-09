@@ -15,13 +15,14 @@ public class DAOPersonImpl implements DAOPerson {
     private static final String SQL_DELETE = "DELETE FROM personDB.person WHERE person_id = ";
 
     @Override
-    public void save(Person person) {
+    public Person save(Person person) {
         Map<Integer, Object> param = new HashMap<>();
         param.put(1, person.getPersonID());
         param.put(2, person.getFirstName());
         param.put(3, person.getLastName());
         param.put(4, person.getAge());
         DBUtil.executePreparedStatement(SQL_SAVE, param);
+        return person;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class DAOPersonImpl implements DAOPerson {
     }
 
     @Override
-    public void delete(Serializable id) {
-        DBUtil.executeStatement(SQL_DELETE + id);
+    public int delete(Serializable id) {
+        return DBUtil.executeStatement(SQL_DELETE + id);
     }
 }

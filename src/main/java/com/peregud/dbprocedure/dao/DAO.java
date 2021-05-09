@@ -5,12 +5,12 @@ import java.sql.SQLException;
 
 public interface DAO<T> {
 
-    void save(T t) throws SQLException;
+    T save(T t) throws SQLException;
 
     T get(Serializable id) throws SQLException;
 
     void update(T t) throws SQLException;
 
-    void delete(Serializable id) throws SQLException;
+    int delete(Serializable id) throws SQLException;
 
 }

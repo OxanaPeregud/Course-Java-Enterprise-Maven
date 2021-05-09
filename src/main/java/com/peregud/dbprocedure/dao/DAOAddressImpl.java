@@ -15,13 +15,14 @@ public class DAOAddressImpl implements DAOAddress {
     private static final String SQL_DELETE = "DELETE FROM personDB.address WHERE address_id = ";
 
     @Override
-    public void save(Address address) {
+    public Address save(Address address) {
         Map<Integer, Object> param = new HashMap<>();
         param.put(1, address.getAddressID());
         param.put(2, address.getStreet());
         param.put(3, address.getHouse());
         param.put(4, address.getApartment());
         DBUtil.executePreparedStatement(SQL_SAVE, param);
+        return address;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class DAOAddressImpl implements DAOAddress {
     }
 
     @Override
-    public void delete(Serializable id) {
-        DBUtil.executeStatement(SQL_DELETE + id);
+    public int delete(Serializable id) {
+        return DBUtil.executeStatement(SQL_DELETE + id);
     }
 }

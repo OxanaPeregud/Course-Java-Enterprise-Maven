@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 @UtilityClass
 public class ReflectionUtil {
 
-    public static String annotatedField(Class<?> clazz, String fieldName) {
+    public String annotatedField(Class<?> clazz, String fieldName) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
