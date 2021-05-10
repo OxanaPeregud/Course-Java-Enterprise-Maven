@@ -35,9 +35,6 @@ class ReflectionUtilTest {
         Assertions.assertFalse(Modifier.isPrivate(clazz.getModifiers()));
     }
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void testException() {
         try {
