@@ -8,9 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -45,19 +43,25 @@ class DBUtilTest {
     }
 
     @Test
-    public void createPerson() {
+    public void savePerson() {
         DataSource ds = mock(DataSource.class);
         Person person = mock(Person.class);
         new DAOPersonImpl(ds).save(person);
     }
 
     @Test
-    public void createAndRetrievePerson() {
+    public void saveAndGetPerson() {
         DataSource ds = mock(DataSource.class);
         Person person = mock(Person.class);
         DAOPersonImpl dao = new DAOPersonImpl(ds);
         dao.save(person);
-        Person person1 = dao.get(1);
-        assertEquals(new Person(1, "James", "Smith", 50), person1);
+        Person person1 = dao.get(5);
+        assertEquals(new Person(5, "Richard", "Jones", 18), person1);
+    }
+
+    @Test
+    public void deletePerson() {
+        DataSource ds = mock(DataSource.class);
+        new DAOPersonImpl(ds).delete(10000);
     }
 }
