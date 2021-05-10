@@ -17,11 +17,7 @@ public class ConnectorUtil {
     private final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("database");
 
     public Connection getConnection() throws SQLException {
-        try {
-            Class.forName(getProperty(DATABASE_DRIVER_NAME));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("JDBC Driver Cannot be loaded!");
-        }
+        loadDriver();
         if (conn == null || conn.isClosed()) {
             conn = DriverManager.getConnection(getProperty(SQL_URL), getProperty(USER), getProperty(PASSWORD));
         }
@@ -33,6 +29,14 @@ public class ConnectorUtil {
             conn.close();
         }
         return null;
+    }
+
+    public void loadDriver() {
+        try {
+            Class.forName(getProperty(DATABASE_DRIVER_NAME));
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("JDBC Driver Cannot be loaded!");
+        }
     }
 
     public String getProperty(String key) {

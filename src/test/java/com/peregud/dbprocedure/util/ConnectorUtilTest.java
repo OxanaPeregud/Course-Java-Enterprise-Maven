@@ -42,4 +42,13 @@ class ConnectorUtilTest {
         }
         Assertions.assertFalse(Modifier.isPrivate(clazz.getModifiers()));
     }
+
+    @Test
+    public void testException() {
+        try {
+            Class.forName("None");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

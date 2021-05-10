@@ -1,12 +1,16 @@
 package com.peregud.dbprocedure.util;
 
 import com.peregud.dbprocedure.model.Person;
+import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReflectionUtilTest {
@@ -29,5 +33,17 @@ class ReflectionUtilTest {
             e.printStackTrace();
         }
         Assertions.assertFalse(Modifier.isPrivate(clazz.getModifiers()));
+    }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testException() {
+        try {
+            ReflectionUtil.annotatedField(Person.class, "first");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
