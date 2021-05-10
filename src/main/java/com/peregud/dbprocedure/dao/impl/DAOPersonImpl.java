@@ -4,6 +4,7 @@ import com.peregud.dbprocedure.dao.DAOPerson;
 import com.peregud.dbprocedure.model.Person;
 import com.peregud.dbprocedure.util.DBUtil;
 
+import javax.sql.DataSource;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,11 @@ public class DAOPersonImpl implements DAOPerson {
     private static final String SQL_GET = "SELECT * FROM personDB.person WHERE person_id = ";
     private static final String SQL_UPDATE = "UPDATE personDB.person SET age = ? WHERE person_id = ?";
     private static final String SQL_DELETE = "DELETE FROM personDB.person WHERE person_id = ";
+    private DataSource ds;
+
+    public DAOPersonImpl(DataSource ds) {
+        this.ds = ds;
+    }
 
     @Override
     public Person save(Person person) {

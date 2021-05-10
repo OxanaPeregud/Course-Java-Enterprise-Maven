@@ -12,7 +12,7 @@ public class DBCreatorUtil {
     public void createPersonAddressDatabase() {
         Statement stmt = null;
         try {
-            Connection conn = com.peregud.daoutil.util.ConnectorUtil.getConnection();
+            Connection conn = ConnectorUtil.getConnection();
             stmt = conn.createStatement();
             String sql1 = "DROP SCHEMA IF EXISTS `PersonDB`";
             String sql2 = "CREATE SCHEMA IF NOT EXISTS `PersonDB`";
