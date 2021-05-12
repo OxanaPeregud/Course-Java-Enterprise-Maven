@@ -2,6 +2,7 @@ package com.peregud.dbprocedure.service;
 
 import com.peregud.dbprocedure.util.DBUtil;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class BatchService {
             "INSERT INTO personDB.person_address VALUES (3, 3, 1)",
             "INSERT INTO personDB.person_address VALUES (4, 4, 5)",
             "INSERT INTO personDB.person_address VALUES (5, 5, 4)");
+    private DataSource ds;
+
+    public BatchService(DataSource ds) {
+        this.ds = ds;
+    }
 
     public static void save() {
         DBUtil.executeBatch(SQL_LIST);

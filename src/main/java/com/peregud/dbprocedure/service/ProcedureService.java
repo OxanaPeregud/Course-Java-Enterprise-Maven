@@ -2,6 +2,7 @@ package com.peregud.dbprocedure.service;
 
 import com.peregud.dbprocedure.util.DBUtil;
 
+import javax.sql.DataSource;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,11 @@ public class ProcedureService {
     private static final String SQL_UPDATE_ADDRESS = "{call updateAddress (?, ?, ?, ?)}";
     private static final String SQL_DELETE = "{call deletePersonAddress (?, ?)}";
     private static final String SQL_DELETE_UPDATE = "{call deleteAndUpdate (?, ?, ?, ?)}";
+    private DataSource ds;
+
+    public ProcedureService(DataSource ds) {
+        this.ds = ds;
+    }
 
     public static void updateAge() {
         Map<Integer, Object> paramIn = new HashMap<>();
