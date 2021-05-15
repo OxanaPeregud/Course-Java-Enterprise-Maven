@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity(name = "Address")
 @Table(name = "Address")
 public class Address implements Serializable {
     @Id
@@ -27,6 +27,9 @@ public class Address implements Serializable {
     private int house;
     @Column
     private int apartment;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "address")
-    private Set<Person> person = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER,
+            mappedBy = "address",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<PersonAddress> personAddress = new ArrayList<>();
 }

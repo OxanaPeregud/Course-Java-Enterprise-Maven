@@ -11,7 +11,7 @@ public class HibernateUtil {
     private final EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("com.peregud.hibernate");
 
-    public EntityManager getEntityManager() {
+    public EntityManager createEntityManager() {
         return ENTITY_MANAGER_FACTORY.createEntityManager();
     }
 

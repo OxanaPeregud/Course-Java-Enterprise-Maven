@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity(name = "Person")
 @Table(name = "Person")
 public class Person implements Serializable {
     @Id
@@ -27,11 +27,9 @@ public class Person implements Serializable {
     private String lastName;
     @Column
     private int age;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "Person_Address",
-            joinColumns = {@JoinColumn(name = "person_id")},
-            inverseJoinColumns = {@JoinColumn(name = "address_id")}
-    )
-    Set<Address> address = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER,
+            mappedBy = "person",
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true)
+    private List<PersonAddress> personAddress = new ArrayList<>();
 }
