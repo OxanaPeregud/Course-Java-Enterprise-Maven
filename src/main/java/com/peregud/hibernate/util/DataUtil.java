@@ -5,6 +5,8 @@ import com.peregud.hibernate.model.Person;
 import lombok.experimental.UtilityClass;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 
 @UtilityClass
@@ -42,6 +44,21 @@ public class DataUtil {
         entityManager.getTransaction().begin();
         Person person = entityManager.find(Person.class, id);
         person.setAge(person.getAge() + 1);
+        entityManager.getTransaction().commit();
+        HibernateUtil.close();
+    }
+
+    public void updateAgeProcedure(int id) {
+        EntityManager entityManager = HibernateUtil.createEntityManager();
+        entityManager.getTransaction().begin();
+        StoredProcedureQuery spQuery =
+                entityManager.createNamedStoredProcedureQuery("updateAge")
+                        .registerStoredProcedureParameter(
+                                1, Integer.class, ParameterMode.IN)
+                        .registerStoredProcedureParameter(
+                                2, Integer.class, ParameterMode.OUT)
+                        .setParameter(1, id);
+        spQuery.execute();
         entityManager.getTransaction().commit();
         HibernateUtil.close();
     }

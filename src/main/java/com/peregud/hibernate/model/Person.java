@@ -14,6 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@NamedStoredProcedureQuery(
+        name = "updateAge",
+        procedureName = "updateAge",
+        resultClasses = {Person.class}
+)
 @Entity(name = "Person")
 @Table(name = "Person")
 public class Person implements Serializable {
