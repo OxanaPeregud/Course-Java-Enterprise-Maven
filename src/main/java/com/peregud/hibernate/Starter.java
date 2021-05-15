@@ -11,9 +11,12 @@ public class Starter {
         DataUtil.persistData(DataBuilderUtil.buildAddress(5));
         System.out.println(DataUtil.findData(Person.class, 2));
         System.out.println(DataUtil.findData(Address.class, 2));
-        DataUtil.updateAge(1);
-        DataUtil.updateAgeProcedure(1);
+        DataUtil.callProcedure("updateAge",1);
+        DataUtil.callProcedure("updateAddress",1);
+        DataUtil.callProcedure("deletePerson",5);
+        DataUtil.callProcedure("deleteAddress",5);
         DataUtil.updateAddress(1);
+        DataUtil.updateAge(1);
         DataUtil.removeData(Person.class, 5);
         DataUtil.removeData(Address.class, 5);
     }

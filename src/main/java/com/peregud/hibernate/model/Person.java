@@ -14,11 +14,25 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@NamedStoredProcedureQuery(
-        name = "updateAge",
-        procedureName = "updateAge",
-        resultClasses = {Person.class}
-)
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "updateAge",
+                procedureName = "updateAge",
+                parameters = {
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.IN, name = "id", type = Integer.class),
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.OUT, name = "age", type = Integer.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "deletePerson",
+                procedureName = "deletePerson",
+                parameters = {
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.IN, name = "id", type = Integer.class)
+                }
+        )})
 @Entity(name = "Person")
 @Table(name = "Person")
 public class Person implements Serializable {

@@ -14,6 +14,27 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "updateAddress",
+                procedureName = "updateAddress",
+                parameters = {
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.IN, name = "id", type = Integer.class),
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.OUT, name = "house", type = Integer.class),
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.OUT, name = "apartment", type = Integer.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "deleteAddress",
+                procedureName = "deleteAddress",
+                parameters = {
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.IN, name = "id", type = Integer.class)
+                }
+        )})
 @Entity(name = "Address")
 @Table(name = "Address")
 public class Address implements Serializable {
