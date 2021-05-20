@@ -1,4 +1,5 @@
-create table person
+drop table if exists person;
+create table if not exists person
 (
     person_id  int auto_increment
         primary key,
@@ -7,7 +8,8 @@ create table person
     age        int         not null
 );
 
-create table address
+drop table if exists address;
+create table if not exists address
 (
     address_id int auto_increment
         primary key,
@@ -16,7 +18,8 @@ create table address
     apartment  int         not null
 );
 
-create table person_address
+drop table if exists person_address;
+create table if not exists person_address
 (
     id                 int auto_increment
         primary key,
