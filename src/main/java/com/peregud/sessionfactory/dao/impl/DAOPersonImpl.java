@@ -1,30 +1,33 @@
 package com.peregud.sessionfactory.dao.impl;
 
-import com.peregud.sessionfactory.model.Person;
+import com.peregud.sessionfactory.dao.DAO;
 import com.peregud.sessionfactory.dao.DAOPerson;
 import com.peregud.sessionfactory.exceptions.DaoException;
-import com.peregud.sessionfactory.util.DataUtil;
+import com.peregud.sessionfactory.model.Person;
 
-public class DAOPersonImpl implements DAOPerson {
+import java.sql.SQLException;
+
+public class DAOPersonImpl extends DAOImpl<Person> implements DAOPerson {
+    private final DAO<Person> dao = new DAOImpl<>();
 
     @Override
-    public Person save(Person person) throws DaoException {
-        return DataUtil.save(person);
+    public Person save(Person person) throws DaoException, SQLException {
+        return dao.save(person);
     }
 
     @Override
-    public Person get(int id) throws DaoException {
-        return DataUtil.get(Person.class, id);
+    public Person get(Class<Person> clazz, int id) throws DaoException, SQLException {
+        return dao.get(Person.class, id);
     }
 
     @Override
-    public void update(int id, int value)
-            throws DaoException, NoSuchFieldException, IllegalAccessException {
-        DataUtil.update(Person.class, id, "age", value);
+    public void update(Class<Person> clazz, int id, String fieldName, int value)
+            throws DaoException, NoSuchFieldException, IllegalAccessException, SQLException {
+        dao.update(Person.class, id, fieldName, value);
     }
 
     @Override
-    public void delete(int id) throws DaoException {
-        DataUtil.delete(Person.class, id);
+    public void delete(Class<Person> clazz, int id) throws DaoException, SQLException {
+        dao.delete(Person.class, id);
     }
 }

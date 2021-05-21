@@ -1,30 +1,33 @@
 package com.peregud.sessionfactory.dao.impl;
 
-import com.peregud.sessionfactory.model.Address;
+import com.peregud.sessionfactory.dao.DAO;
 import com.peregud.sessionfactory.dao.DAOAddress;
 import com.peregud.sessionfactory.exceptions.DaoException;
-import com.peregud.sessionfactory.util.DataUtil;
+import com.peregud.sessionfactory.model.Address;
 
-public class DAOAddressImpl implements DAOAddress {
+import java.sql.SQLException;
+
+public class DAOAddressImpl extends DAOImpl<Address> implements DAOAddress {
+    private final DAO<Address> dao = new DAOImpl<>();
 
     @Override
-    public Address save(Address address) throws DaoException {
-        return DataUtil.save(address);
+    public Address save(Address address) throws DaoException, SQLException {
+        return dao.save(address);
     }
 
     @Override
-    public Address get(int id) throws DaoException {
-        return DataUtil.get(Address.class, id);
+    public Address get(Class<Address> clazz, int id) throws DaoException, SQLException {
+        return dao.get(Address.class, id);
     }
 
     @Override
-    public void update(int id, int value)
-            throws DaoException, NoSuchFieldException, IllegalAccessException {
-        DataUtil.update(Address.class, id, "house", value);
+    public void update(Class<Address> clazz, int id, String fieldName, int value)
+            throws DaoException, NoSuchFieldException, IllegalAccessException, SQLException {
+        dao.update(Address.class, id, fieldName, value);
     }
 
     @Override
-    public void delete(int id) throws DaoException {
-        DataUtil.delete(Address.class, id);
+    public void delete(Class<Address> clazz, int id) throws DaoException, SQLException {
+        dao.delete(Address.class, id);
     }
 }

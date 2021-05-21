@@ -1,10 +1,10 @@
 package com.peregud.sessionfactory;
 
 import com.peregud.sessionfactory.model.Address;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class SessionFactoryAddressTest extends SessionFactoryTest {
 
@@ -35,6 +35,6 @@ public class SessionFactoryAddressTest extends SessionFactoryTest {
         Address address = Address.builder().street("Canal Street").house(1).apartment(1).build();
         session.save(address);
         session.delete(address);
-        Assert.assertNull(session.get(Address.class, address.getId()));
+        assertNull(session.get(Address.class, address.getId()));
     }
 }

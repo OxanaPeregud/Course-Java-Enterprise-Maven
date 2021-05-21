@@ -8,10 +8,11 @@ public interface DAO<T> {
 
     T save(T t) throws SQLException, DaoException;
 
-    T get(int id) throws SQLException, DaoException;
+    T get(Class<T> clazz, int id) throws SQLException, DaoException;
 
-    void update(int id, int value) throws SQLException, DaoException, NoSuchFieldException, IllegalAccessException;
+    void update(Class<T> clazz, int id, String fieldName, int value) throws SQLException, DaoException,
+            NoSuchFieldException, IllegalAccessException;
 
-    void delete(int id) throws SQLException, DaoException;
+    void delete(Class<T> clazz, int id) throws SQLException, DaoException;
 
 }
