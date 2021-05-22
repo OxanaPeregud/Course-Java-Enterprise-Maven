@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="08" author="Oxana">
+        <comment>Creating Procedure to Update Age Person</comment>
+        <createProcedure dbms="h2, !oracle, mysql"
+                         encoding="UTF-8"
+                         procedureName="updateAge"
+                         relativeToChangelogFile="true"
+                         schemaName="people">
+            CREATE PROCEDURE updateAge(IN personId INT,
+            OUT person_age INT)
+            BEGIN
+            UPDATE people.person
+            SET people.person.age = people.person.age + 1
+            WHERE person_id = personId;
+            SELECT people.person.age
+            INTO person_age
+            FROM people.person
+            WHERE people.person.person_id = personId;
+            END;
+        </createProcedure>
+    </changeSet>
+</databaseChangeLog>

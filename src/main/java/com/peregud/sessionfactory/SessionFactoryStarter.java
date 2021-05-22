@@ -12,9 +12,16 @@ import com.peregud.sessionfactory.dao.impl.DAOImpl;
 
 import java.sql.SQLException;
 
-public class Starter {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SessionFactoryStarter {
     public static void main(String[] args)
             throws DaoException, NoSuchFieldException, IllegalAccessException, SQLException {
+
+        SpringApplication.run(SessionFactoryStarter.class, args);
+
         DAOImpl<Person> dao = new DAOImpl<>();
         DAOPerson daoPerson = new DAOPersonImpl();
         DAOAddress daoAddress = new DAOAddressImpl();
