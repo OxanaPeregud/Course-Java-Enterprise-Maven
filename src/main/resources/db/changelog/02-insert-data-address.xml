@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="03" author="Oxana">
+        <comment>Inserting Addresses</comment>
+        <insert tableName="address">
+            <column name="id" valueNumeric="1"/>
+            <column name="street" value="Wall Street"/>
+            <column name="house" value="11"/>
+            <column name="apartment" value="52"/>
+            <column name="person" valueNumeric="01"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="2"/>
+            <column name="street" value="Broadway"/>
+            <column name="house" value="52"/>
+            <column name="apartment" value="15"/>
+            <column name="person" valueNumeric="02"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="3"/>
+            <column name="street" value="Bowery"/>
+            <column name="house" value="8"/>
+            <column name="apartment" value="93"/>
+            <column name="person" valueNumeric="03"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="4"/>
+            <column name="street" value="Houston Street"/>
+            <column name="house" value="135"/>
+            <column name="apartment" value="11"/>
+            <column name="person" valueNumeric="04"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="5"/>
+            <column name="street" value="Canal Street"/>
+            <column name="house" value="5"/>
+            <column name="apartment" value="19"/>
+            <column name="person" valueNumeric="05"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
