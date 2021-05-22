@@ -5,3 +5,15 @@ databaseChangeLog:
       file: db/changelog/02-insert-data-person.xml
   - include:
       file: db/changelog/02-insert-data-address.xml
+  - include:
+      file: db/changelog/03-update-data-person.xml
+  - include:
+      file: db/changelog/03-update-data-address.xml
+  - include:
+      file: db/changelog/04-delete-data-address.xml
+  - include:
+      file: db/changelog/04-delete-data-person.xml
+  - include:
+      file: db/changelog/05-create-procedure-person.xml
+  - include:
+      file: db/changelog/05-create-procedure-address.xml
