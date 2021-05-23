@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01" author="Oxana">
+        <comment>Creating Tables</comment>
+        <createTable tableName="address"
+                     remarks="A table to contain all addresses">
+            <column name="address_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="street" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="house" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="apartment" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="person"
+                     remarks="A table to contain all people">
+            <column name="person_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="person_address"
+                     remarks="A table to contain all people's addresses">
+            <column name="address_address_id" type="int" autoIncrement="false">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="person_person_id" type="int" autoIncrement="false">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="person_address" baseColumnNames="person_person_id"
+                                 constraintName="person_person_id_fk"
+                                 referencedTableName="person" referencedColumnNames="person_id"/>
+        <addForeignKeyConstraint baseTableName="person_address" baseColumnNames="address_address_id"
+                                 constraintName="address_address_id_fk"
+                                 referencedTableName="address" referencedColumnNames="address_id"/>
+    </changeSet>
+</databaseChangeLog>

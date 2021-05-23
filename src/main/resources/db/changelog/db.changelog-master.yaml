@@ -1,6 +1,6 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/01-create-person-and-address-schema.xml
+      file: db/changelog/01-create-person-address-schema.xml
   - include:
       file: db/changelog/02-insert-data-person.xml
   - include:
