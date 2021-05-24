@@ -8,7 +8,7 @@ import com.peregud.sessionfactory.exceptions.DaoException;
 import com.peregud.sessionfactory.model.Address;
 import com.peregud.sessionfactory.model.Person;
 import com.peregud.sessionfactory.util.DataGeneratorUtil;
-import com.peregud.sessionfactory.dao.impl.DAOImpl;
+import com.peregud.sessionfactory.dao.impl.AbstractDAO;
 
 import java.sql.SQLException;
 
@@ -22,18 +22,17 @@ public class SessionFactoryStarter {
 
         SpringApplication.run(SessionFactoryStarter.class, args);
 
-        DAOImpl<Person> dao = new DAOImpl<>();
         DAOPerson daoPerson = new DAOPersonImpl();
         DAOAddress daoAddress = new DAOAddressImpl();
         daoPerson.save(DataGeneratorUtil.buildPerson());
         daoAddress.save(DataGeneratorUtil.buildAddress());
-        System.out.println(daoPerson.get(Person.class, 165));
-        System.out.println(daoAddress.get(Address.class, 10));
-        daoPerson.update(Person.class, 165, "age", 30);
-        daoAddress.update(Address.class, 10, "house", 150);
-        daoPerson.delete(Person.class, 171);
-        daoAddress.delete(Address.class, 12);
-        dao.callProcedure("updateAge", 165);
-        DAOImpl.getUTIL().closeSession();
+        System.out.println(daoPerson.get(Person.class, 1));
+        System.out.println(daoAddress.get(Address.class, 1));
+        daoPerson.update(Person.class, 2, "age", 30);
+        daoAddress.update(Address.class, 2, "house", 150);
+        daoPerson.delete(Person.class, 3);
+        daoAddress.delete(Address.class, 3);
+        daoPerson.callProcedure("updateAge", 1);
+        AbstractDAO.getUTIL().closeSession();
     }
 }

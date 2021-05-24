@@ -1,6 +1,5 @@
 package com.peregud.sessionfactory.dao.impl;
 
-import com.peregud.sessionfactory.dao.DAO;
 import com.peregud.sessionfactory.exceptions.DaoException;
 import com.peregud.sessionfactory.util.SessionUtil;
 import lombok.Getter;
@@ -13,14 +12,13 @@ import javax.persistence.StoredProcedureQuery;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 
-public class DAOImpl<T> implements DAO<T> {
+public abstract class AbstractDAO<T> {
     @Getter
     private static final SessionUtil UTIL = new SessionUtil();
     private final Session session = UTIL.openSession();
     private final Transaction transaction = session.getTransaction();
-    private final Logger log = Logger.getLogger(DAOImpl.class);
+    private final Logger log = Logger.getLogger(AbstractDAO.class);
 
-    @Override
     public T save(T t) throws SQLException, DaoException {
         try {
             transaction.begin();
@@ -34,7 +32,6 @@ public class DAOImpl<T> implements DAO<T> {
         return t;
     }
 
-    @Override
     public T get(Class<T> clazz, int id) throws SQLException, DaoException {
         T t;
         try {
@@ -49,8 +46,6 @@ public class DAOImpl<T> implements DAO<T> {
         return t;
     }
 
-
-    @Override
     public void update(Class<T> clazz, int id, String fieldName, int value) throws SQLException, DaoException,
             NoSuchFieldException, IllegalAccessException {
         try {
@@ -67,7 +62,6 @@ public class DAOImpl<T> implements DAO<T> {
         }
     }
 
-    @Override
     public void delete(Class<T> clazz, int id) throws SQLException, DaoException {
         try {
             transaction.begin();

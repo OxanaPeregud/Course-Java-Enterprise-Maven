@@ -15,4 +15,6 @@ public interface DAO<T> {
 
     void delete(Class<T> clazz, int id) throws SQLException, DaoException;
 
+    void callProcedure(String procedure, int id) throws DaoException;
+
 }
