@@ -1,8 +1,16 @@
 package com.peregud.encapsulationofbehavior;
 
+import lombok.Setter;
+
+@Setter
 public abstract class Employee {
-    WorkBehavior workBehavior;
-    EatBehavior eatBehavior;
+    private WorkBehavior workBehavior;
+    private EatBehavior eatBehavior;
+
+    public Employee(WorkBehavior workBehavior, EatBehavior eatBehavior) {
+        this.workBehavior = workBehavior;
+        this.eatBehavior = eatBehavior;
+    }
 
     public void startWork() {
         System.out.println("Employee starts working at 9:00 a.m.");
@@ -26,11 +34,4 @@ public abstract class Employee {
         System.out.println("Employee finishes working at 6:00 p.m.");
     }
 
-    public void setWorkBehavior(WorkBehavior wb) {
-        workBehavior = wb;
-    }
-
-    public void setEatBehavior(EatBehavior eb) {
-        eatBehavior = eb;
-    }
 }

@@ -2,9 +2,8 @@ package com.peregud.encapsulationofbehavior;
 
 public class Programmer extends Employee {
 
-    public Programmer() {
-        workBehavior = new WorkFromHome();
-        eatBehavior = new EatAtHome();
+    public Programmer(WorkBehavior workBehavior, EatBehavior eatBehavior) {
+        super(workBehavior, eatBehavior);
     }
 
     @Override

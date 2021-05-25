@@ -2,9 +2,8 @@ package com.peregud.encapsulationofbehavior;
 
 public class Manager extends Employee {
 
-    public Manager() {
-        workBehavior = new WorkInOffice();
-        eatBehavior = new EatInCafe();
+    public Manager(WorkBehavior workBehavior, EatBehavior eatBehavior) {
+        super(workBehavior, eatBehavior);
     }
 
     @Override
