@@ -191,6 +191,9 @@
                         <exclude>**/view/*</exclude>
                         <exclude>**/daoutil/**/*</exclude>
                         <exclude>**/dbprocedure/**/*</exclude>
+                        <exclude>**/encapsulationofbehavior/**/*</exclude>
+                        <exclude>**/hibernate/**/*</exclude>
+                        <exclude>**/liquibase/**/*</exclude>
                         <exclude>**/lombok/**/*</exclude>
                         <exclude>**/patternbuilder/**/*</exclude>
                         <exclude>**/patternfactory/**/*</exclude>
