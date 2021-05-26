@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class PatternStrategyStarter {
     public final static double MASTER_JAVA_TIME = 66;
 
-    public static void start() {
+    public static void main(String[] args) {
         List<Student> studentList = Arrays.asList(
                 new StudentTypeOne(TalentUtil.getTalent()),
                 new StudentTypeOne(TalentUtil.getTalent()),

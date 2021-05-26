@@ -2,26 +2,19 @@ package com.peregud.sessionfactory;
 
 import com.peregud.sessionfactory.dao.DAOAddress;
 import com.peregud.sessionfactory.dao.DAOPerson;
+import com.peregud.sessionfactory.dao.impl.AbstractDAO;
 import com.peregud.sessionfactory.dao.impl.DAOAddressImpl;
 import com.peregud.sessionfactory.dao.impl.DAOPersonImpl;
 import com.peregud.sessionfactory.exceptions.DaoException;
 import com.peregud.sessionfactory.model.Address;
 import com.peregud.sessionfactory.model.Person;
 import com.peregud.sessionfactory.util.DataGeneratorUtil;
-import com.peregud.sessionfactory.dao.impl.AbstractDAO;
 
 import java.sql.SQLException;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
 public class SessionFactoryStarter {
-    public static void main(String[] args)
-            throws DaoException, NoSuchFieldException, IllegalAccessException, SQLException {
 
-        SpringApplication.run(SessionFactoryStarter.class, args);
-
+    public static void main(String[] args) throws DaoException, NoSuchFieldException, IllegalAccessException, SQLException {
         DAOPerson daoPerson = new DAOPersonImpl();
         DAOAddress daoAddress = new DAOAddressImpl();
         daoPerson.save(DataGeneratorUtil.buildPerson());

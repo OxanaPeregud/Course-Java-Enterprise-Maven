@@ -19,7 +19,7 @@ import java.util.List;
 
 public class LombokStarter {
 
-    public static void start() throws SQLException {
+    public static void main(String[] args) throws SQLException {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();

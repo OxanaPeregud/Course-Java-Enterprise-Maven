@@ -16,7 +16,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SQLJoinStarter {
-    public static void start() throws SQLException {
+
+    public static void main(String[] args) throws SQLException {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();

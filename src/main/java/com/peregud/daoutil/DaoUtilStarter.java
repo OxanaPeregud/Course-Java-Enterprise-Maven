@@ -8,7 +8,7 @@ import com.peregud.daoutil.util.DataBuilderUtil;
 
 public class DaoUtilStarter {
 
-    public static void start() {
+    public static void main(String[] args) {
         DBCreatorUtil.createPersonAddressDatabase();
         PersonService personService = new PersonService();
         AddressService addressService = new AddressService();

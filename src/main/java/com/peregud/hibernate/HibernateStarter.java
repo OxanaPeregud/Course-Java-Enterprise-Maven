@@ -5,7 +5,7 @@ import com.peregud.hibernate.model.Person;
 import com.peregud.hibernate.util.DataBuilderUtil;
 import com.peregud.hibernate.util.DataUtil;
 
-public class Starter {
+public class HibernateStarter {
     public static void main(String[] args) {
         DataUtil.persistData(DataBuilderUtil.buildPerson(5));
         DataUtil.persistData(DataBuilderUtil.buildAddress(5));

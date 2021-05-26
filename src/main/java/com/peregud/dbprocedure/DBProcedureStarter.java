@@ -5,7 +5,7 @@ import com.peregud.dbprocedure.service.ProcedureService;
 
 public class DBProcedureStarter {
 
-    public static void start() {
+    public static void main(String[] args) {
         BatchService.save();
         ProcedureService.updateAge();
         ProcedureService.updateAddress();

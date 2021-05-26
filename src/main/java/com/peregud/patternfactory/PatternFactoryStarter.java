@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class PatternFactoryStarter {
     public static final double MASTER_JAVA_TIME = 66;
 
-    public static void start() {
+    public static void main(String[] args) {
         List<Study> studyList = Arrays.asList(
                 StudentFactory.createStudent(Student.TYPE_ONE),
                 StudentFactory.createStudent(Student.TYPE_ONE),

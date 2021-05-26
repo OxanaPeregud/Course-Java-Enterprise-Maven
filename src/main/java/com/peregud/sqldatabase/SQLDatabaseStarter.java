@@ -4,7 +4,7 @@ import java.util.List;
 
 public class SQLDatabaseStarter {
 
-    public static void start() {
+    public static void main(String[] args) {
         CreateDatabaseService.createDatabase();
         PersonRepository personRepository = new PersonRepositorySQL();
         List<Person> list = PersonGeneratorService.generate(100);

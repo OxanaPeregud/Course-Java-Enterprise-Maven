@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class ReflectionStarter {
 
-    public static void start() throws IllegalAccessException, AnnotationException, NoSuchMethodException {
+    public static void main(String[] args) throws IllegalAccessException, AnnotationException, NoSuchMethodException {
         Man man = new Man("Jeff", "Smith", 45);
         Arrays.stream(ReflectionUtil.getAllMethods(Man.class)).forEach(System.out::println);
         System.out.println((ReflectionUtil.getField(Man.class, "firstName").get(man)));
