@@ -3,6 +3,7 @@ package com.peregud.sessionfactory.dao.impl;
 import com.peregud.sessionfactory.dao.DAOAddress;
 import com.peregud.sessionfactory.exceptions.DaoException;
 import com.peregud.sessionfactory.model.Address;
+import org.hibernate.ReplicationMode;
 
 import java.sql.SQLException;
 
@@ -32,5 +33,10 @@ public class DAOAddressImpl extends AbstractDAO<Address> implements DAOAddress {
     @Override
     public void callProcedure(String procedure, int id) throws DaoException {
         super.callProcedure(procedure, id);
+    }
+
+    @Override
+    public void replicate(Address address, ReplicationMode replicationMode) throws DaoException {
+        super.replicate(address, replicationMode);
     }
 }

@@ -5,6 +5,7 @@ import com.peregud.sessionfactory.util.SessionUtil;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -81,6 +82,18 @@ public abstract class AbstractDAO<T> {
             StoredProcedureQuery spQuery = session.createNamedStoredProcedureQuery(procedure);
             spQuery.setParameter("id", id);
             spQuery.execute();
+            transaction.commit();
+        } catch (HibernateException e) {
+            log.error("Error was thrown in DAO", e);
+            transaction.rollback();
+            throw new DaoException(e);
+        }
+    }
+
+    public void replicate(T t, ReplicationMode replicationMode) throws DaoException {
+        try {
+            transaction.begin();
+            session.replicate(t, replicationMode);
             transaction.commit();
         } catch (HibernateException e) {
             log.error("Error was thrown in DAO", e);

@@ -3,6 +3,7 @@ package com.peregud.sessionfactory.dao.impl;
 import com.peregud.sessionfactory.dao.DAOPerson;
 import com.peregud.sessionfactory.exceptions.DaoException;
 import com.peregud.sessionfactory.model.Person;
+import org.hibernate.ReplicationMode;
 
 import java.sql.SQLException;
 
@@ -32,5 +33,10 @@ public class DAOPersonImpl extends AbstractDAO<Person> implements DAOPerson {
     @Override
     public void callProcedure(String procedure, int id) throws DaoException {
         super.callProcedure(procedure, id);
+    }
+
+    @Override
+    public void replicate(Person person, ReplicationMode replicationMode) throws DaoException {
+        super.replicate(person, replicationMode);
     }
 }
