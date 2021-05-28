@@ -10,7 +10,7 @@ public class DB<T> {
     private final EntityManager entityManager = HibernateUtil.createEntityManager();
     private final Logger log = Logger.getLogger(DB.class);
 
-    public T save(T t) {
+    public T save(T t, Class<T> clazz, int id) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(t);

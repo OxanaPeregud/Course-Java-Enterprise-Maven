@@ -1,10 +1,6 @@
 package com.peregud.commandpattern.client;
 
-import com.peregud.commandpattern.command.DeleteDBOperation;
-import com.peregud.commandpattern.command.FindDBOperation;
-import com.peregud.commandpattern.command.SaveDBOperation;
-import com.peregud.commandpattern.command.DBOperation;
-import com.peregud.commandpattern.invoker.DBOperationExecutor;
+import com.peregud.commandpattern.invoker.DBControl;
 import com.peregud.commandpattern.model.Employee;
 import com.peregud.commandpattern.receiver.DB;
 import com.peregud.commandpattern.util.HibernateUtil;
@@ -15,22 +11,27 @@ public class DBApplication {
 
     public static void main(String[] args) throws SQLException {
 
-        Employee employee = Employee.builder()
-                .firstName("First Name")
-                .lastName("Last Name")
+        Employee employee1 = Employee.builder()
+                .firstName("First Name 1")
+                .lastName("Last Name 1")
+                .build();
+        Employee employee2 = Employee.builder()
+                .firstName("First Name 2")
+                .lastName("Last Name 2")
                 .build();
 
-        DBOperation<Employee> saveDBOperation = new SaveDBOperation<>(new DB<>());
-        DBOperation<Employee> findDBOperation = new FindDBOperation<>(new DB<>());
-        DBOperation<Employee> deleteDBOperation = new DeleteDBOperation<>(new DB<>());
-        DBOperationExecutor<Employee> DBOperationExecutor = new DBOperationExecutor<>();
+        DB<Employee> db = new DB<>();
 
-        System.out.println(DBOperationExecutor.executeOperation(saveDBOperation, employee, Employee.class,
-                employee.getEmployeeId()));
-        System.out.println(DBOperationExecutor.executeOperation(findDBOperation, employee, Employee.class,
-                employee.getEmployeeId()));
-        System.out.println(DBOperationExecutor.executeOperation(deleteDBOperation, employee, Employee.class,
-                employee.getEmployeeId()));
+        DBControl<Employee> dbControl = new DBControl<>(3);
+        dbControl.setOperation(0, db::save);
+        dbControl.setOperation(1, db::find);
+        dbControl.setOperation(2, db::delete);
+
+        dbControl.executeOperation(0, employee1, Employee.class, employee1.getEmployeeId());
+        dbControl.executeOperation(0, employee2, Employee.class, employee1.getEmployeeId());
+        dbControl.executeOperation(1, employee1, Employee.class, employee1.getEmployeeId());
+        dbControl.executeOperation(2, employee2, Employee.class, employee2.getEmployeeId());
+
         HibernateUtil.close();
     }
 }

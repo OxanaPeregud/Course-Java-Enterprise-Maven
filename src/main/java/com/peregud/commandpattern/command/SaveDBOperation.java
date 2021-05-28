@@ -11,6 +11,6 @@ public class SaveDBOperation<T> implements DBOperation<T> {
 
     @Override
     public T execute(T t, Class<T> clazz, int id) throws SQLException {
-        return DB.save(t);
+        return DB.save(t, clazz, id);
     }
 }
