@@ -9,9 +9,11 @@ import com.peregud.commandpatternver.receiver.Door;
 import com.peregud.commandpatternver.receiver.Engine;
 import com.peregud.commandpatternver.receiver.Radio;
 
+import java.util.List;
+
 public class CarControlApplication {
     public static void main(String[] args) {
-        CarControl carControl = new CarControl();
+        CarControl carControl = new CarControl(12);
         SimpleCarControl simpleCarControl = new SimpleCarControl();
         Alarm alarm = new Alarm();
         Door door = new Door();
@@ -26,8 +28,8 @@ public class CarControlApplication {
         carControl.onCommand(1);
         carControl.offCommand(0);
 
-        Command[] commandsOn = {door::open, engine::start, radio::medium};
-        Command[] commandsOff = {radio::low, door::close};
+        List<Command> commandsOn = List.of(door::open, engine::start, radio::medium);
+        List<Command> commandsOff = List.of(radio::low, door::close);
         MultipleCommand multipleCommandsOn = new MultipleCommand(commandsOn);
         MultipleCommand multipleCommandsOff = new MultipleCommand(commandsOff);
 

@@ -3,31 +3,33 @@ package com.peregud.commandpatternver.invoker;
 import com.peregud.commandpatternver.command.Command;
 import com.peregud.commandpatternver.command.NoCommand;
 
-public class CarControl {
-    private final Command[] onCommands;
-    private final Command[] offCommands;
+import java.util.Arrays;
+import java.util.List;
 
-    public CarControl() {
-        int commands = 12;
-        onCommands = new Command[commands];
-        offCommands = new Command[commands];
+public class CarControl {
+    private final List<Command> onCommands;
+    private final List<Command> offCommands;
+
+    public CarControl(int numberOfCommands) {
+        onCommands = Arrays.asList(new Command[numberOfCommands]);
+        offCommands = Arrays.asList(new Command[numberOfCommands]);
         Command noCommand = new NoCommand();
-        for (int i = 0; i < commands; i++) {
-            onCommands[i] = noCommand;
-            offCommands[i] = noCommand;
+        for (int i = 0; i < numberOfCommands; i++) {
+            onCommands.set(i, noCommand);
+            offCommands.set(i, noCommand);
         }
     }
 
     public void setCommand(int choice, Command onCommand, Command offCommand) {
-        onCommands[choice] = onCommand;
-        offCommands[choice] = offCommand;
+        onCommands.set(choice, onCommand);
+        offCommands.set(choice, offCommand);
     }
 
     public void onCommand(int choice) {
-        onCommands[choice].execute();
+        onCommands.get(choice).execute();
     }
 
     public void offCommand(int choice) {
-        offCommands[choice].execute();
+        offCommands.get(choice).execute();
     }
 }

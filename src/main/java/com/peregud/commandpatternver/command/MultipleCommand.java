@@ -2,14 +2,14 @@ package com.peregud.commandpatternver.command;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class MultipleCommand implements Command {
-    private final Command[] commands;
+    private final List<Command> commands;
 
     @Override
     public void execute() {
-        for (Command command : commands) {
-            command.execute();
-        }
+        commands.forEach(Command::execute);
     }
 }
