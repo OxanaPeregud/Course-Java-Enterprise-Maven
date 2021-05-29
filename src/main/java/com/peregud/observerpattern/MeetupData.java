@@ -5,10 +5,11 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class MeetupData implements Meetup {
-    private final ArrayList<MeetupParticipant> meetupParticipants;
+    private final List<MeetupParticipant> meetupParticipants;
     private LocalDateTime meetupTime;
     private String location;
     private String topic;
@@ -32,9 +33,7 @@ public class MeetupData implements Meetup {
 
     @Override
     public void notifyMeetupParticipants() {
-        for (MeetupParticipant meetupParticipant : meetupParticipants) {
-            meetupParticipant.update(meetupTime, location, topic);
-        }
+        meetupParticipants.forEach(meetupParticipant -> meetupParticipant.update(meetupTime, location, topic));
     }
 
     public void meetupDataChanged() {
