@@ -1,5 +1,6 @@
 package com.peregud.observerpattern;
 
+import com.peregud.observerpattern.util.SessionUtil;
 import lombok.Getter;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

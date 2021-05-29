@@ -1,4 +1,4 @@
-package com.peregud.observerpattern;
+package com.peregud.observerpattern.observers;
 
 import java.time.LocalDateTime;
 

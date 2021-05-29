@@ -1,4 +1,4 @@
-package com.peregud.observerpattern;
+package com.peregud.observerpattern.util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

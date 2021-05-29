@@ -1,8 +1,12 @@
 package com.peregud.observerpattern;
 
+import com.peregud.observerpattern.observers.MeetupParticipant;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+@Getter
 public class MeetupData implements Meetup {
     private final ArrayList<MeetupParticipant> meetupParticipants;
     private LocalDateTime meetupTime;

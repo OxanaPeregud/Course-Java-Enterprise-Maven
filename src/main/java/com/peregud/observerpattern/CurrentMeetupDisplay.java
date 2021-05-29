@@ -1,7 +1,11 @@
 package com.peregud.observerpattern;
 
+import com.peregud.observerpattern.observers.MeetupParticipant;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class CurrentMeetupDisplay implements MeetupParticipant, DisplayElement {
     private LocalDateTime meetupTime;
     private String location;
