@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="13" author="Oxana">
+        <comment>Creating Pizza Table</comment>
+        <createTable tableName="pizza"
+                     remarks="A table to contain all pizzas">
+            <column name="pizza_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="pizza_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pizza_cost" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="14" author="Oxana">
+        <comment>Creating Ingredient Table</comment>
+        <createTable tableName="ingredient"
+                     remarks="A table to contain all ingredients">
+            <column name="ingredient_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="ingredient_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ingredient_cost" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
