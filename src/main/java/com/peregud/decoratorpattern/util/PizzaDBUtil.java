@@ -1,6 +1,5 @@
 package com.peregud.decoratorpattern.util;
 
-import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,37 +9,43 @@ import javax.persistence.Query;
 
 @UtilityClass
 public class PizzaDBUtil {
-    @Getter
-    private final SessionUtil UTIL = new SessionUtil();
-    private final Session SESSION = UTIL.openSession();
-    private final Transaction TRANSACTION = SESSION.getTransaction();
 
     public double getPizzaCost(String pizzaName) {
+        SessionUtil util = new SessionUtil();
+        Session session = util.openSession();
+        Transaction transaction = session.getTransaction();
         double result = 0;
         try {
-            TRANSACTION.begin();
+            transaction.begin();
             String hql = "SELECT pizzaCost FROM pizza WHERE pizzaName LIKE " + pizzaName;
-            Query query = SESSION.createQuery(hql);
+            Query query = session.createQuery(hql);
             result = (double) query.getSingleResult();
-            TRANSACTION.commit();
+            transaction.commit();
         } catch (HibernateException e) {
-            TRANSACTION.rollback();
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            util.closeSession();
         }
         return result;
     }
 
     public double getIngredientCost(String ingredientName) {
+        SessionUtil util = new SessionUtil();
+        Session session = util.openSession();
+        Transaction transaction = session.getTransaction();
         double result = 0;
         try {
-            TRANSACTION.begin();
+            transaction.begin();
             String hql = "SELECT ingredientCost FROM ingredient WHERE ingredientName LIKE " + ingredientName;
-            Query query = SESSION.createQuery(hql);
+            Query query = session.createQuery(hql);
             result = (double) query.getSingleResult();
-            TRANSACTION.commit();
+            transaction.commit();
         } catch (HibernateException e) {
-            TRANSACTION.rollback();
+            transaction.rollback();
             e.printStackTrace();
+        } finally {
+            util.closeSession();
         }
         return result;
     }

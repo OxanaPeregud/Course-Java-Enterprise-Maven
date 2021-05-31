@@ -1,7 +1,6 @@
 package com.peregud.decoratorpattern;
 
 import com.peregud.decoratorpattern.model.Size;
-import com.peregud.decoratorpattern.util.PizzaDBUtil;
 
 public class PizzeriaApplication {
     public static void main(String[] args) {
@@ -18,7 +17,5 @@ public class PizzeriaApplication {
         pizza3 = new Vegetables(pizza3);
         pizza3 = new Vegetables(pizza3);
         System.out.println(pizza3.description() + " " + pizza3.cost() + "$");
-
-        PizzaDBUtil.getUTIL().closeSession();
     }
 }

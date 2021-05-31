@@ -10,6 +10,12 @@ create table if not exists pizza
 insert into pizza(pizza_name, pizza_cost)
 values ('Four Cheese', 5.5);
 
+insert into pizza(pizza_name, pizza_cost)
+values ('Margherita', 4.0);
+
+insert into pizza(pizza_name, pizza_cost)
+values ('Meat Delight', 7.3);
+
 drop table if exists ingredient;
 create table if not exists ingredient
 (
@@ -21,3 +27,6 @@ create table if not exists ingredient
 
 insert into ingredient(ingredient_name, ingredient_cost)
 values ('Cheese', 1.0);
+
+insert into ingredient(ingredient_name, ingredient_cost)
+values ('Vegetables', 0.7);
