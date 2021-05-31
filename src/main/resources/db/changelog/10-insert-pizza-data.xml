@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="15" author="Oxana">
+        <comment>Inserting Pizza Data</comment>
+        <insert tableName="pizza">
+            <column name="pizza_name" value="Four Cheese"/>
+            <column name="pizza_cost" value="5.5"/>
+        </insert>
+        <insert tableName="pizza">
+            <column name="pizza_name" value="Margherita"/>
+            <column name="pizza_cost" value="4.0"/>
+        </insert>
+        <insert tableName="pizza">
+            <column name="pizza_name" value="Meat Delight"/>
+            <column name="pizza_cost" value="7.3"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="ingredient_name" value="Cheese"/>
+            <column name="ingredient_cost" value="1.0"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="ingredient_name" value="Vegetables"/>
+            <column name="ingredient_cost" value="0.7"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
