@@ -11,7 +11,5 @@ public class MeetupApplication {
                 meetupDB.getMeetupTime(1),
                 meetupDB.getLocation(1),
                 meetupDB.getTopic(1));
-
-        MeetupDB.getUTIL().closeSession();
     }
 }

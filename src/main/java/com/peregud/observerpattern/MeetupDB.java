@@ -1,7 +1,6 @@
 package com.peregud.observerpattern;
 
 import com.peregud.observerpattern.util.SessionUtil;
-import lombok.Getter;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,12 +9,11 @@ import javax.persistence.Query;
 import java.time.LocalDateTime;
 
 public class MeetupDB {
-    @Getter
-    private static final SessionUtil UTIL = new SessionUtil();
-    private final Session session = UTIL.openSession();
-    private final Transaction transaction = session.getTransaction();
 
     public LocalDateTime getMeetupTime(int id) {
+        SessionUtil util = new SessionUtil();
+        Session session = util.openSession();
+        Transaction transaction = session.getTransaction();
         LocalDateTime result = null;
         try {
             transaction.begin();
@@ -26,11 +24,16 @@ public class MeetupDB {
         } catch (HibernateException e) {
             transaction.rollback();
             e.printStackTrace();
+        } finally {
+            util.closeSession();
         }
         return result;
     }
 
     public String getLocation(int id) {
+        SessionUtil util = new SessionUtil();
+        Session session = util.openSession();
+        Transaction transaction = session.getTransaction();
         String result = null;
         try {
             transaction.begin();
@@ -41,11 +44,16 @@ public class MeetupDB {
         } catch (HibernateException e) {
             transaction.rollback();
             e.printStackTrace();
+        } finally {
+            util.closeSession();
         }
         return result;
     }
 
     public String getTopic(int id) {
+        SessionUtil util = new SessionUtil();
+        Session session = util.openSession();
+        Transaction transaction = session.getTransaction();
         String result = null;
         try {
             transaction.begin();
@@ -56,6 +64,8 @@ public class MeetupDB {
         } catch (HibernateException e) {
             transaction.rollback();
             e.printStackTrace();
+        } finally {
+            util.closeSession();
         }
         return result;
     }
