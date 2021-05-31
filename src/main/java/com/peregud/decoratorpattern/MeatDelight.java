@@ -1,6 +1,7 @@
 package com.peregud.decoratorpattern;
 
 import com.peregud.decoratorpattern.model.Size;
+import com.peregud.decoratorpattern.util.CostUtil;
 import com.peregud.decoratorpattern.util.PizzaDBUtil;
 import com.peregud.decoratorpattern.util.RoundUtil;
 
@@ -17,12 +18,6 @@ public class MeatDelight extends Pizza {
 
     @Override
     public double cost() {
-        double cost = PizzaDBUtil.getPizzaCost("'Meat Delight'");
-        if (getSize() == Size.LARGE) {
-            cost = cost * 1.5;
-        } else if (getSize() == Size.SMALL) {
-            cost = cost / 1.5;
-        }
-        return RoundUtil.up(cost);
+        return RoundUtil.up(CostUtil.getCost(getSize(), PizzaDBUtil.getPizzaCost("'Meat Delight'")));
     }
 }
