@@ -1,19 +1,7 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/01-create-person-address-schema.xml
+      file: db/changelog/06-create-meetup-schema.xml
   - include:
-      file: db/changelog/02-insert-data-person.xml
+      file: db/changelog/07-insert-meetup-data.xml
   - include:
-      file: db/changelog/02-insert-data-address.xml
-  - include:
-      file: db/changelog/03-update-data-person.xml
-  - include:
-      file: db/changelog/03-update-data-address.xml
-  - include:
-      file: db/changelog/04-delete-data-address.xml
-  - include:
-      file: db/changelog/04-delete-data-person.xml
-  - include:
-      file: db/changelog/05-create-procedure-person.xml
-  - include:
-      file: db/changelog/05-create-procedure-address.xml
+      file: db/changelog/08-update-meetup-data.xml

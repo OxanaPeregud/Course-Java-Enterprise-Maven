@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="11" author="Oxana">
+        <comment>Inserting Meetup</comment>
+        <insert tableName="meetup">
+            <column name="meetup_id" valueNumeric="1"/>
+            <column name="meetup_time" value="2021-05-30 10:00:00"/>
+            <column name="location" value="conference room"/>
+            <column name="topic" value="new release"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
