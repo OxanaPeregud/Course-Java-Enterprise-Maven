@@ -1,15 +1,17 @@
 package com.peregud.abstractfactorypattern;
 
+import static com.peregud.abstractfactorypattern.type.MotorcycleBrand.*;
+
 public class MotorcycleFactory implements AbstractFactory<Motorcycle> {
 
     @Override
-    public Motorcycle create(String type) {
+    public Motorcycle create(Enum<?> type) {
         Motorcycle motorcycle = null;
-        if ("Kawasaki".equalsIgnoreCase(type)) {
+        if (KAWASAKI.equals(type)) {
             motorcycle = new Kawasaki();
-        } else if ("Suzuki".equalsIgnoreCase(type)) {
+        } else if (SUZUKI.equals(type)) {
             motorcycle = new Suzuki();
-        } else if ("Yamaha".equalsIgnoreCase(type)) {
+        } else if (YAMAHA.equals(type)) {
             motorcycle = new Yamaha();
         }
         return motorcycle;

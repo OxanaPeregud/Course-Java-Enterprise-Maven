@@ -1,12 +1,15 @@
 package com.peregud.abstractfactorypattern;
 
+import static com.peregud.abstractfactorypattern.type.FactoryType.CAR;
+import static com.peregud.abstractfactorypattern.type.FactoryType.MOTORCYCLE;
+
 public class FactoryProvider {
 
-    public static AbstractFactory<?> getFactory(String factory) {
+    public static AbstractFactory<?> getFactory(Enum<?> factory) {
         AbstractFactory<?> abstractFactory = null;
-        if ("Car".equalsIgnoreCase(factory)) {
+        if (CAR.equals(factory)) {
             abstractFactory = new CarFactory();
-        } else if ("Motorcycle".equalsIgnoreCase(factory)) {
+        } else if (MOTORCYCLE.equals(factory)) {
             abstractFactory = new MotorcycleFactory();
         }
         return abstractFactory;
