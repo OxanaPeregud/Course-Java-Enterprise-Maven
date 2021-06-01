@@ -1,5 +1,6 @@
 package com.peregud.abstractfactorypattern.util;
 
+import lombok.experimental.UtilityClass;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -10,10 +11,11 @@ import org.reflections.Reflections;
 import javax.persistence.Entity;
 import java.util.Set;
 
+@UtilityClass
 public class SessionUtil {
-    private final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
-    public SessionUtil() {
+    public SessionFactory sessionFactory() {
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         Reflections reflections = new Reflections("com.peregud.abstractfactorypattern.model");
@@ -23,11 +25,11 @@ public class SessionUtil {
         }
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        return sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
     public Session openSession() {
-        return sessionFactory.openSession();
+        return sessionFactory().openSession();
     }
 
     public void closeSession() {

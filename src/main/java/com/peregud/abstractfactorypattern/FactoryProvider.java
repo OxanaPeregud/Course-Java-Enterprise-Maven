@@ -1,16 +1,21 @@
 package com.peregud.abstractfactorypattern;
 
-import static com.peregud.abstractfactorypattern.type.FactoryType.CAR;
-import static com.peregud.abstractfactorypattern.type.FactoryType.MOTORCYCLE;
+import com.peregud.abstractfactorypattern.type.FactoryType;
 
 public class FactoryProvider {
 
     public static AbstractFactory<?> getFactory(Enum<?> factory) {
         AbstractFactory<?> abstractFactory = null;
-        if (CAR.equals(factory)) {
-            abstractFactory = new CarFactory();
-        } else if (MOTORCYCLE.equals(factory)) {
-            abstractFactory = new MotorcycleFactory();
+        if (factory instanceof FactoryType) {
+            FactoryType factoryType = (FactoryType) factory;
+            switch (factoryType) {
+                case CAR:
+                    abstractFactory = new CarFactory();
+                    break;
+                case MOTORCYCLE:
+                    abstractFactory = new MotorcycleFactory();
+                    break;
+            }
         }
         return abstractFactory;
     }
