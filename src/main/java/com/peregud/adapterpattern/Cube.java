@@ -1,0 +1,27 @@
+package com.peregud.adapterpattern;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class Cube implements ThreeDimensionalShapes {
+    private double side;
+
+    @Override
+    public double calculateArea() {
+        return RoundUtil.up(6 * Math.pow(side, 2));
+    }
+
+    @Override
+    public double calculateVolume() {
+        return RoundUtil.up(Math.pow(side, 3));
+    }
+
+    @Override
+    public String description() {
+        return "side " + side + ", area " + calculateArea();
+    }
+}
