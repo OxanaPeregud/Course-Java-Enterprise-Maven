@@ -18,9 +18,4 @@ public class Cylinder implements ThreeDimensionalShapes {
     public double calculateVolume() {
         return RoundUtil.up(Math.PI * Math.pow(radius, 2) * height);
     }
-
-    @Override
-    public String description() {
-        return "cylinder volume: " + calculateVolume() + ", area: " + calculateArea();
-    }
 }

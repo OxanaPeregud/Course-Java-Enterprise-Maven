@@ -18,9 +18,4 @@ public class Rectangle implements TwoDimensionalShapes {
     public double calculateArea() {
         return RoundUtil.up(firstSide * secondSide);
     }
-
-    @Override
-    public String description() {
-        return "rectangle area: " + calculateArea() + ", rectangle perimeter: " + calculatePerimeter();
-    }
 }

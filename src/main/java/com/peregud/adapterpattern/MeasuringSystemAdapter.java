@@ -1,6 +1,7 @@
 package com.peregud.adapterpattern;
 
-public interface ThreeDimensionalShapes {
+public interface MeasuringSystemAdapter {
+    double calculatePerimeter();
     double calculateArea();
     double calculateVolume();
 }

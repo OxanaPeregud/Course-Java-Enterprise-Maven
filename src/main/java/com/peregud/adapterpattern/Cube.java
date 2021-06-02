@@ -17,9 +17,4 @@ public class Cube implements ThreeDimensionalShapes {
     public double calculateVolume() {
         return RoundUtil.up(Math.pow(side, 3));
     }
-
-    @Override
-    public String description() {
-        return "side " + side + ", area " + calculateArea();
-    }
 }

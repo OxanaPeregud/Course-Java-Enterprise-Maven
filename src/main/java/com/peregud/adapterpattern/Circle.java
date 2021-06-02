@@ -17,9 +17,4 @@ public class Circle implements TwoDimensionalShapes {
     public double calculateArea() {
         return RoundUtil.up(Math.pow(radius, 2) * Math.PI);
     }
-
-    @Override
-    public String description() {
-        return "radius " + radius + ", area " + calculateArea();
-    }
 }

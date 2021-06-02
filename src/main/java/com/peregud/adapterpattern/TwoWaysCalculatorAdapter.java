@@ -1,9 +1,11 @@
 package com.peregud.adapterpattern;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public class TwoWaysAdapter implements TwoDimensionalShapes, ThreeDimensionalShapes {
+@Getter
+public class TwoWaysCalculatorAdapter implements TwoDimensionalShapes, ThreeDimensionalShapes {
     private final ShapeType shapeType;
 
     @Override
@@ -60,25 +62,5 @@ public class TwoWaysAdapter implements TwoDimensionalShapes, ThreeDimensionalSha
                 break;
         }
         return area;
-    }
-
-    @Override
-    public String description() {
-        String description = null;
-        switch (shapeType) {
-            case CIRCLE:
-                description = new Circle().description();
-                break;
-            case RECTANGLE:
-                description = new Rectangle().description();
-                break;
-            case CUBE:
-                description = new Cube().description();
-                break;
-            case CYLINDER:
-                description = new Cylinder().description();
-                break;
-        }
-        return description;
     }
 }
