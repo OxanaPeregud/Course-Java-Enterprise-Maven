@@ -1,14 +1,12 @@
 package com.peregud.adapterpattern;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class Cube implements ThreeDimensionalShapes {
-    private double side;
+    private double side = 3;
 
     @Override
     public double calculateArea() {

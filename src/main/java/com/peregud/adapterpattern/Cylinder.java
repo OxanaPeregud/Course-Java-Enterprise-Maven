@@ -1,15 +1,13 @@
 package com.peregud.adapterpattern;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class Cylinder implements ThreeDimensionalShapes {
-    private double radius;
-    private double height;
+    private double radius = 2;
+    private double height = 3;
 
     @Override
     public double calculateArea() {

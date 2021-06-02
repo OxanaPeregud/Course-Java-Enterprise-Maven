@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Rectangle implements TwoDimensionalShapes {
-    private double firstSide;
-    private double secondSide;
+    private double firstSide = 2;
+    private double secondSide = 3;
 
     @Override
     public double calculatePerimeter() {

@@ -30,14 +30,13 @@ public class TwoWaysAdapter implements TwoDimensionalShapes, ThreeDimensionalSha
         switch (shapeType) {
             case CIRCLE:
                 perimeter = new Circle().calculatePerimeter();
+                break;
             case RECTANGLE:
                 perimeter = new Rectangle().calculatePerimeter();
                 break;
             case CUBE:
-                perimeter = new Cube().getSide() * 12;
-                break;
             case CYLINDER:
-                perimeter = new Cylinder().getHeight() * 2 + new Cylinder().getRadius() * 4;
+                System.out.println("It's three dimensional shape, can't calculate perimeter");
                 break;
         }
         return perimeter;
@@ -49,6 +48,7 @@ public class TwoWaysAdapter implements TwoDimensionalShapes, ThreeDimensionalSha
         switch (shapeType) {
             case CIRCLE:
                 area = new Circle().calculateArea();
+                break;
             case RECTANGLE:
                 area = new Rectangle().calculateArea();
                 break;
@@ -68,6 +68,7 @@ public class TwoWaysAdapter implements TwoDimensionalShapes, ThreeDimensionalSha
         switch (shapeType) {
             case CIRCLE:
                 description = new Circle().description();
+                break;
             case RECTANGLE:
                 description = new Rectangle().description();
                 break;

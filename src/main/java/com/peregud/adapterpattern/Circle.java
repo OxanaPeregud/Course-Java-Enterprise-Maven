@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Circle implements TwoDimensionalShapes {
-    private double radius;
+    private double radius = 2;
 
     @Override
     public double calculatePerimeter() {
