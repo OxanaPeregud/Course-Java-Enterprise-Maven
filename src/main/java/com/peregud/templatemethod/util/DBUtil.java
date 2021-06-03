@@ -8,13 +8,13 @@ import org.hibernate.Transaction;
 @UtilityClass
 public class DBUtil {
 
-    public Double salary(int departmentId) {
+    public double salary(int departmentId) {
         Session session = SessionUtil.openSession();
         Transaction transaction = session.getTransaction();
-        Double salary = null;
+        double salary = 0;
         try {
             transaction.begin();
-            salary = (Double) session
+            salary = (double) session
                     .createQuery("SELECT SUM(salary) FROM employee WHERE department = " + departmentId)
                     .getSingleResult();
             transaction.commit();
