@@ -26,5 +26,7 @@ class TwoWaysCalculatorAdapterTest {
     void calculateArea() {
         TwoWaysCalculatorAdapter twoWaysCalculatorAdapter1 = new TwoWaysCalculatorAdapter(ShapeType.RECTANGLE);
         assertEquals(6.0, twoWaysCalculatorAdapter1.calculateArea());
+        TwoWaysCalculatorAdapter twoWaysCalculatorAdapter2 = new TwoWaysCalculatorAdapter(ShapeType.CYLINDER);
+        assertEquals(62.83, twoWaysCalculatorAdapter2.calculateArea());
     }
 }
