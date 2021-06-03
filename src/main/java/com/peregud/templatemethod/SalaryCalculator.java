@@ -1,34 +1,40 @@
 package com.peregud.templatemethod;
 
-import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
-import static com.peregud.templatemethod.SalaryType.YEAR_END_BONUS;
+import static com.peregud.templatemethod.SalaryType.*;
 
-@Getter
+@Setter
 public abstract class SalaryCalculator {
     protected Map<SalaryType, Double> salary = new LinkedHashMap<>();
+    protected double additionalSalaryPercentage;
+    protected double monthlyBonusPercentage;
 
     public final Salary calculateSalary() {
         calculateBasicSalary();
         calculateAdditionalSalary();
         calculateMonthlyBonus();
-        calculateYearEndBonus();
+        calculateYearEndBonus(1000.0);
         return getSalary();
     }
 
     public abstract void calculateBasicSalary();
 
-    public abstract void calculateAdditionalSalary();
+    public void calculateAdditionalSalary() {
+        double additionalSalary = salary.get(BASIC_SALARY) * additionalSalaryPercentage;
+        salary.put(ADDITIONAL_SALARY, additionalSalary);
+    }
 
-    public abstract void calculateMonthlyBonus();
+    public void calculateMonthlyBonus() {
+        double monthlyBonus = (salary.get(BASIC_SALARY) + salary.get(ADDITIONAL_SALARY)) * monthlyBonusPercentage;
+        salary.put(MONTHLY_BONUS, monthlyBonus);
+    }
 
-    public void calculateYearEndBonus() {
-        salary.put(YEAR_END_BONUS, 1000.0);
+    public void calculateYearEndBonus(double yearEndBonus) {
+        salary.put(YEAR_END_BONUS, yearEndBonus);
     }
 
     private Salary getSalary() {

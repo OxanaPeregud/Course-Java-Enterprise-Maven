@@ -13,13 +13,13 @@ public class SalesDepartmentSalaryCalculator extends SalaryCalculator {
 
     @Override
     public void calculateAdditionalSalary() {
-        double additionalSalary = salary.get(BASIC_SALARY) * 0.2;
-        salary.put(ADDITIONAL_SALARY, additionalSalary);
+        setAdditionalSalaryPercentage(0.2);
+        super.calculateAdditionalSalary();
     }
 
     @Override
     public void calculateMonthlyBonus() {
-        double monthlyBonus = (salary.get(BASIC_SALARY) + salary.get(ADDITIONAL_SALARY)) * 0.1;
-        salary.put(MONTHLY_BONUS, monthlyBonus);
+        setMonthlyBonusPercentage(0.1);
+        super.calculateMonthlyBonus();
     }
 }
