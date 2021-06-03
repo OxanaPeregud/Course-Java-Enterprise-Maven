@@ -40,12 +40,4 @@ public abstract class SalaryCalculator {
     private Salary getSalary() {
         return new Salary(salary);
     }
-
-    public double totalSalary() {
-        return salary
-                .values()
-                .stream()
-                .mapToDouble(Double::doubleValue)
-                .reduce(0, Double::sum);
-    }
 }

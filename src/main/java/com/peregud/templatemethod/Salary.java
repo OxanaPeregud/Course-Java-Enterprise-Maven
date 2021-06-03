@@ -9,4 +9,12 @@ import java.util.Map;
 @Getter
 public class Salary {
     private final Map<SalaryType, Double> salary;
+
+    public double totalSalary() {
+        return salary
+                .values()
+                .stream()
+                .mapToDouble(Double::doubleValue)
+                .reduce(0, Double::sum);
+    }
 }
