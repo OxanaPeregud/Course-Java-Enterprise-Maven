@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="16" author="Oxana">
+        <comment>Creating Table Department</comment>
+        <createTable tableName="department"
+                     remarks="A table to contain all departments">
+            <column name="department_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="department_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="17" author="Oxana">
+        <comment>Creating Table Employee</comment>
+        <createTable tableName="employee"
+                     remarks="A table to contain all employees">
+            <column name="employee_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="salary" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="employee" baseColumnNames="department"
+                                 constraintName="department_fk"
+                                 referencedTableName="department" referencedColumnNames="department_id"/>
+    </changeSet>
+    <changeSet id="18" author="Oxana">
+        <comment>Inserting Data</comment>
+        <insert tableName="department">
+            <column name="department_name" value="Finance Department"/>
+        </insert>
+        <insert tableName="department">
+            <column name="department_name" value="Sales Department"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="John"/>
+            <column name="last_name" value="Smith"/>
+            <column name="salary" value="4000"/>
+            <column name="department" value="1"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="Bob"/>
+            <column name="last_name" value="Garcia"/>
+            <column name="salary" value="2500"/>
+            <column name="department" value="2"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="James"/>
+            <column name="last_name" value="Black"/>
+            <column name="salary" value="5100"/>
+            <column name="department" value="2"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="David"/>
+            <column name="last_name" value="White"/>
+            <column name="salary" value="2700"/>
+            <column name="department" value="1"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="Dan"/>
+            <column name="last_name" value="Brown"/>
+            <column name="salary" value="3700"/>
+            <column name="department" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
