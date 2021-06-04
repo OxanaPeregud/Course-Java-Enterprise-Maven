@@ -22,7 +22,7 @@ public class DBUtil {
             transaction.rollback();
             e.printStackTrace();
         } finally {
-            SessionUtil.closeSession();
+            session.close();
         }
         return salary;
     }
