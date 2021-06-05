@@ -1,5 +1,7 @@
 package com.peregud.templatemethod;
 
+import com.peregud.templatemethod.util.SessionUtil;
+
 public class SalaryApplication {
 
     public static void main(String[] args) {
@@ -15,5 +17,7 @@ public class SalaryApplication {
         System.out.println("Finance Department Salary:");
         salary2.getSalary().forEach((k, v) -> System.out.println(k + " : " + v));
         System.out.println(salary2.totalSalary());
+
+        SessionUtil.closeSession();
     }
 }
