@@ -10,7 +10,11 @@ public class SecondStore implements OnlineStore {
     private final List<ProductItem> productItems;
 
     public SecondStore() {
-        productItems = DBUtil.getProducts(SECOND_STORE.getStore());
+        productItems = addItems();
+    }
+
+    public List<ProductItem> addItems() {
+        return DBUtil.getProducts(SECOND_STORE.getStore());
     }
 
     public Iterator createIterator() {

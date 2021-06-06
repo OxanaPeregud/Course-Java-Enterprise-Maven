@@ -3,6 +3,7 @@ package com.peregud.iteratorpattern;
 import lombok.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class ProductItem {
