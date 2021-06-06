@@ -10,13 +10,15 @@ public class SecondStoreIterator implements Iterator {
         this.items = items;
     }
 
+    @Override
+    public boolean hasNext() {
+        return position < items.size() && items.get(position) != null;
+    }
+
+    @Override
     public ProductItem next() {
         ProductItem item = items.get(position);
         position = position + 1;
         return item;
-    }
-
-    public boolean hasNext() {
-        return position < items.size() && items.get(position) != null;
     }
 }

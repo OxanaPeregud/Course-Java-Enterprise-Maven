@@ -8,13 +8,15 @@ public class FirstStoreIterator implements Iterator {
         this.items = items;
     }
 
+    @Override
+    public boolean hasNext() {
+        return position < items.length && items[position] != null;
+    }
+
+    @Override
     public ProductItem next() {
         ProductItem productItem = items[position];
         position = position + 1;
         return productItem;
-    }
-
-    public boolean hasNext() {
-        return position < items.length && items[position] != null;
     }
 }

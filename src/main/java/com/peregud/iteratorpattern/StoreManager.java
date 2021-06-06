@@ -20,8 +20,7 @@ public class StoreManager {
             ProductItem productItem = (ProductItem) iterator.next();
             System.out.print(productItem.getId() + ": ");
             System.out.print(productItem.getName() + ", ");
-            System.out.print(productItem.getPrice() + ", ");
-            System.out.println(productItem.isInStock());
+            System.out.println(productItem.getPrice());
         }
     }
 }

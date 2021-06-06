@@ -7,38 +7,38 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @UtilityClass
 public class DBUtil {
-    private Session session;
-    private Transaction transaction;
 
-    public ProductItem getProducts(String store) {
-        ProductItem productItem = new ProductItem();
+    @SuppressWarnings("unchecked")
+    public List<ProductItem> getProducts(String store) {
+        List<ProductItem> productItemList = new ArrayList<>();
         List<Object[]> products;
-        try {
-            session = SessionUtil.openSession();
+        Transaction transaction = null;
+        try (Session session = SessionUtil.openSession()) {
             transaction = session.getTransaction();
             transaction.begin();
-            Query query = session.createQuery("select name, price from " + store);
+            Query query = session.createQuery("select id, name, price from " + store);
             products = query.getResultList();
             for (Object[] product : products) {
-                String name = (String) product[0];
-                Double price = (Double) product[1];
+                ProductItem productItem = new ProductItem();
+                Integer id = (Integer) product[0];
+                String name = (String) product[1];
+                Double price = (Double) product[2];
+                productItem.setId(id);
                 productItem.setName(name);
                 productItem.setPrice(price);
-                System.out.println(productItem);
+                productItemList.add(productItem);
             }
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             if (transaction != null)
                 transaction.rollback();
-        } finally {
-            if (session != null)
-                session.close();
         }
-        return productItem;
+        return productItemList;
     }
 }
