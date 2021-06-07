@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="19" author="Oxana">
+        <comment>Creating Table First Store</comment>
+        <createTable tableName="first_store"
+                     remarks="A table to contain all first store products">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="20" author="Oxana">
+        <comment>Creating Table Second Store</comment>
+        <createTable tableName="second_store"
+                     remarks="A table to contain all second store products">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="21" author="Oxana">
+        <comment>Inserting Data</comment>
+        <insert tableName="first_store">
+            <column name="name" value="First Product 1"/>
+            <column name="price" value="20.5"/>
+        </insert>
+        <insert tableName="first_store">
+            <column name="name" value="First Product 2"/>
+            <column name="price" value="12.1"/>
+        </insert>
+        <insert tableName="first_store">
+            <column name="name" value="First Product 3"/>
+            <column name="price" value="9.7"/>
+        </insert>
+        <insert tableName="second_store">
+            <column name="name" value="Second Product 1"/>
+            <column name="price" value="5.3"/>
+        </insert>
+        <insert tableName="second_store">
+            <column name="name" value="Second Product 2"/>
+            <column name="price" value="8.6"/>
+        </insert>
+        <insert tableName="second_store">
+            <column name="name" value="Second Product 3"/>
+            <column name="price" value="5.2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
