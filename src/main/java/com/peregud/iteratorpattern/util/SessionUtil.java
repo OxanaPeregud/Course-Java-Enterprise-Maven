@@ -1,5 +1,6 @@
 package com.peregud.iteratorpattern.util;
 
+import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @UtilityClass
 public class SessionUtil {
+    @Getter
     private SessionFactory sessionFactory;
 
     public SessionFactory sessionFactory() {
@@ -33,6 +35,8 @@ public class SessionUtil {
     }
 
     public void closeSession() {
-        sessionFactory.close();
+        if (sessionFactory != null) {
+            sessionFactory.close();
+        }
     }
 }

@@ -5,6 +5,7 @@ import com.peregud.iteratorpattern.util.SessionUtil;
 public class IteratorApp {
     public static void main(String[] args) {
         try {
+            SessionUtil.openSession();
 
             FirstStore firstStore = new FirstStore();
             SecondStore secondStore = new SecondStore();
