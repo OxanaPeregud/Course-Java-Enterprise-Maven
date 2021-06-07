@@ -1,4 +1,4 @@
-package com.peregud.iteratorpattern;
+package com.peregud.iteratorcompositepattern;
 
 import org.junit.jupiter.api.Test;
 

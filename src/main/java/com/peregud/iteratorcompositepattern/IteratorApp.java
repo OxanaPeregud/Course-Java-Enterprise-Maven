@@ -1,6 +1,6 @@
-package com.peregud.iteratorpattern;
+package com.peregud.iteratorcompositepattern;
 
-import com.peregud.iteratorpattern.util.SessionUtil;
+import com.peregud.iteratorcompositepattern.util.SessionUtil;
 
 public class IteratorApp {
     public static void main(String[] args) {
@@ -9,7 +9,11 @@ public class IteratorApp {
 
             FirstStore firstStore = new FirstStore();
             SecondStore secondStore = new SecondStore();
-            StoreManager storeManager = new StoreManager(firstStore, secondStore);
+            StoreManager storeManager = new StoreManager();
+            storeManager.addStore(firstStore);
+            storeManager.addStore(secondStore);
+            storeManager.printProducts();
+            storeManager.removeStore(secondStore);
             storeManager.printProducts();
 
         } catch (Exception e) {

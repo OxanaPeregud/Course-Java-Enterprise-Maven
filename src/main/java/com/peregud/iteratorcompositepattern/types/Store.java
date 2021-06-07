@@ -1,4 +1,4 @@
-package com.peregud.iteratorpattern.types;
+package com.peregud.iteratorcompositepattern.types;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

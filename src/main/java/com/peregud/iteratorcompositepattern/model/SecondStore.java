@@ -1,4 +1,4 @@
-package com.peregud.iteratorpattern.model;
+package com.peregud.iteratorcompositepattern.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "first_store")
-@Table(name = "first_store")
-public class FirstStore implements Serializable {
+@Entity(name = "second_store")
+@Table(name = "second_store")
+public class SecondStore implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)

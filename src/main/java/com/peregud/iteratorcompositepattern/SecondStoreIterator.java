@@ -1,4 +1,4 @@
-package com.peregud.iteratorpattern;
+package com.peregud.iteratorcompositepattern;
 
 import java.util.List;
 
