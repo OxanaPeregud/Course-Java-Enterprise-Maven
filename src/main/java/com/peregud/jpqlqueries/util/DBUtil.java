@@ -1,9 +1,9 @@
 package com.peregud.jpqlqueries.util;
 
+import com.peregud.jpqlqueries.ListResultTransformer;
 import com.peregud.jpqlqueries.model.FirstLastNames;
 import com.peregud.jpqlqueries.model.LastNamesSalary;
 import lombok.experimental.UtilityClass;
-import org.hibernate.transform.ResultTransformer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,24 +31,16 @@ public class DBUtil {
                         .setParameter("revenue", revenue)
                         .unwrap(org.hibernate.query.Query.class)
                         .setResultTransformer(
-                                new ResultTransformer() {
-                                    @Override
-                                    public Object transformTuple(Object[] tuples, String[] aliases) {
-                                        FirstLastNames firstLastNames = new FirstLastNames();
-                                        firstLastNames.setFirstName((String) tuples[0]);
-                                        firstLastNames.setLastName((String) tuples[1]);
-                                        return firstLastNames;
-                                    }
-
-                                    @Override
-                                    public List<?> transformList(List tuples) {
-                                        return tuples;
-                                    }
-                                }
+                                (ListResultTransformer)
+                                        (tuples, aliases) -> {
+                                            FirstLastNames firstLastNames = new FirstLastNames();
+                                            firstLastNames.setFirstName((String) tuples[0]);
+                                            firstLastNames.setLastName((String) tuples[1]);
+                                            return firstLastNames;
+                                        }
                         )
                         .getResultList();
     }
-
 
     public List<?> selectSalesperson(LocalDate localDate) {
         return (List<?>)
@@ -58,23 +50,17 @@ public class DBUtil {
                         .setParameter("localDate", localDate)
                         .unwrap(org.hibernate.query.Query.class)
                         .setResultTransformer(
-                                new ResultTransformer() {
-                                    @Override
-                                    public Object transformTuple(Object[] tuples, String[] aliases) {
-                                        LastNamesSalary lastNamesSalary = new LastNamesSalary();
-                                        lastNamesSalary.setLastName((String) tuples[0]);
-                                        lastNamesSalary.setSalary((Double) tuples[1]);
-                                        return lastNamesSalary;
-                                    }
-
-                                    @Override
-                                    public List<?> transformList(List tuples) {
-                                        return tuples;
-                                    }
-                                }
+                                (ListResultTransformer)
+                                        (tuples, aliases) -> {
+                                            LastNamesSalary lastNamesSalary = new LastNamesSalary();
+                                            lastNamesSalary.setLastName((String) tuples[0]);
+                                            lastNamesSalary.setSalary((Double) tuples[1]);
+                                            return lastNamesSalary;
+                                        }
                         )
                         .getResultList();
     }
+
 
     public List<?> selectAllStores(List<String> lastName) {
         return HibernateUtil.createEntityManager()
