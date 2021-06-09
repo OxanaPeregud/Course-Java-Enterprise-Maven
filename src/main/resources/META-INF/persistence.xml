@@ -4,21 +4,23 @@
              http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="com.peregud" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:/DefaultDS</jta-data-source>
+        <class>com.peregud.jpqlqueries.model.Salesperson</class>
+        <class>com.peregud.jpqlqueries.model.Store</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/people?createDatabaseIfNotExist=true"/>
+                      value="jdbc:mysql://localhost:3306/store_employees?createDatabaseIfNotExist=true"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="1234"/>
-            <property name="hibernate.dialect.storage_engine" value="innodb"/>
-            <property name="hibernate.archive.autodetection" value="class, hbm"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.connection.pool_size" value="10"/>
-            <property name="hibernate.connection.isolation" value="2"/>
+            <property name="eclipselink.target-database" value="HSQL"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.target-server" value="JBoss"/>
+            <property name="eclipselink.weaving" value="false"/>
+            <property name="eclipselink.logging.level" value="FINEST"/>
         </properties>
     </persistence-unit>
 </persistence>
