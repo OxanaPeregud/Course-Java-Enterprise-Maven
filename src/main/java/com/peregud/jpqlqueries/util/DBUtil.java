@@ -33,14 +33,14 @@ public class DBUtil {
                         "FROM Salesperson s WHERE s.store.revenue > :revenue")
                 .setParameter("revenue", revenue);
         result = query.getResultList();
-        for (Object[] salesperson : result) {
+        result.forEach(salesperson -> {
             FirstLastNames firstLastName = new FirstLastNames();
             String firstName = (String) salesperson[0];
             String lastName = (String) salesperson[1];
             firstLastName.setFirstName(firstName);
             firstLastName.setLastName(lastName);
             firstLastNames.add(firstLastName);
-        }
+        });
         return firstLastNames;
     }
 
@@ -53,14 +53,14 @@ public class DBUtil {
                         "FROM Salesperson s WHERE s.store.registrationDate < :localDate")
                 .setParameter("localDate", localDate);
         result = query.getResultList();
-        for (Object[] salesperson : result) {
+        result.forEach(salesperson -> {
             LastNamesSalary lastNamesSalary = new LastNamesSalary();
             String lastName = (String) salesperson[0];
             Double salary = (Double) salesperson[1];
             lastNamesSalary.setLastName(lastName);
             lastNamesSalary.setSalary(salary);
             lastNamesSalaries.add(lastNamesSalary);
-        }
+        });
         return lastNamesSalaries;
     }
 
