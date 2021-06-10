@@ -85,16 +85,22 @@ public class DataGeneratorUtil {
         Set<Salesperson> salespeople3 = new HashSet<>();
         salespeople3.add(salesperson4);
         store3.setSalespeople(salespeople3);
+
         EntityManager entityManager = HibernateUtil.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(store1);
-        entityManager.persist(store2);
-        entityManager.persist(store3);
-        entityManager.persist(salesperson1);
-        entityManager.persist(salesperson2);
-        entityManager.persist(salesperson3);
-        entityManager.persist(salesperson4);
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(store1);
+            entityManager.persist(store2);
+            entityManager.persist(store3);
+            entityManager.persist(salesperson1);
+            entityManager.persist(salesperson2);
+            entityManager.persist(salesperson3);
+            entityManager.persist(salesperson4);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }
     }
 
     public double roundUp(double value) {
