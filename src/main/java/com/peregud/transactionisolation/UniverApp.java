@@ -1,16 +1,18 @@
-package com.peregud.univeradmin;
+package com.peregud.transactionisolation;
 
-import com.peregud.univeradmin.util.DataGeneratorUtil;
-import com.peregud.univeradmin.util.DataUtil;
-import com.peregud.univeradmin.util.HibernateUtil;
+import com.peregud.transactionisolation.util.ConnectorUtil;
+import com.peregud.transactionisolation.util.DataGeneratorUtil;
+import com.peregud.transactionisolation.util.DataUtil;
+import com.peregud.transactionisolation.util.HibernateUtil;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class UniverApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         try {
 
             DataUtil.saveData(DataGeneratorUtil.buildAdmin(100));
@@ -76,6 +78,7 @@ public class UniverApp {
             e.printStackTrace();
         } finally {
             HibernateUtil.close();
+            ConnectorUtil.closeConnection();
         }
     }
 }

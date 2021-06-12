@@ -1,4 +1,4 @@
-package com.peregud.univeradmin.util;
+package com.peregud.transactionisolation.util;
 
 import lombok.experimental.UtilityClass;
 import org.hibernate.Session;
@@ -41,7 +41,7 @@ public class DataUtil {
             Session session = entityManager.unwrap(Session.class);
             Connection connection = ConnectorUtil.getConnection();
             connection.setTransactionIsolation(transactionIsolationLevel);
-            list.forEach(session::update);
+            list.forEach(session::merge);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

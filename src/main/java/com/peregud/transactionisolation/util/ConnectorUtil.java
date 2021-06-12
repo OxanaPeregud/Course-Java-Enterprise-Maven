@@ -1,4 +1,4 @@
-package com.peregud.univeradmin.util;
+package com.peregud.transactionisolation.util;
 
 import lombok.experimental.UtilityClass;
 

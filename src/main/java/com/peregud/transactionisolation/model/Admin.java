@@ -1,4 +1,4 @@
-package com.peregud.univeradmin.model;
+package com.peregud.transactionisolation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

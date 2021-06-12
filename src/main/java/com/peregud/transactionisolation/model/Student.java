@@ -1,4 +1,4 @@
-package com.peregud.univeradmin.model;
+package com.peregud.transactionisolation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,12 +16,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "teacher")
-public class Teacher implements Serializable {
+@Table(name = "student")
+public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "teacher_id", unique = true)
-    private Integer teacherId;
+    @Column(name = "student_id", unique = true)
+    private Integer studentId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -29,27 +29,28 @@ public class Teacher implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn
-    private Course course;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "student_course" ,joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "course_id")}
+    )
+    private Set<Course> courses = new HashSet<>();
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "student")
     private Set<StudentResult> studentResults = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn
-    private Admin admin;
+    @OneToMany(mappedBy = "student")
+    private Set<Task> tasks = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Teacher teacher = (Teacher) o;
-        return teacherId.equals(teacher.teacherId);
+        Student student = (Student) o;
+        return studentId.equals(student.studentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(teacherId);
+        return Objects.hash(studentId);
     }
 }

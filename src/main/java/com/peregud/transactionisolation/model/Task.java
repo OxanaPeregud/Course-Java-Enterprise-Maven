@@ -1,4 +1,4 @@
-package com.peregud.univeradmin.model;
+package com.peregud.transactionisolation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,28 +13,24 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "student_result")
-public class StudentResult implements Serializable {
+@Table(name = "task")
+public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "result_id", unique = true)
-    private Integer resultId;
+    @Column(name = "task_id", unique = true)
+    private Integer taskId;
 
     @Column
-    private int mark;
-
-    @Column
-    private String review;
+    private String taskName;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Task task;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "task", cascade = CascadeType.ALL)
+    private StudentResult studentResult;
 }

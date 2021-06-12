@@ -1,6 +1,6 @@
-package com.peregud.univeradmin.util;
+package com.peregud.transactionisolation.util;
 
-import com.peregud.univeradmin.model.*;
+import com.peregud.transactionisolation.model.*;
 import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
