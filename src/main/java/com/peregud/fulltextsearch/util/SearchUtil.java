@@ -12,6 +12,7 @@ import org.hibernate.transform.BasicTransformerAdapter;
 
 import javax.persistence.EntityManager;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @UtilityClass
 public class SearchUtil extends TransactionUtil {
@@ -48,8 +49,9 @@ public class SearchUtil extends TransactionUtil {
         entityManager.close();
     }
 
-    public void queryOnSingleField() {
+    public List<?> queryOnSingleField() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
+        final List<?>[] books = {new ArrayList<>()};
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -66,15 +68,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            List<Book> books = query.getResultList();
-            System.out.println(books);
+            books[0] = query.getResultList();
         });
 
         entityManager.close();
+        return books[0];
     }
 
-    public void queryOnMultipleFields() {
+    public List<?> queryOnMultipleFields() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
+        final List<?>[] books = {new ArrayList<>()};
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -91,15 +94,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            List<Book> books = query.getResultList();
-            System.out.println(books);
+            books[0] = query.getResultList();
         });
 
         entityManager.close();
+        return books[0];
     }
 
-    public void wildcardQuery() {
+    public List<?> wildcardQuery() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
+        final List<?>[] books = {new ArrayList<>()};
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -116,15 +120,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            List<Book> books = query.getResultList();
-            System.out.println(books);
+            books[0] = query.getResultList();
         });
 
         entityManager.close();
+        return books[0];
     }
 
-    public void rangeQuery() {
+    public List<?> rangeQuery() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
+        final List<?>[] books = {new ArrayList<>()};
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -142,15 +147,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            List<Book> books = query.getResultList();
-            System.out.println(books);
+            books[0] = query.getResultList();
         });
 
         entityManager.close();
+        return books[0];
     }
 
-    public void projectionWithTransformer() {
+    public List<?> projectionWithTransformer() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
+        final List<?>[] projection = {new ArrayList<>()};
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -174,15 +180,17 @@ public class SearchUtil extends TransactionUtil {
                         }
                     });
 
-            List<BookTrans> projection = query.getResultList();
-            System.out.println(projection);
+            projection[0] = query.getResultList();
         });
 
         entityManager.close();
+        return projection[0];
     }
 
-    public void projection() {
+    @SuppressWarnings("unchecked")
+    public AtomicReference<Book> projection() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
+        AtomicReference<Book> books = new AtomicReference<>(new Book());
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -201,12 +209,10 @@ public class SearchUtil extends TransactionUtil {
                     .setProjection(ElasticsearchProjectionConstants.THIS);
 
             List<Object[]> projection = query.getResultList();
-            projection.forEach(book -> {
-                Book book1 = (Book) book[0];
-                System.out.println(book1);
-            });
+            projection.forEach(book -> books.set((Book) book[0]));
         });
 
         entityManager.close();
+        return books;
     }
 }
