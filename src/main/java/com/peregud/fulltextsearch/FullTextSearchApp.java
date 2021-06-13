@@ -10,5 +10,6 @@ public class FullTextSearchApp {
         SearchUtil.wildcardQuery();
         SearchUtil.rangeQuery();
         SearchUtil.projectionWithTransformer();
+        SearchUtil.projection();
     }
 }

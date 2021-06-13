@@ -3,6 +3,7 @@ package com.peregud.fulltextsearch.util;
 import com.peregud.fulltextsearch.model.Book;
 import com.peregud.fulltextsearch.model.BookTrans;
 import lombok.experimental.UtilityClass;
+import org.hibernate.search.elasticsearch.ElasticsearchProjectionConstants;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
@@ -10,10 +11,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.transform.BasicTransformerAdapter;
 
 import javax.persistence.EntityManager;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @UtilityClass
 public class SearchUtil extends TransactionUtil {
@@ -178,6 +176,35 @@ public class SearchUtil extends TransactionUtil {
 
             List<BookTrans> projection = query.getResultList();
             System.out.println(projection);
+        });
+
+        entityManager.close();
+    }
+
+    public void projection() {
+        EntityManager entityManager = HibernateUtil.createEntityManager();
+
+        inTransaction(entityManager, transaction -> {
+            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+            QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+                    .buildQueryBuilder()
+                    .forEntity(Book.class)
+                    .get();
+
+            FullTextQuery query = fullTextEntityManager.createFullTextQuery(
+                    queryBuilder.keyword()
+                            .onField("title")
+                            .matching("java")
+                            .createQuery(),
+                    Book.class
+            )
+                    .setProjection(ElasticsearchProjectionConstants.THIS);
+
+            List<Object[]> projection = query.getResultList();
+            projection.forEach(book -> {
+                Book book1 = (Book) book[0];
+                System.out.println(book1);
+            });
         });
 
         entityManager.close();
