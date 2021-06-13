@@ -6,9 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +26,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Field
+    @Field(store = Store.YES)
     public String title;
 
     @Field
@@ -31,6 +35,6 @@ public class Book {
     @Field
     public int rating;
 
-    @Field(name = "publishing_date")
+    @Field(name = "publishing_date", store = Store.YES)
     public Date publishingDate;
 }

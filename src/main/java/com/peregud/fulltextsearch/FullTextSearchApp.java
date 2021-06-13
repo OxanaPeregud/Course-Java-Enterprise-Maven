@@ -9,5 +9,6 @@ public class FullTextSearchApp {
         SearchUtil.queryOnMultipleFields();
         SearchUtil.wildcardQuery();
         SearchUtil.rangeQuery();
+        SearchUtil.projectionWithTransformer();
     }
 }

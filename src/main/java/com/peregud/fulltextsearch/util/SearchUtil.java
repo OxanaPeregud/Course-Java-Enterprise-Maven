@@ -1,14 +1,17 @@
 package com.peregud.fulltextsearch.util;
 
 import com.peregud.fulltextsearch.model.Book;
+import com.peregud.fulltextsearch.model.BookTrans;
 import lombok.experimental.UtilityClass;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.hibernate.transform.BasicTransformerAdapter;
 
 import javax.persistence.EntityManager;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -143,6 +146,38 @@ public class SearchUtil extends TransactionUtil {
 
             List<Book> books = query.getResultList();
             System.out.println(books);
+        });
+
+        entityManager.close();
+    }
+
+    public void projectionWithTransformer() {
+        EntityManager entityManager = HibernateUtil.createEntityManager();
+
+        inTransaction(entityManager, transaction -> {
+            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+            QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+                    .buildQueryBuilder()
+                    .forEntity(Book.class)
+                    .get();
+
+            FullTextQuery query = fullTextEntityManager.createFullTextQuery(
+                    queryBuilder.keyword()
+                            .onField("title")
+                            .matching("java")
+                            .createQuery(),
+                    Book.class
+            )
+                    .setProjection("title", "publishing_date")
+                    .setResultTransformer(new BasicTransformerAdapter() {
+                        @Override
+                        public BookTrans transformTuple(Object[] tuple, String[] aliases) {
+                            return new BookTrans((String) tuple[0], (Date) tuple[1]);
+                        }
+                    });
+
+            List<BookTrans> projection = query.getResultList();
+            System.out.println(projection);
         });
 
         entityManager.close();
