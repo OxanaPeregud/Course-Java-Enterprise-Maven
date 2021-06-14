@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 
 public class TransactionUtil {
 
-    protected static void inTransaction(EntityManager entityManager, Consumer<EntityTransaction> consumer) {
+    protected static void inTransaction(final EntityManager entityManager, final Consumer<EntityTransaction> consumer) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {

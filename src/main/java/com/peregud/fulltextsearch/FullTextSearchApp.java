@@ -10,6 +10,5 @@ public class FullTextSearchApp {
         SearchUtil.wildcardQuery().forEach(System.out::println);
         SearchUtil.rangeQuery().forEach(System.out::println);
         SearchUtil.projectionWithTransformer().forEach(System.out::println);
-        System.out.println(SearchUtil.projection());
     }
 }

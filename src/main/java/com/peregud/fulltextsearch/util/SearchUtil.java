@@ -3,7 +3,6 @@ package com.peregud.fulltextsearch.util;
 import com.peregud.fulltextsearch.model.Book;
 import com.peregud.fulltextsearch.model.BookTrans;
 import lombok.experimental.UtilityClass;
-import org.hibernate.search.elasticsearch.ElasticsearchProjectionConstants;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
@@ -11,8 +10,9 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.transform.BasicTransformerAdapter;
 
 import javax.persistence.EntityManager;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @UtilityClass
 public class SearchUtil extends TransactionUtil {
@@ -26,7 +26,7 @@ public class SearchUtil extends TransactionUtil {
                     .title("Effective Java")
                     .description("A must-have book for every Java programmer and Java aspirant")
                     .rating(8)
-                    .publishingDate(new GregorianCalendar(2005, Calendar.DECEMBER, 5).getTime())
+                    .publishingDate(LocalDate.of(2005, 12, 5))
                     .build();
             entityManager.persist(book);
 
@@ -34,7 +34,7 @@ public class SearchUtil extends TransactionUtil {
                     .title("Java: A Beginner’s Guide")
                     .description("It is, in fact, one of the most comprehensive books for learning Java")
                     .rating(10)
-                    .publishingDate(new GregorianCalendar(2011, Calendar.MARCH, 13).getTime())
+                    .publishingDate(LocalDate.of(2011, 3, 13))
                     .build();
             entityManager.persist(book);
 
@@ -42,7 +42,7 @@ public class SearchUtil extends TransactionUtil {
                     .title("Head First Java")
                     .description("Super-effective real-life analogies that pertain to the Java programming concepts")
                     .rating(5)
-                    .publishingDate(new GregorianCalendar(2007, Calendar.APRIL, 7).getTime())
+                    .publishingDate(LocalDate.of(2007, 4, 7))
                     .build();
             entityManager.persist(book);
         });
@@ -51,7 +51,7 @@ public class SearchUtil extends TransactionUtil {
 
     public List<?> queryOnSingleField() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
-        final List<?>[] books = {new ArrayList<>()};
+        List<List<?>> books = new ArrayList<>();
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -68,16 +68,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            books[0] = query.getResultList();
+            books.add(query.getResultList());
         });
 
         entityManager.close();
-        return books[0];
+        return books;
     }
 
     public List<?> queryOnMultipleFields() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
-        final List<?>[] books = {new ArrayList<>()};
+        List<List<?>> books = new ArrayList<>();
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -94,16 +94,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            books[0] = query.getResultList();
+            books.add(query.getResultList());
         });
 
         entityManager.close();
-        return books[0];
+        return books;
     }
 
     public List<?> wildcardQuery() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
-        final List<?>[] books = {new ArrayList<>()};
+        List<List<?>> books = new ArrayList<>();
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -120,16 +120,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            books[0] = query.getResultList();
+            books.add(query.getResultList());
         });
 
         entityManager.close();
-        return books[0];
+        return books;
     }
 
     public List<?> rangeQuery() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
-        final List<?>[] books = {new ArrayList<>()};
+        List<List<?>> books = new ArrayList<>();
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -147,16 +147,16 @@ public class SearchUtil extends TransactionUtil {
                     Book.class
             );
 
-            books[0] = query.getResultList();
+            books.add(query.getResultList());
         });
 
         entityManager.close();
-        return books[0];
+        return books;
     }
 
     public List<?> projectionWithTransformer() {
         EntityManager entityManager = HibernateUtil.createEntityManager();
-        final List<?>[] projection = {new ArrayList<>()};
+        List<List<?>> projection = new ArrayList<>();
 
         inTransaction(entityManager, transaction -> {
             FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -176,43 +176,14 @@ public class SearchUtil extends TransactionUtil {
                     .setResultTransformer(new BasicTransformerAdapter() {
                         @Override
                         public BookTrans transformTuple(Object[] tuple, String[] aliases) {
-                            return new BookTrans((String) tuple[0], (Date) tuple[1]);
+                            return new BookTrans((String) tuple[0], (LocalDate) tuple[1]);
                         }
                     });
 
-            projection[0] = query.getResultList();
+            projection.add(query.getResultList());
         });
 
         entityManager.close();
-        return projection[0];
-    }
-
-    @SuppressWarnings("unchecked")
-    public AtomicReference<Book> projection() {
-        EntityManager entityManager = HibernateUtil.createEntityManager();
-        AtomicReference<Book> books = new AtomicReference<>(new Book());
-
-        inTransaction(entityManager, transaction -> {
-            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-            QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
-                    .buildQueryBuilder()
-                    .forEntity(Book.class)
-                    .get();
-
-            FullTextQuery query = fullTextEntityManager.createFullTextQuery(
-                    queryBuilder.keyword()
-                            .onField("title")
-                            .matching("java")
-                            .createQuery(),
-                    Book.class
-            )
-                    .setProjection(ElasticsearchProjectionConstants.THIS);
-
-            List<Object[]> projection = query.getResultList();
-            projection.forEach(book -> books.set((Book) book[0]));
-        });
-
-        entityManager.close();
-        return books;
+        return projection;
     }
 }

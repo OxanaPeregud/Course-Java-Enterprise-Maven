@@ -6,13 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,5 +33,5 @@ public class Book {
     public int rating;
 
     @Field(name = "publishing_date", store = Store.YES)
-    public Date publishingDate;
+    public LocalDate publishingDate;
 }

@@ -3,11 +3,11 @@ package com.peregud.fulltextsearch.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 public class BookTrans {
     private String title;
-    private Date publishingDate;
+    private LocalDate publishingDate;
 }
