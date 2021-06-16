@@ -25,7 +25,6 @@
 
         <version.org.hibernate.search>5.11.9.Final</version.org.hibernate.search>
         <version.org.hibernate.orm>5.4.5.Final</version.org.hibernate.orm>
-        <test.elasticsearch.host.version>5.6.8</test.elasticsearch.host.version>
     </properties>
 
     <dependencies>
@@ -41,23 +40,8 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search-elasticsearch</artifactId>
-            <version>${version.org.hibernate.search}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${version.org.hibernate.orm}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>sniffer</artifactId>
-            <version>5.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-client</artifactId>
-            <version>7.9.3</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -86,18 +70,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>3.2.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-            <version>2.0.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymock</artifactId>
-            <version>4.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -215,22 +187,8 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/controller/*</exclude>
                         <exclude>**/model/*</exclude>
-                        <exclude>**/view/*</exclude>
-                        <exclude>**/daoutil/**/*</exclude>
-                        <exclude>**/dbprocedure/**/*</exclude>
-                        <exclude>**/encapsulationofbehavior/**/*</exclude>
-                        <exclude>**/hibernate/**/*</exclude>
-                        <exclude>**/liquibase/**/*</exclude>
                         <exclude>**/lombok/**/*</exclude>
-                        <exclude>**/patternbuilder/**/*</exclude>
-                        <exclude>**/patternfactory/**/*</exclude>
-                        <exclude>**/patternstrategy/**/*</exclude>
-                        <exclude>**/reflection/**/*</exclude>
-                        <exclude>**/resourcebundle/**/*</exclude>
-                        <exclude>**/sqldatabase/**/*</exclude>
-                        <exclude>**/sqljoin/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
